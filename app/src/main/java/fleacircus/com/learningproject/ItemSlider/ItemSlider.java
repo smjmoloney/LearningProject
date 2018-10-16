@@ -61,33 +61,33 @@ public class ItemSlider {
                 });
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rv);
 
-        try {
-            JSONArray temp = new JSONObject(getJson(filename, context)).getJSONArray("topics");
-            List<Item> items = new Gson().fromJson(temp.toString(),
-                    new TypeToken<List<Item>>() {
-                    }.getType());
-
-            if (!items.isEmpty()) {
-                itemList.clear();
-                itemList.addAll(items);
-
-                itemAdapter.notifyDataSetChanged();
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-//        List<Item> items = new Gson().fromJson(getJson(filename, context),
-//                new TypeToken<List<Item>>() {
-//                }.getType());
+//        try {
+//            JSONArray temp = new JSONObject(getJson(filename, context)).getJSONArray("topics");
+//            List<Item> items = new Gson().fromJson(temp.toString(),
+//                    new TypeToken<List<Item>>() {
+//                    }.getType());
 //
-//        if (!items.isEmpty()) {
-//            itemList.clear();
-//            itemList.addAll(items);
+//            if (!items.isEmpty()) {
+//                itemList.clear();
+//                itemList.addAll(items);
 //
-//            itemAdapter.notifyDataSetChanged();
+//                itemAdapter.notifyDataSetChanged();
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
 //        }
+
+        List<Item> items = new Gson().fromJson(getJson(filename, context),
+                new TypeToken<List<Item>>() {
+                }.getType());
+
+        if (!items.isEmpty()) {
+            itemList.clear();
+            itemList.addAll(items);
+
+            itemAdapter.notifyDataSetChanged();
+        }
     }
 
     private static String getJson(String filename, Context context) {
