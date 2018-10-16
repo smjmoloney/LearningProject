@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Class A",
+    "topics": [
+      { "id": 1, "name": "Topic X" },
+      { "id": 2, "name": "Topic Y" },
+      { "id": 3, "name": "Topic Z" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Class B",
+    "topics": [
+      { "id": 1, "name": "Topic X" },
+      { "id": 2, "name": "Topic Y" },
+      { "id": 3, "name": "Topic Z" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Class C",
+    "topics": [
+      { "id": 1, "name": "Topic X" },
+      { "id": 2, "name": "Topic Y" },
+      { "id": 3, "name": "Topic Z" }
+    ]
+  }
+]

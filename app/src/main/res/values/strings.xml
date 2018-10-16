@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LearningProject</string>
+    <string name="menu_item" translatable="false">Sample</string>
+
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="delete" translatable="false">DELETE</string>
+</resources>
