@@ -1,4 +1,4 @@
-package fleacircus.com.learningproject;
+package fleacircus.com.learingprojectclean;
 
 import org.junit.Test;
 

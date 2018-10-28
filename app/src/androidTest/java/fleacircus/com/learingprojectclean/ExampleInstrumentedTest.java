@@ -1,4 +1,4 @@
-package fleacircus.com.learningproject;
+package fleacircus.com.learingprojectclean;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("fleacircus.com.learningproject", appContext.getPackageName());
+        assertEquals("fleacircus.com.learingprojectclean", appContext.getPackageName());
     }
 }

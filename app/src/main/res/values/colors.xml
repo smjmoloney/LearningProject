@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#00574b</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFFFFF</color>
 
-    <color name="bg_row_background">#fa315b</color>
-    <color name="item_name">#535353</color>
-    <color name="description">#a9a9a9</color>
+    <!--
+    Implementing OnboardingUtils
+    http://blog.grafixartist.com/onboarding-android-viewpager-google-way/
+    -->
+    <color name="cyan">#00e5e5</color>
+    <color name="orange">#ffa500</color>
+    <color name="green">#007300</color>
 </resources>
