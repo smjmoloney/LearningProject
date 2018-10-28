@@ -3,6 +3,9 @@
     <string name="title_activity_user_creation">UserCreationActivity</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Item Slider -->
+    <string name="slide_delete">DELETE</string>
+
     <!--
     Implementing OnboardingUtils
     http://blog.grafixartist.com/onboarding-android-viewpager-google-way/
