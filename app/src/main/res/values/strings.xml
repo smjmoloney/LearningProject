@@ -17,5 +17,8 @@
     <!--
     String for user creation process
     -->
-    <string name="teacher_student">I AM A</string>
+    <string name="teacher_student_question">I AM A</string>
+    <string name="teacher_student_answer_a">TEACHER</string>
+    <string name="teacher_student_answer_b">STUDENT</string>
+
 </resources>

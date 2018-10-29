@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.ItemSlider;
+package fleacircus.com.learningproject.ItemSlider;
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;

@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.UserCreation;
+package fleacircus.com.learningproject.UserCreation;
 
 public class User {
     private String collegeSchool, courseYear;

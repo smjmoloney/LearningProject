@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.Utils;
+package fleacircus.com.learningproject.Utils;
 
 import android.animation.ArgbEvaluator;
 import android.support.v4.view.ViewPager;

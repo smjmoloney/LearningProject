@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.Utils;
+package fleacircus.com.learningproject.Utils;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

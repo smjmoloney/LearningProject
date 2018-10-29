@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean;
+package fleacircus.com.learningproject;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

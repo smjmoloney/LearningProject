@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.ItemSlider;
+package fleacircus.com.learningproject.ItemSlider;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fleacircus.com.learingprojectclean.R;
+import fleacircus.com.learningproject.R;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.CustomViewHolder> {
     private Context context;

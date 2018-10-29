@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.ItemSlider;
+package fleacircus.com.learningproject.ItemSlider;
 
 public class Item {
     private int id;

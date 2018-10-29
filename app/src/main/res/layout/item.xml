@@ -12,17 +12,17 @@
 
         <ImageView
             android:id="@+id/delete_icon"
-            android:layout_width="@dimen/ic_delete"
-            android:layout_height="@dimen/ic_delete"
+            android:layout_width="@dimen/item_delete"
+            android:layout_height="@dimen/item_delete"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/padd_10" />
+            android:layout_marginRight="@dimen/item_padding" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/padd_10"
+            android:layout_marginRight="@dimen/item_padding"
             android:layout_toLeftOf="@id/delete_icon"
             android:text="@string/slide_delete"
             android:textColor="#fff"
@@ -35,12 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="@dimen/padd_10">
+        android:padding="@dimen/item_padding">
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="@dimen/thumbnail"
-            android:layout_height="@dimen/thumbnail"
+            android:layout_width="@dimen/item_thumbnail"
+            android:layout_height="@dimen/item_thumbnail"
             android:layout_marginRight="@dimen/activity_padding_horizontal"
             android:scaleType="centerCrop" />
 

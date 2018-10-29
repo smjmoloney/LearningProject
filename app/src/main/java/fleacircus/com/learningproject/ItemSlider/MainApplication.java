@@ -1,4 +1,4 @@
-package fleacircus.com.learingprojectclean.ItemSlider;
+package fleacircus.com.learningproject.ItemSlider;
 
 import android.app.Application;
 import android.text.TextUtils;

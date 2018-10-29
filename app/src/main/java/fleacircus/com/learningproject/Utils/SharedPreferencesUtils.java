@@ -1,11 +1,8 @@
-package fleacircus.com.learingprojectclean.Utils;
+package fleacircus.com.learningproject.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by Suleiman on 30-04-2015.
- */
 public class SharedPreferencesUtils {
     private static final String PREFERENCES_FILE = "learning_project";
 

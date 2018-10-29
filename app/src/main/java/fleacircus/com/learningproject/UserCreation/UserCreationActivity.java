@@ -1,28 +1,22 @@
-package fleacircus.com.learingprojectclean.UserCreation;
+package fleacircus.com.learningproject.UserCreation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import fleacircus.com.learingprojectclean.R;
-import fleacircus.com.learingprojectclean.Utils.OnboardingUtils;
-
-import static java.sql.DriverManager.println;
+import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
 public class UserCreationActivity extends AppCompatActivity {
 
@@ -100,11 +94,6 @@ public class UserCreationActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_user_creation, container, false);
             ConstraintLayout constraintLayout = rootView.findViewById(R.id.constraintLayout);
 
-//            TextView textView = rootView.findViewById(R.id.section_label);
-//            if (getArguments() != null) {
-//                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//            }
-
             if (getArguments() != null) {
                 int section = getArguments().getInt(ARG_SECTION_NUMBER);
 
@@ -123,27 +112,14 @@ public class UserCreationActivity extends AppCompatActivity {
         }
 
         private void teacherStudentFragment(ConstraintLayout constraintLayout) {
-//            EditText editText = new EditText(getActivity());
-//            editText.setLayoutParams(new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.MATCH_PARENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT));
-
-            /*
-            TS
-             */
             TextView textView = constraintLayout.findViewById(R.id.question_text);
-            textView.setText(R.string.teacher_student);
+            textView.setText(R.string.teacher_student_question);
 
-            /*
+            Button answerA = constraintLayout.findViewById(R.id.answer_a);
+            answerA.setText(R.string.teacher_student_answer_a);
 
-             */
-//            TextView iama = new TextView(getActivity());
-//            textView.setLayoutParams(new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT
-//            ));
-//            textView.setText(R.string.teacher_student_iama);
-//            constraintLayout.addView(iama);
+            Button answerB = constraintLayout.findViewById(R.id.answer_b);
+            answerB.setText(R.string.teacher_student_answer_b);
         }
     }
 
