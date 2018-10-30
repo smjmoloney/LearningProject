@@ -12,11 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.Utils.OnboardingUtils;
+import fleacircus.com.learningproject.UserCreationHelper;
 
 public class UserCreationActivity extends AppCompatActivity {
 
@@ -45,7 +44,7 @@ public class UserCreationActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.container);
         viewPager.setAdapter(sectionsPagerAdapter);
 
-        addOnboarding();
+//        addOnboarding();
     }
 
     private void addOnboarding() {
@@ -59,8 +58,8 @@ public class UserCreationActivity extends AppCompatActivity {
         The backForwardOnboarding method must be used in conjunction with a tabbed activity.
         See OnboardingUtils to review this method.
          */
-        OnboardingUtils.backForwardOnboarding(
-                viewPager, new Button[]{findViewById(R.id.btn_back), findViewById(R.id.btn_forward)}, colourList, false);
+//        OnboardingUtils.backForwardOnboarding(
+//                viewPager, new Button[]{findViewById(R.id.btn_back), findViewById(R.id.btn_forward)}, colourList, false);
     }
 
     /**
@@ -72,6 +71,7 @@ public class UserCreationActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private String collegeSchool = "COLLEGE";
 
         public PlaceholderFragment() {
         }
@@ -93,13 +93,12 @@ public class UserCreationActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_user_creation, container, false);
             ConstraintLayout constraintLayout = rootView.findViewById(R.id.constraintLayout);
+            LinearLayout linearLayout = constraintLayout.findViewById(R.id.linear_layout);
 
             if (getArguments() != null) {
-                int section = getArguments().getInt(ARG_SECTION_NUMBER);
-
-                switch (section) {
+                switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                     case 1:
-                        teacherStudentFragment(constraintLayout);
+                        teacherStudentFragment(constraintLayout, linearLayout);
                         break;
                     case 2:
                         break;
@@ -111,16 +110,28 @@ public class UserCreationActivity extends AppCompatActivity {
             return rootView;
         }
 
-        private void teacherStudentFragment(ConstraintLayout constraintLayout) {
-            TextView textView = constraintLayout.findViewById(R.id.question_text);
-            textView.setText(R.string.teacher_student_question);
-
-            Button answerA = constraintLayout.findViewById(R.id.answer_a);
-            answerA.setText(R.string.teacher_student_answer_a);
-
-            Button answerB = constraintLayout.findViewById(R.id.answer_b);
-            answerB.setText(R.string.teacher_student_answer_b);
+        private void teacherStudentFragment(ConstraintLayout constraintLayout, LinearLayout linearLayout) {
+            linearLayout.addView(
+                    UserCreationHelper.createAnswerButton(getActivity(), R.string.teacher_student_answer_a));
+            linearLayout.addView(
+                    UserCreationHelper.createAnswerButton(getActivity(), R.string.teacher_student_answer_b));
         }
+
+//        private void collegeSchoolFragment(ConstraintLayout constraintLayout) {
+//            TextView textView = constraintLayout.findViewById(R.id.question_text);
+//            textView.setText(R.string.college_school_question);
+//
+//            Button answerA = constraintLayout.findViewById(R.id.answer_a);
+//            answerA.setText(R.string.college_school_answer_a);
+//
+//            Button answerB = constraintLayout.findViewById(R.id.answer_b);
+//            answerB.setText(R.string.college_school_answer_b);
+//        }
+//
+//        private void whichFragment(ConstraintLayout constraintLayout) {
+//            TextView textView = constraintLayout.findViewById(R.id.question_text);
+//            textView.setText(getString(R.string.which_question, collegeSchool));
+//        }
     }
 
     /**
