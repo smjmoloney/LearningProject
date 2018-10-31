@@ -27,4 +27,5 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
     </application>
+
 </manifest>

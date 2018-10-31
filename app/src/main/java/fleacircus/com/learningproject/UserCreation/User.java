@@ -1,12 +1,14 @@
 package fleacircus.com.learningproject.UserCreation;
 
 public class User {
-    private String collegeSchool, courseYear;
-    private Boolean teacherStudent;
-
+    private String collegeSchool, location, courseYear, teacherStudent;
     private String username, password;
 
-    public User(String collegeSchool, String courseYear, Boolean teacherStudent) {
+    User() {
+
+    }
+
+    public User(String collegeSchool, String location, String courseYear, String teacherStudent) {
         this.collegeSchool = collegeSchool;
         this.courseYear = courseYear;
         this.teacherStudent = teacherStudent;
@@ -20,6 +22,14 @@ public class User {
         this.collegeSchool = collegeSchool;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getCourseYear() {
         return courseYear;
     }
@@ -28,11 +38,11 @@ public class User {
         this.courseYear = courseYear;
     }
 
-    public Boolean getTeacherStudent() {
+    public String getTeacherStudent() {
         return teacherStudent;
     }
 
-    public void setTeacherStudent(Boolean teacherStudent) {
+    public void setTeacherStudent(String teacherStudent) {
         this.teacherStudent = teacherStudent;
     }
 

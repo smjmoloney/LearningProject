@@ -32,7 +32,7 @@ public class OnboardingUtils {
      *                    by default. This can be altered by the isDraggable
      *                    boolean.
      */
-    public static void backForwardOnboarding(final ViewPager viewPager,
+    public static void genericOnboarding(final ViewPager viewPager,
                                              final Button[] buttons,
                                              final int[] colourList,
                                              boolean isDraggable) {
@@ -51,7 +51,6 @@ public class OnboardingUtils {
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-
                 viewPager.setBackgroundColor(colourList[position]);
             }
 

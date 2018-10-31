@@ -1,137 +1,78 @@
 package fleacircus.com.learningproject.UserCreation;
 
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreationHelper;
 
 public class UserCreationActivity extends AppCompatActivity {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    SectionsPagerAdapter sectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager viewPager;
+    /**
+     *
+     */
+    User user = new User();
+
+    int currentPage = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_creation);
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         viewPager = findViewById(R.id.container);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
 
-//        addOnboarding();
+        userCreationOnboarding();
     }
 
-    private void addOnboarding() {
-        int[] colourList = new int[]{
+    @Override
+    public void onBackPressed() {
+        /*
+         * Nothing
+         */
+    }
+
+    public void userCreationOnboarding() {
+        final int[] colourList = new int[]{
                 ContextCompat.getColor(this, R.color.cyan),
                 ContextCompat.getColor(this, R.color.orange),
                 ContextCompat.getColor(this, R.color.green)
         };
 
-        /*
-        The backForwardOnboarding method must be used in conjunction with a tabbed activity.
-        See OnboardingUtils to review this method.
-         */
-//        OnboardingUtils.backForwardOnboarding(
-//                viewPager, new Button[]{findViewById(R.id.btn_back), findViewById(R.id.btn_forward)}, colourList, false);
-    }
+        viewPager.setCurrentItem(currentPage);
+        viewPager.beginFakeDrag();
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private String collegeSchool = "COLLEGE";
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                int colorUpdate = (Integer) new ArgbEvaluator().evaluate(positionOffset,
+                        colourList[position],
+                        colourList[position == 2 ? position : position + 1]);
 
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_user_creation, container, false);
-            ConstraintLayout constraintLayout = rootView.findViewById(R.id.constraintLayout);
-            LinearLayout linearLayout = constraintLayout.findViewById(R.id.linear_layout);
-
-            if (getArguments() != null) {
-                switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-                    case 1:
-                        teacherStudentFragment(constraintLayout, linearLayout);
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                }
+//                viewPager.setBackgroundColor(colorUpdate);
+                viewPager.setCurrentItem(currentPage, true);
             }
 
-            return rootView;
-        }
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+//                viewPager.setBackgroundColor(colourList[position]);
+            }
 
-        private void teacherStudentFragment(ConstraintLayout constraintLayout, LinearLayout linearLayout) {
-            linearLayout.addView(
-                    UserCreationHelper.createAnswerButton(getActivity(), R.string.teacher_student_answer_a));
-            linearLayout.addView(
-                    UserCreationHelper.createAnswerButton(getActivity(), R.string.teacher_student_answer_b));
-        }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-//        private void collegeSchoolFragment(ConstraintLayout constraintLayout) {
-//            TextView textView = constraintLayout.findViewById(R.id.question_text);
-//            textView.setText(R.string.college_school_question);
-//
-//            Button answerA = constraintLayout.findViewById(R.id.answer_a);
-//            answerA.setText(R.string.college_school_answer_a);
-//
-//            Button answerB = constraintLayout.findViewById(R.id.answer_b);
-//            answerB.setText(R.string.college_school_answer_b);
-//        }
-//
-//        private void whichFragment(ConstraintLayout constraintLayout) {
-//            TextView textView = constraintLayout.findViewById(R.id.question_text);
-//            textView.setText(getString(R.string.which_question, collegeSchool));
-//        }
+            }
+        });
     }
 
     /**
@@ -148,7 +89,7 @@ public class UserCreationActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return UserCreationFragment.newInstance(position + 1);
         }
 
         @Override

@@ -13,21 +13,22 @@
     -->
     <string name="back_button">BACK</string>
     <string name="next_button">NEXT</string>
+    <string name="continue_button">CONTINUE</string>
     <string name="finish_button">FINISH</string>
 
     <!--
     Strings for user creation process
     -->
-    <string name="teacher_student_question">ARE YOU A TEACHER OR A STUDENT?</string>
-    <string name="teacher_student_answer_a">TEACHER</string>
-    <string name="teacher_student_answer_b">STUDENT</string>
+    <string name="student_teacher_question">ARE YOU A STUDENT OR A TEACHER?</string>
+    <string name="student_teacher_answer_a">STUDENT</string>
+    <string name="student_teacher_answer_b">TEACHER</string>
 
     <string name="college_school_question">DO YOU ATTEND A COLLEGE OR SCHOOL?</string>
     <string name="college_school_answer_a">COLLEGE</string>
     <string name="college_school_answer_b">SCHOOL</string>
 
     <string name="which_question">WHICH %1$s DO YOU ATTEND?</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="which_placeholder_location">%1$S NAME</string>
+
 
 </resources>
