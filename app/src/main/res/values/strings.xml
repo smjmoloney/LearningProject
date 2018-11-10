@@ -28,7 +28,8 @@
     <string name="college_school_answer_b">SCHOOL</string>
 
     <string name="which_question">WHICH %1$s DO YOU ATTEND?</string>
-    <string name="which_placeholder_location">%1$S NAME</string>
+    <string name="which_placeholder">%1$S NAME</string>
 
-
+    <string name="which_course_question">WHICH COURSE DO YOU ATTEND?</string>
+    <string name="which_course_placeholder">COURSE NAME</string>
 </resources>

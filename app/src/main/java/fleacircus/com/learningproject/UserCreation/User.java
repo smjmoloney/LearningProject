@@ -1,16 +1,20 @@
 package fleacircus.com.learningproject.UserCreation;
 
-public class User {
-    private String collegeSchool, location, courseYear, teacherStudent;
+class User {
+    private static final User ourInstance = new User();
+
+    private String teacherStudent, collegeSchool, collegeSchoolLocation, course;
     private String username, password;
 
-    User() {
-
+    static User getInstance() {
+        return ourInstance;
     }
 
-    public User(String collegeSchool, String location, String courseYear, String teacherStudent) {
-        this.collegeSchool = collegeSchool;
-        this.courseYear = courseYear;
+    public String getTeacherStudent() {
+        return teacherStudent;
+    }
+
+    public void setTeacherStudent(String teacherStudent) {
         this.teacherStudent = teacherStudent;
     }
 
@@ -22,28 +26,20 @@ public class User {
         this.collegeSchool = collegeSchool;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCollegeSchoolLocation() {
+        return collegeSchoolLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCollegeSchoolLocation(String collegeSchoolLocation) {
+        this.collegeSchoolLocation = collegeSchoolLocation;
     }
 
-    public String getCourseYear() {
-        return courseYear;
+    public String getCourse() {
+        return course;
     }
 
-    public void setCourseYear(String courseYear) {
-        this.courseYear = courseYear;
-    }
-
-    public String getTeacherStudent() {
-        return teacherStudent;
-    }
-
-    public void setTeacherStudent(String teacherStudent) {
-        this.teacherStudent = teacherStudent;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getUsername() {

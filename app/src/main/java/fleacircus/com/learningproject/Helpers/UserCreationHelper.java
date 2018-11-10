@@ -1,8 +1,9 @@
-package fleacircus.com.learningproject;
+package fleacircus.com.learningproject.Helpers;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,7 +18,7 @@ public class UserCreationHelper {
         textView.setText(text);
     }
 
-    public static Button createAnswerButton(Context context, int text) {
+    public static Button createAnswerButton(Context context, int text, View.OnClickListener onClickListener) {
         Button button = new Button(context);
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -26,6 +27,7 @@ public class UserCreationHelper {
         button.setTextSize(32);
         button.setTypeface(button.getTypeface(), Typeface.BOLD);
         button.setPadding(0, 100, 0, 100);
+        button.setOnClickListener(onClickListener);
 
         return button;
     }

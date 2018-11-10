@@ -16,10 +16,6 @@ public class UserCreationActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager viewPager;
-    /**
-     *
-     */
-    User user = new User();
 
     int currentPage = 0;
 
@@ -29,7 +25,7 @@ public class UserCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_creation);
 
         viewPager = findViewById(R.id.container);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), 4));
 
         userCreationOnboarding();
     }
@@ -45,7 +41,8 @@ public class UserCreationActivity extends AppCompatActivity {
         final int[] colourList = new int[]{
                 ContextCompat.getColor(this, R.color.cyan),
                 ContextCompat.getColor(this, R.color.orange),
-                ContextCompat.getColor(this, R.color.green)
+                ContextCompat.getColor(this, R.color.green),
+                ContextCompat.getColor(this, R.color.white)
         };
 
         viewPager.setCurrentItem(currentPage);
@@ -58,14 +55,14 @@ public class UserCreationActivity extends AppCompatActivity {
                         colourList[position],
                         colourList[position == 2 ? position : position + 1]);
 
-//                viewPager.setBackgroundColor(colorUpdate);
+                viewPager.setBackgroundColor(colorUpdate);
                 viewPager.setCurrentItem(currentPage, true);
             }
 
             @Override
             public void onPageSelected(int position) {
                 currentPage = position;
-//                viewPager.setBackgroundColor(colourList[position]);
+                viewPager.setBackgroundColor(colourList[position]);
             }
 
             @Override
@@ -80,9 +77,11 @@ public class UserCreationActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        int count;
 
-        SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm, int count) {
             super(fm);
+            this.count = count;
         }
 
         @Override
@@ -94,8 +93,7 @@ public class UserCreationActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return count;
         }
     }
 }

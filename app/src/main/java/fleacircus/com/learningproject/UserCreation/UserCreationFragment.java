@@ -2,19 +2,17 @@ package fleacircus.com.learningproject.UserCreation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import fleacircus.com.learningproject.Helpers.UserCreationHelper;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreationHelper;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -44,20 +42,25 @@ public class UserCreationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         userCreationActivity = (UserCreationActivity) getActivity();
 
         View rootView = inflater.inflate(R.layout.fragment_user_creation, container, false);
+        processFragments(rootView);
 
+        return rootView;
+    }
+
+    private void processFragments(View rootView) {
         TextView questionView = rootView.findViewById(R.id.question_view);
-        ConstraintLayout constraintLayout = rootView.findViewById(R.id.constraintLayout);
         LinearLayout linearLayout = rootView.findViewById(R.id.linear_layout);
 
         if (getArguments() != null) {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
-                    teacherStudentSection(questionView, linearLayout);
+                    teacherStudentFragment(questionView, linearLayout);
                     break;
                 case 2:
                     collegeSchoolFragment(questionView, linearLayout);
@@ -65,86 +68,139 @@ public class UserCreationFragment extends Fragment {
                 case 3:
                     whichFragment(questionView, linearLayout);
                     break;
+                case 4:
+                    courseFragment(questionView, linearLayout);
+                    break;
             }
         }
-
-        return rootView;
     }
 
-    private void teacherStudentSection(TextView questionView, LinearLayout linearLayout) {
+    private void teacherStudentFragment(TextView questionView, LinearLayout linearLayout) {
         UserCreationHelper.updateQuestionText(questionView, R.string.student_teacher_question);
 
-        Button answerA = UserCreationHelper.createAnswerButton(getActivity(), R.string.student_teacher_answer_a);
-        answerA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userCreationActivity.user.setTeacherStudent(getString(R.string.student_teacher_answer_a));
-                userCreationActivity.currentPage += 1;
-                userCreationActivity.viewPager.setCurrentItem(userCreationActivity.currentPage, true);
-            }
-        });
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.student_teacher_answer_a,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setTeacherStudent(getString(R.string.student_teacher_answer_a));
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
 
-        Button answerB = UserCreationHelper.createAnswerButton(getActivity(), R.string.student_teacher_answer_b);
-        answerB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userCreationActivity.user.setTeacherStudent(getString(R.string.student_teacher_answer_b));
-                userCreationActivity.currentPage += 1;
-                userCreationActivity.viewPager.setCurrentItem(userCreationActivity.currentPage, true);
-            }
-        });
-
-        linearLayout.addView(answerA);
-        linearLayout.addView(answerB);
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.student_teacher_answer_b,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setTeacherStudent(getString(R.string.student_teacher_answer_b));
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
     }
 
     private void collegeSchoolFragment(TextView questionView, LinearLayout linearLayout) {
         UserCreationHelper.updateQuestionText(questionView, R.string.college_school_question);
 
-        Button answerA = UserCreationHelper.createAnswerButton(getActivity(), R.string.college_school_answer_a);
-        answerA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userCreationActivity.user.setTeacherStudent(getString(R.string.college_school_answer_a));
-                userCreationActivity.currentPage += 1;
-                userCreationActivity.viewPager.setCurrentItem(userCreationActivity.currentPage, true);
-            }
-        });
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.college_school_answer_a,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setCollegeSchool(getString(R.string.college_school_answer_a));
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
 
-        Button answerB = UserCreationHelper.createAnswerButton(getActivity(), R.string.college_school_answer_b);
-        answerB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userCreationActivity.user.setCollegeSchool(getString(R.string.college_school_answer_b));
-                userCreationActivity.currentPage += 1;
-                userCreationActivity.viewPager.setCurrentItem(userCreationActivity.currentPage, true);
-            }
-        });
-
-        linearLayout.addView(answerA);
-        linearLayout.addView(answerB);
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.college_school_answer_b,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setCollegeSchool(getString(R.string.college_school_answer_b));
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
     }
 
     private void whichFragment(TextView questionView, LinearLayout linearLayout) {
-        String temp = getString(R.string.which_question, userCreationActivity.user.getCollegeSchool());
+        String temp = getString(R.string.which_question, User.getInstance().getCollegeSchool());
         UserCreationHelper.updateQuestionText(questionView, temp);
 
-        final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(), temp);
-
-        Button button = UserCreationHelper.createAnswerButton(getActivity(), R.string.continue_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userCreationActivity.user.setLocation(editText.getText().toString());
-                userCreationActivity.currentPage += 1;
-                userCreationActivity.viewPager.setCurrentItem(userCreationActivity.currentPage, true);
-
-//                Log.i("USER", userCreationActivity.user.getTeacherStudent());
-//                Log.i("USER", userCreationActivity.user.getCollegeSchool());
-            }
-        });
+        final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
+                getString(R.string.which_placeholder, User.getInstance().getCollegeSchool()));
 
         linearLayout.addView(editText);
-        linearLayout.addView(button);
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.continue_button,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setCollegeSchoolLocation(editText.getText().toString());
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
+    }
+
+    private void courseFragment(TextView questionView, LinearLayout linearLayout) {
+        String temp = getString(R.string.which_course_question);
+        UserCreationHelper.updateQuestionText(questionView, temp);
+
+        final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
+                getString(R.string.which_course_placeholder));
+
+        linearLayout.addView(editText);
+        linearLayout.addView(
+                UserCreationHelper.createAnswerButton(
+                        getActivity(),
+                        R.string.continue_button,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                User.getInstance().setCollegeSchoolLocation(editText.getText().toString());
+                                progressToNextFragment();
+                            }
+                        }
+                )
+        );
+    }
+
+    private void progressToNextFragment() {
+        if (getArguments() == null)
+            return;
+
+        int temp = getArguments().getInt(ARG_SECTION_NUMBER);
+        userCreationActivity.viewPager.setCurrentItem(temp, true);
+        userCreationActivity.currentPage = temp;
+
+        updateFragment();
+    }
+
+    public void updateFragment() {
+        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.detach(currentFragment);
+        fragmentTransaction.attach(currentFragment);
+        fragmentTransaction.commit();
     }
 }
