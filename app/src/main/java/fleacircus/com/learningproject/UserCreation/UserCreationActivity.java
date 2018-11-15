@@ -9,6 +9,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fleacircus.com.learningproject.R;
 
 public class UserCreationActivity extends AppCompatActivity {
@@ -17,15 +20,13 @@ public class UserCreationActivity extends AppCompatActivity {
      */
     ViewPager viewPager;
 
-    int currentPage = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_creation);
 
         viewPager = findViewById(R.id.container);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(), 4));
+        setupViewPager(viewPager);
 
         userCreationOnboarding();
     }
@@ -45,7 +46,6 @@ public class UserCreationActivity extends AppCompatActivity {
                 ContextCompat.getColor(this, R.color.white)
         };
 
-        viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -56,12 +56,10 @@ public class UserCreationActivity extends AppCompatActivity {
                         colourList[position == 2 ? position : position + 1]);
 
                 viewPager.setBackgroundColor(colorUpdate);
-                viewPager.setCurrentItem(currentPage, true);
             }
 
             @Override
             public void onPageSelected(int position) {
-                currentPage = position;
                 viewPager.setBackgroundColor(colourList[position]);
             }
 
@@ -72,11 +70,22 @@ public class UserCreationActivity extends AppCompatActivity {
         });
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), 3);
+        adapter.addFragment(new UserCreationTeacherStudentFragment());
+        adapter.addFragment(new UserCreationCollegeStudentFragment());
+        adapter.addFragment(new UserCreationLocationFragment());
+        adapter.addFragment(new UserCreationCourseFragment());
+        viewPager.setAdapter(adapter);
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+
         int count;
 
         SectionsPagerAdapter(FragmentManager fm, int count) {
@@ -88,12 +97,17 @@ public class UserCreationActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return UserCreationFragment.newInstance(position + 1);
+//            return UserCreationFragment.newInstance(position + 1);
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount() {
             return count;
+        }
+
+        public void addFragment(Fragment fragment) {
+            mFragmentList.add(fragment);
         }
     }
 }

@@ -1,5 +1,7 @@
 package fleacircus.com.learningproject.UserCreation;
 
+import fleacircus.com.learningproject.Utils.CustomDebugUtils;
+
 class User {
     private static final User ourInstance = new User();
 
@@ -24,6 +26,7 @@ class User {
 
     public void setCollegeSchool(String collegeSchool) {
         this.collegeSchool = collegeSchool;
+        CustomDebugUtils.valueNotInitialised("NULL", getCollegeSchool());
     }
 
     public String getCollegeSchoolLocation() {
