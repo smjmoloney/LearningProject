@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import fleacircus.com.learningproject.Helpers.UserCreationHelper;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationCollegeStudentFragment extends Fragment {
 
@@ -50,8 +51,8 @@ public class UserCreationCollegeStudentFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 User.getInstance().setCollegeSchool(getString(R.string.college_school_answer_a));
-                                userCreationActivity.viewPager.setCurrentItem(
-                                        userCreationActivity.viewPager.getCurrentItem() + 1
+                                userCreationActivity.getViewPager().setCurrentItem(
+                                        userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );
 
                                 updateFragment();
@@ -68,8 +69,8 @@ public class UserCreationCollegeStudentFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 User.getInstance().setCollegeSchool(getString(R.string.college_school_answer_b));
-                                userCreationActivity.viewPager.setCurrentItem(
-                                        userCreationActivity.viewPager.getCurrentItem() + 1
+                                userCreationActivity.getViewPager().setCurrentItem(
+                                        userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );
 
                                 updateFragment();

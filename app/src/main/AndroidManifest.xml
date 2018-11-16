@@ -22,10 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserCreation.UserCreationActivity"
+            android:name=".UserCreationActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

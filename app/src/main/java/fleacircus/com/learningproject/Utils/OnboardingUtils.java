@@ -1,9 +1,13 @@
 package fleacircus.com.learningproject.Utils;
 
 import android.animation.ArgbEvaluator;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import fleacircus.com.learningproject.R;
 
 public class OnboardingUtils {
     /**
@@ -33,9 +37,9 @@ public class OnboardingUtils {
      *                    boolean.
      */
     public static void genericOnboarding(final ViewPager viewPager,
-                                             final Button[] buttons,
-                                             final int[] colourList,
-                                             boolean isDraggable) {
+                                         final Button[] buttons,
+                                         final int[] colourList,
+                                         boolean isDraggable) {
         viewPager.setCurrentItem(currentPage);
 
         if (!isDraggable)
@@ -79,6 +83,31 @@ public class OnboardingUtils {
 
                 if (currentPage > colourList.length)
                     currentPage = colourList.length;
+            }
+        });
+    }
+
+    public static void colourOnlyOnboarding(final ViewPager viewPager, final int[] colourList) {
+        viewPager.beginFakeDrag();
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                int colorUpdate = (Integer) new ArgbEvaluator().evaluate(positionOffset,
+                        colourList[position],
+                        colourList[position == 2 ? position : position + 1]);
+
+                viewPager.setBackgroundColor(colorUpdate);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.setBackgroundColor(colourList[position]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }

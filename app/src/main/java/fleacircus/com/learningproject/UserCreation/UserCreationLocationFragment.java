@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import fleacircus.com.learningproject.Helpers.UserCreationHelper;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationLocationFragment extends Fragment {
 
@@ -41,11 +42,11 @@ public class UserCreationLocationFragment extends Fragment {
     }
 
     private void locationFragment(TextView questionView, LinearLayout linearLayout) {
-        String temp = getString(R.string.which_question, User.getInstance().getCollegeSchool());
+        String temp = getString(R.string.location_question, User.getInstance().getCollegeSchool());
         UserCreationHelper.updateQuestionText(questionView, temp);
 
         final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
-                getString(R.string.which_placeholder, User.getInstance().getCollegeSchool()));
+                getString(R.string.location_placeholder, User.getInstance().getCollegeSchool()));
 
         linearLayout.addView(editText);
         linearLayout.addView(
@@ -57,9 +58,9 @@ public class UserCreationLocationFragment extends Fragment {
                             public void onClick(View v) {
                                 User.getInstance().setCollegeSchoolLocation(editText.getText().toString());
 
-//                                if (User.getInstance().getCollegeSchool().equals("COLLEGE"))
-//                                    CustomDebugUtils.valueNotInitialised("NULL", User.getInstance().getCollegeSchool());
-//                                    userCreationActivity.viewPager.setCurrentItem(3);
+                                if (User.getInstance().getCollegeSchool().equals(getString(R.string.college_school_answer_a))) {
+                                    userCreationActivity.getViewPager().setCurrentItem(3);
+                                }
 
                                 updateFragment();
                             }

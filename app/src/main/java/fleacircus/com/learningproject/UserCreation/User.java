@@ -26,7 +26,6 @@ class User {
 
     public void setCollegeSchool(String collegeSchool) {
         this.collegeSchool = collegeSchool;
-        CustomDebugUtils.valueNotInitialised("NULL", getCollegeSchool());
     }
 
     public String getCollegeSchoolLocation() {

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
-import fleacircus.com.learningproject.UserCreation.UserCreationActivity;
-
 public class HomeActivity extends AppCompatActivity {
     public static final String PREF_USER_FIRST_TIME = "true";
 

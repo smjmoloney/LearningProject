@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import fleacircus.com.learningproject.Helpers.UserCreationHelper;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationCourseFragment extends Fragment {
 
@@ -41,11 +42,11 @@ public class UserCreationCourseFragment extends Fragment {
     }
 
     private void courseFragment(TextView questionView, LinearLayout linearLayout) {
-        String temp = getString(R.string.which_course_question);
+        String temp = getString(R.string.location_course_question);
         UserCreationHelper.updateQuestionText(questionView, temp);
 
         final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
-                getString(R.string.which_course_placeholder));
+                getString(R.string.location_course_placeholder));
 
         linearLayout.addView(editText);
         linearLayout.addView(
