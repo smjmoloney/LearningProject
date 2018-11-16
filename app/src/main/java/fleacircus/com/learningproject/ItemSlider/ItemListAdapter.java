@@ -41,7 +41,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.Custom
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item, parent, false);
+                .inflate(R.layout.slider_item, parent, false);
 
         return new CustomViewHolder(itemView);
     }

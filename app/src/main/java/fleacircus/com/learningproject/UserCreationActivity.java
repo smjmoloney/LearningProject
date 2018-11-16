@@ -14,6 +14,7 @@ import fleacircus.com.learningproject.UserCreation.UserCreationCollegeStudentFra
 import fleacircus.com.learningproject.UserCreation.UserCreationCourseFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationUsernamePasswordFragment;
 
 public class UserCreationActivity extends AppCompatActivity {
     /**
@@ -24,7 +25,7 @@ public class UserCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_creation);
+        setContentView(R.layout.user_creation_activity);
 
         setupViewPager((ViewPager) findViewById(R.id.container));
     }
@@ -34,13 +35,13 @@ public class UserCreationActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new UserCreationUsernamePasswordFragment());
         adapter.addFragment(new UserCreationTeacherStudentFragment());
         adapter.addFragment(new UserCreationCollegeStudentFragment());
         adapter.addFragment(new UserCreationLocationFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
         adapter.addFragment(new UserCreationCourseFragment());
         viewPager.setAdapter(adapter);
 
@@ -83,7 +84,7 @@ public class UserCreationActivity extends AppCompatActivity {
             return fragmentList.size();
         }
 
-        void addFragment(Fragment fragment) {
+        public void addFragment(Fragment fragment) {
             fragmentList.add(fragment);
         }
     }

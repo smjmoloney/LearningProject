@@ -1,7 +1,5 @@
 package fleacircus.com.learningproject.UserCreation;
 
-import fleacircus.com.learningproject.Utils.CustomDebugUtils;
-
 class User {
     private static final User ourInstance = new User();
 

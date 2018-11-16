@@ -32,6 +32,8 @@
 
     <string name="location_course_question">WHICH COURSE DO YOU ATTEND?</string>
     <string name="location_course_placeholder">COURSE NAME</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="username_password_question">USERNAME_PASSWORD_TEMP</string>
+    <string name="username_placeholder">USERNAME</string>
+    <string name="password_placeholder">PASSWORD</string>
 </resources>

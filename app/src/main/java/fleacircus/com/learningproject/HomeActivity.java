@@ -1,21 +1,18 @@
 package fleacircus.com.learningproject;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
-public class HomeActivity extends AppCompatActivity {
-    public static final String PREF_USER_FIRST_TIME = "true";
+import fleacircus.com.learningproject.Utils.SharedPreferencesUtils;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.home_activity);
 
-        if (PREF_USER_FIRST_TIME.equals("true"))
+        if (SharedPreferencesUtils.readBoolean(this, "firstStart", true))
             startActivity(new Intent(this, UserCreationActivity.class));
     }
 }

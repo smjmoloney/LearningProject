@@ -6,15 +6,22 @@ import android.content.SharedPreferences;
 public class SharedPreferencesUtils {
     private static final String PREFERENCES_FILE = "learning_project";
 
-    public static String readSharedSetting(Context ctx, String settingName, String defaultValue) {
+    public static boolean readBoolean(Context ctx, String settingName, boolean currentValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
-        return sharedPref.getString(settingName, defaultValue);
+        return sharedPref.getBoolean(settingName, currentValue);
     }
 
-    public static void saveSharedSetting(Context ctx, String settingName, String settingValue) {
+    public static void saveBoolean(Context ctx, String settingName, boolean newValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(settingName, settingValue);
+        editor.putBoolean(settingName, newValue);
+        editor.apply();
+    }
+
+    public static void saveSting(Context ctx, String settingName, String newValue) {
+        SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(settingName, newValue);
         editor.apply();
     }
 }

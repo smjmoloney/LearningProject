@@ -3,7 +3,6 @@ package fleacircus.com.learningproject.UserCreation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,10 @@ public class UserCreationTeacherStudentFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_user_creation, container, false);
+        /*
+         * CREATE CUSTOM LAYOUTS FOR EACH FRAGMENT
+         */
+        View rootView = inflater.inflate(R.layout.user_creation_fragment, container, false);
 
         TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
         LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
@@ -54,8 +56,6 @@ public class UserCreationTeacherStudentFragment extends Fragment {
                                 userCreationActivity.getViewPager().setCurrentItem(
                                         userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );
-
-                                updateFragment();
                             }
                         }
                 )
@@ -72,19 +72,9 @@ public class UserCreationTeacherStudentFragment extends Fragment {
                                 userCreationActivity.getViewPager().setCurrentItem(
                                         userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );
-
-                                updateFragment();
                             }
                         }
                 )
         );
-    }
-
-    public void updateFragment() {
-        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.detach(currentFragment);
-        fragmentTransaction.attach(currentFragment);
-        fragmentTransaction.commit();
     }
 }
