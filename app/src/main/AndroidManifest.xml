@@ -22,10 +22,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".UserCreationActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="InnerclassSeparator" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -32,7 +32,7 @@ public class UserCreationTeacherStudentFragment extends Fragment {
         /*
          * CREATE CUSTOM LAYOUTS FOR EACH FRAGMENT
          */
-        View rootView = inflater.inflate(R.layout.user_creation_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.user_creation_teacher_student_fragment, container, false);
 
         TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
         LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
@@ -43,16 +43,17 @@ public class UserCreationTeacherStudentFragment extends Fragment {
     }
 
     private void teacherStudentFragment(TextView questionView, LinearLayout linearLayout) {
-        UserCreationHelper.updateQuestionText(questionView, R.string.student_teacher_question);
+        UserCreationHelper.updateQuestionText(questionView, R.string.user_creation_student_teacher_question);
 
+        final int student = R.string.user_creation_student;
         linearLayout.addView(
                 UserCreationHelper.createAnswerButton(
                         getActivity(),
-                        R.string.student_teacher_answer_a,
+                        student,
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                User.getInstance().setTeacherStudent(getString(R.string.student_teacher_answer_a));
+                                User.getInstance().setTeacherStudent(getString(student));
                                 userCreationActivity.getViewPager().setCurrentItem(
                                         userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );
@@ -61,14 +62,15 @@ public class UserCreationTeacherStudentFragment extends Fragment {
                 )
         );
 
+        final int teacher = R.string.user_creation_teacher;
         linearLayout.addView(
                 UserCreationHelper.createAnswerButton(
                         getActivity(),
-                        R.string.student_teacher_answer_b,
+                        teacher,
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                User.getInstance().setTeacherStudent(getString(R.string.student_teacher_answer_b));
+                                User.getInstance().setTeacherStudent(getString(teacher));
                                 userCreationActivity.getViewPager().setCurrentItem(
                                         userCreationActivity.getViewPager().getCurrentItem() + 1
                                 );

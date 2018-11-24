@@ -15,25 +15,26 @@
     <string name="next_button">NEXT</string>
     <string name="continue_button">CONTINUE</string>
     <string name="finish_button">FINISH</string>
+    <string name="submit_button">Submit</string>
 
     <!--
     Strings for user creation process
     -->
-    <string name="student_teacher_question">ARE YOU A STUDENT OR A TEACHER?</string>
-    <string name="student_teacher_answer_a">STUDENT</string>
-    <string name="student_teacher_answer_b">TEACHER</string>
+    <string name="user_creation_student_teacher_question">ARE YOU A STUDENT OR A TEACHER?</string>
+    <string name="user_creation_student">STUDENT</string>
+    <string name="user_creation_teacher">TEACHER</string>
 
-    <string name="college_school_question">DO YOU ATTEND A COLLEGE OR SCHOOL?</string>
-    <string name="college_school_answer_a">COLLEGE</string>
-    <string name="college_school_answer_b">SCHOOL</string>
+    <string name="user_creation_college_school_question">DO YOU ATTEND A COLLEGE OR SCHOOL?</string>
+    <string name="user_creation_college">COLLEGE</string>
+    <string name="user_creation_school">SCHOOL</string>
 
-    <string name="location_question">WHICH %1$s DO YOU ATTEND?</string>
-    <string name="location_placeholder">%1$S NAME</string>
+    <string name="user_creation_location_question">WHICH %1$s DO YOU ATTEND?</string>
+    <string name="user_creation_location_placeholder">%1$S NAME</string>
 
-    <string name="location_course_question">WHICH COURSE DO YOU ATTEND?</string>
-    <string name="location_course_placeholder">COURSE NAME</string>
+    <string name="user_creation_course_question">WHICH COURSE DO YOU ATTEND?</string>
+    <string name="user_creation_course_placeholder">COURSE NAME</string>
 
-    <string name="username_password_question">USERNAME_PASSWORD_TEMP</string>
-    <string name="username_placeholder">USERNAME</string>
-    <string name="password_placeholder">PASSWORD</string>
+    <string name="user_creation_sign_up">Don\'t have an account? Sign up.</string>
+    <string name="user_creation_email_placeholder">Email</string>
+    <string name="user_creation_password_placeholder">Password</string>
 </resources>

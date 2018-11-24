@@ -42,11 +42,11 @@ public class UserCreationCourseFragment extends Fragment {
     }
 
     private void courseFragment(TextView questionView, LinearLayout linearLayout) {
-        String temp = getString(R.string.location_course_question);
+        String temp = getString(R.string.user_creation_course_question);
         UserCreationHelper.updateQuestionText(questionView, temp);
 
         final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
-                getString(R.string.location_course_placeholder));
+                getString(R.string.user_creation_course_placeholder));
 
         linearLayout.addView(editText);
         linearLayout.addView(
@@ -57,8 +57,7 @@ public class UserCreationCourseFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 User.getInstance().setCourse(editText.getText().toString());
-
-                                CustomDatabaseUtils.AddObject(User.getInstance(), User.getInstance().getUsername());
+                                CustomDatabaseUtils.addObject(User.getInstance(), "user_creation", "users");
                             }
                         }
                 )

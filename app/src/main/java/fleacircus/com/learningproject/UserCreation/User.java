@@ -4,7 +4,7 @@ class User {
     private static final User ourInstance = new User();
 
     private String teacherStudent, collegeSchool, collegeSchoolLocation, course;
-    private String username, password;
+    private String email, password;
 
     static User getInstance() {
         return ourInstance;
@@ -42,12 +42,12 @@ class User {
         this.course = course;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

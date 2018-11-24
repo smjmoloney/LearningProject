@@ -10,11 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import fleacircus.com.learningproject.UserCreation.UserCreationCollegeStudentFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationCourseFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationUsernamePasswordFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationEmailPasswordFragment;
 
 public class UserCreationActivity extends AppCompatActivity {
     /**
@@ -38,11 +34,11 @@ public class UserCreationActivity extends AppCompatActivity {
         this.viewPager = viewPager;
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserCreationUsernamePasswordFragment());
-        adapter.addFragment(new UserCreationTeacherStudentFragment());
-        adapter.addFragment(new UserCreationCollegeStudentFragment());
-        adapter.addFragment(new UserCreationLocationFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
+        adapter.addFragment(new UserCreationEmailPasswordFragment());
+//        adapter.addFragment(new UserCreationTeacherStudentFragment());
+//        adapter.addFragment(new UserCreationCollegeSchoolFragment());
+//        adapter.addFragment(new UserCreationLocationFragment());
+//        adapter.addFragment(new UserCreationCourseFragment());
         viewPager.setAdapter(adapter);
 
 //        OnboardingUtils.colourOnlyOnboarding(

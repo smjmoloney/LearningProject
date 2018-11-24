@@ -4,10 +4,14 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class UserCreationHelper {
     public static void updateQuestionText(TextView textView, int text) {
@@ -51,4 +55,33 @@ public class UserCreationHelper {
 
         return editText;
     }
+
+    public static Spinner createSpinnerWithValues(Context context, int values) {
+        Spinner spinner = new Spinner(context, Spinner.MODE_DIALOG);
+        spinner.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        String[] temp = context.getResources().getStringArray(values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                context, android.R.layout.simple_spinner_dropdown_item, temp);
+        spinner.setAdapter(adapter);
+
+        return spinner;
+    }
+
+    public static Spinner createSpinner(Context context) {
+        Spinner spinner = new Spinner(context, Spinner.MODE_DIALOG);
+        spinner.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        return spinner;
+    }
+    public static Spinner updateSpinnerWithValues(Context context, Spinner spinner, List<String> values) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                context, android.R.layout.simple_spinner_dropdown_item, values);
+        spinner.setAdapter(adapter);
+
+        return spinner;
+    }
+
 }
