@@ -111,4 +111,8 @@ public class OnboardingUtils {
             }
         });
     }
+
+    public static void noDragOnlyOnboarding(final ViewPager viewPager) {
+        viewPager.beginFakeDrag();
+    }
 }

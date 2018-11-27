@@ -41,66 +41,70 @@ public class UserCreationLocationFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.user_creation_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.user_creation_location_fragment, container, false);
 
-        TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
+//        BLEH!
+//        TextView textView = rootView.findViewById(R.id.question_view);
+//        textView.setText(getString(R.string.user_creation_location_question, "COLLEGE"));
 
-        Spinner spinner = UserCreationHelper.createSpinner(userCreationActivity);
-
-        locationFragment(questionView, linearLayout, spinner);
+//        TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
+//        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
+//
+//        Spinner spinner = UserCreationHelper.createSpinner(userCreationActivity);
+//
+//        locationFragment(questionView, linearLayout, spinner);
 
         return rootView;
     }
 
-    private void locationFragment(TextView questionView, final LinearLayout linearLayout, final Spinner spinner) {
-        String temp = getString(R.string.user_creation_location_question, User.getInstance().getCollegeSchool());
-        UserCreationHelper.updateQuestionText(questionView, temp);
-
-        CustomDatabaseUtils.read("user_creation","colleges", new OnGetDataListener() {
-            @Override
-            public void onStart() {
-                Log.e("MESSAGE", "START");
-            }
-
-            @Override
-            public void onSuccess(DocumentSnapshot data) {
-                @SuppressWarnings("unchecked")
-                List<String> temp = (List<String>) CustomDatabaseUtils.getArrayFromDocument(data, "names");
-                for (String t : temp)
-                    Log.e("MESSAGE", t);
-
-                linearLayout.addView(UserCreationHelper.updateSpinnerWithValues(
-                        userCreationActivity, spinner, temp));
-            }
-
-            @Override
-            public void onFailed(FirebaseFirestoreException databaseError) {
-                Log.e("MESSAGE", databaseError.toString());
-            }
-        });
-
-        linearLayout.addView(
-                UserCreationHelper.createAnswerButton(
-                        getActivity(),
-                        R.string.continue_button,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                User.getInstance().setCollegeSchoolLocation(spinner.getSelectedItem().toString());
-
-                                String temp = User.getInstance().getCollegeSchool();
-                                if (temp.equals(getString(R.string.user_creation_college)))
-                                    CustomDatabaseUtils.addObject(User.getInstance(), "user_creation", "users");
-                                else
-                                    userCreationActivity.getViewPager().setCurrentItem(
-                                            userCreationActivity.getViewPager().getCurrentItem() + 1
-                                    );
-                            }
-                        }
-                )
-        );
-    }
+//    private void locationFragment(TextView questionView, final LinearLayout linearLayout, final Spinner spinner) {
+//        String temp = getString(R.string.user_creation_location_question, User.getInstance().getCollegeSchool());
+//        UserCreationHelper.updateQuestionText(questionView, temp);
+//
+//        CustomDatabaseUtils.read("user_creation","colleges", new OnGetDataListener() {
+//            @Override
+//            public void onStart() {
+//                Log.e("MESSAGE", "START");
+//            }
+//
+//            @Override
+//            public void onSuccess(DocumentSnapshot data) {
+//                @SuppressWarnings("unchecked")
+//                List<String> temp = (List<String>) CustomDatabaseUtils.getArrayFromDocument(data, "names");
+//                for (String t : temp)
+//                    Log.e("MESSAGE", t);
+//
+//                linearLayout.addView(UserCreationHelper.updateSpinnerWithValues(
+//                        userCreationActivity, spinner, temp));
+//            }
+//
+//            @Override
+//            public void onFailed(FirebaseFirestoreException databaseError) {
+//                Log.e("MESSAGE", databaseError.toString());
+//            }
+//        });
+//
+//        linearLayout.addView(
+//                UserCreationHelper.createAnswerButton(
+//                        getActivity(),
+//                        R.string.continue_button,
+//                        new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                User.getInstance().setCollegeSchoolLocation(spinner.getSelectedItem().toString());
+//
+//                                String temp = User.getInstance().getCollegeSchool();
+//                                if (temp.equals(getString(R.string.user_creation_college)))
+//                                    CustomDatabaseUtils.addObject(User.getInstance(), "user_creation", "users");
+//                                else
+//                                    userCreationActivity.getViewPager().setCurrentItem(
+//                                            userCreationActivity.getViewPager().getCurrentItem() + 1
+//                                    );
+//                            }
+//                        }
+//                )
+//        );
+//    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

@@ -1,5 +1,6 @@
 package fleacircus.com.learningproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fleacircus.com.learningproject.UserCreation.UserCreationEmailPasswordFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
+import fleacircus.com.learningproject.Utils.SharedPreferencesUtils;
 
 public class UserCreationActivity extends AppCompatActivity {
     /**
@@ -23,6 +26,9 @@ public class UserCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_creation_activity);
 
+        if (SharedPreferencesUtils.readBoolean(this, "hasSetupAccount", true))
+            startActivity(new Intent(this, HomeActivity.class));
+
         setupViewPager((ViewPager) findViewById(R.id.container));
     }
 
@@ -34,7 +40,7 @@ public class UserCreationActivity extends AppCompatActivity {
         this.viewPager = viewPager;
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserCreationEmailPasswordFragment());
+//        adapter.addFragment(new UserCreationEmailPasswordFragment());
 //        adapter.addFragment(new UserCreationTeacherStudentFragment());
 //        adapter.addFragment(new UserCreationCollegeSchoolFragment());
 //        adapter.addFragment(new UserCreationLocationFragment());
