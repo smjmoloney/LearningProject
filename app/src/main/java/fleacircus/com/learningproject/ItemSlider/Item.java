@@ -1,8 +1,8 @@
 package fleacircus.com.learningproject.ItemSlider;
 
 public class Item {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public Item(int id, String name) {
         this.id = id;

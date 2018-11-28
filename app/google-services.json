@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1003649274568",
+    "firebase_url": "https://learningproject-f805a.firebaseio.com",
+    "project_id": "learningproject-f805a",
+    "storage_bucket": "learningproject-f805a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003649274568:android:0459359048dea3e9",
+        "android_client_info": {
+          "package_name": "fleacircus.com.learingprojectclean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003649274568-hrdl9opv4mimmuo1j14pml8mvrvhr6q1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fleacircus.com.learingprojectclean",
+            "certificate_hash": "fb9c68400186b479dadcc7ebf44ce137f3cebb29"
+          }
+        },
+        {
+          "client_id": "1003649274568-jsavhs6ja12fth2vdmqj52aas8qlmlq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEKKsAoX1H5_T1kaTo-hvDMYfzFhqFtms"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003649274568-jsavhs6ja12fth2vdmqj52aas8qlmlq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
