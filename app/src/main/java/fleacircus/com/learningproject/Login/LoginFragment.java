@@ -1,5 +1,6 @@
 package fleacircus.com.learningproject.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,21 +10,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import fleacircus.com.learningproject.HomeActivity;
+import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class LoginFragment extends Fragment {
 
     private EditText email, password;
     private TextView inputPrompt;
+
     private LoginActivity loginActivity;
 
     public LoginFragment() {
@@ -37,9 +43,6 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /*
-         * CREATE CUSTOM LAYOUTS FOR EACH FRAGMENT
-         */
         View rootView = inflater.inflate(R.layout.login_login_fragment, container, false);
 
         setLoginActivity(rootView);
@@ -84,15 +87,30 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful())
-                            Toast.makeText(loginActivity, "TEST", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(loginActivity, "SUCCESS", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        CustomDatabaseUtils.loginUser(loginActivity, emailText, passwordText, new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(DocumentSnapshot data) {
+                FirebaseFirestore.getInstance().collection("users").document(
+                        FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                documentSnapshot.toObject(CustomUser.class);
+                            }
+                        });
+
+                        loginActivity.startActivity(new Intent(loginActivity, HomeActivity.class));
+            }
+
+            @Override
+            public void onFailed(FirebaseFirestoreException databaseError) {
+                inputPrompt.setText(R.string.login_failure_prompt);
+            }
+        });
     }
 }

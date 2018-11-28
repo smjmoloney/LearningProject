@@ -87,6 +87,15 @@ public class OnboardingUtils {
         });
     }
 
+    /**
+     * Very similar to the genericOnboarding method but does not
+     * include multiple buttons. Method is limited to forward
+     * navigation via button press.
+     * @param viewPager The viewPager required for the onboarding
+     *                  implementation.
+     * @param colourList The list of colours the may be implemented
+     *                   for individual screens.
+     */
     public static void colourOnlyOnboarding(final ViewPager viewPager, final int[] colourList) {
         viewPager.beginFakeDrag();
 

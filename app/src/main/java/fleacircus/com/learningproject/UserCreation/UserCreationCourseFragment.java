@@ -6,14 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
-import fleacircus.com.learningproject.Helpers.UserCreationHelper;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.List;
+
+import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
+import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class UserCreationCourseFragment extends Fragment {
 
@@ -31,36 +37,49 @@ public class UserCreationCourseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.user_creation_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.user_creation_course_fragment, container, false);
 
-        TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
+        if (CustomUser.getInstance().getLocation() == null)
+            return rootView;
 
-        courseFragment(questionView, linearLayout);
+        final Spinner courses = rootView.findViewById(R.id.course_spinner);
+        CustomDatabaseUtils.read("user_creation", "courses", new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(DocumentSnapshot data) {
+                List<String> list = (List<String>) data.get(CustomUser.getInstance().getLocation());
+                if (list != null)
+                    courses.setAdapter(new ArrayAdapter<>(userCreationActivity, android.R.layout.simple_spinner_item, list));
+            }
+
+            @Override
+            public void onFailed(FirebaseFirestoreException databaseError) {
+
+            }
+        });
+
+        Button button = rootView.findViewById(R.id.submit);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomUser.getInstance().setCourse(courses.getSelectedItem().toString());
+                userCreationActivity.getViewPager().setCurrentItem(
+                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                );
+            }
+        });
 
         return rootView;
     }
 
-    private void courseFragment(TextView questionView, LinearLayout linearLayout) {
-        String temp = getString(R.string.user_creation_course_question);
-        UserCreationHelper.updateQuestionText(questionView, temp);
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
-        final EditText editText = UserCreationHelper.createAnswerEditText(getActivity(),
-                getString(R.string.user_creation_course_placeholder));
-
-        linearLayout.addView(editText);
-        linearLayout.addView(
-                UserCreationHelper.createAnswerButton(
-                        getActivity(),
-                        R.string.continue_button,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                User.getInstance().setCourse(editText.getText().toString());
-                                CustomDatabaseUtils.addObject(User.getInstance(), "user_creation", "users");
-                            }
-                        }
-                )
-        );
+        FragmentUtils.refreshFragment(getFragmentManager(), this);
     }
 }

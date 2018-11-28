@@ -1,24 +1,27 @@
 package fleacircus.com.learningproject.Utils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
+import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.UserCreationActivity;
 
 public class CustomDatabaseUtils {
     private static final CustomDatabaseUtils ourInstance = new CustomDatabaseUtils();
@@ -30,33 +33,7 @@ public class CustomDatabaseUtils {
     private CustomDatabaseUtils() {
     }
 
-//
-//    public static void AddString(String table, String value) {
-//        DatabaseReference databaseReference = firebaseDatabase.getReference(table);
-//
-//        String id = databaseReference.push().getKey();
-//        if (id != null)
-//            databaseReference.setValue(value);
-//    }
-//
-//    public static void AddInt(String table, int value) {
-//        DatabaseReference databaseReference = firebaseDatabase.getReference(table);
-//
-//        String id = databaseReference.push().getKey();
-//        if (id != null)
-//            databaseReference.child(table).setValue(value);
-//    }
-//
-//    public static void AddObject(String table, Object value) {
-//        DatabaseReference databaseReference = firebaseDatabase.getReference(table);
-//
-//        String id = databaseReference.push().getKey();
-//        if (id != null)
-//            databaseReference.child(id).setValue(value);
-//    }
-
-    /* Must implement Firebase Authentication - SAMPLE ONLY */
-    public static void addObject(Object o, String collection, String document) {
+    public static void addObject(String collection, String document, Object o) {
         FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -72,29 +49,49 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void addTest(String a, String b) {
-        Map<String, Object> note = new HashMap<>();
-        note.put("One", a);
-        note.put("Two", b);
+    public static void addUser(final Context context, String message,
+                               final String emailText, String passwordText) {
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(message);
+        progressDialog.show();
 
-        FirebaseFirestore.getInstance().collection("Test Collection").document("First Sample").set(note)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e("MESSAGE", "SUCCESS");
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            CustomUser.getInstance().setEmail(emailText);
+
+                            addObject("users", firebaseAuth.getCurrentUser().getUid(),
+                                    CustomUser.getInstance());
+
+                            progressDialog.dismiss();
+                            SharedPreferencesUtils.saveBoolean(context, "hasSetupAccount", false);
+
+                            context.startActivity(new Intent(context, UserCreationActivity.class));
+                        }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                });
+    }
+
+    public static void loginUser(final Context context, String emailText,
+                                 String passwordText, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passwordText)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("MESSAGE", "FAIL");
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful())
+                            listener.onSuccess(null);
+                        else
+                            listener.onFailed(null);
                     }
                 });
     }
 
     public static void read(String collection, final String document, final OnGetDataListener listener) {
         listener.onStart();
-
         FirebaseFirestore.getInstance().collection(collection).document(document)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
@@ -106,49 +103,4 @@ public class CustomDatabaseUtils {
                     }
                 });
     }
-
-    public static ArrayList getArrayFromDocument(DocumentSnapshot data, String array) {
-        return (ArrayList) data.get(array);
-    }
-
-//    public static void read(String collection, final String document, final String field) {
-//        readValue = null;
-//
-//        FirebaseFirestore.getInstance().collection(collection).document(document).get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if (documentSnapshot.exists()) {
-//                            readValue = documentSnapshot.getString(field);
-//                            Log.e("MESSAGE", documentSnapshot.getString(field));
-//                        }
-//                    }
-//                });
-//
-////        FirebaseFirestore.getInstance().collection(collection).document(document).get()
-////                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-////                    @Override
-////                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-////                        if (documentSnapshot.exists()) {
-////                            readValue = documentSnapshot.getString(field);
-////                            Log.e("MESSAGE", documentSnapshot.getString(field));
-////                        }
-////                    }
-////                });
-//    }
-
-//    public static void readToSpinner(final Spinner spinner, String collection, final String document, final String field) {
-//        FirebaseFirestore.getInstance().collection(collection).document(document).get()
-//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        if (documentSnapshot.exists()) {
-//                            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-//                            adapter.a
-//                            textView.setText(documentSnapshot.getString(field));
-//                            Log.e("MESSAGE", documentSnapshot.getString(field));
-//                        }
-//                    }
-//                });
-//    }
 }

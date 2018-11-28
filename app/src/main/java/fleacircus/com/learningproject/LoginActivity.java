@@ -12,6 +12,7 @@ import java.util.List;
 
 import fleacircus.com.learningproject.Login.LoginFragment;
 import fleacircus.com.learningproject.Login.SetupFragment;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,9 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
-//        if (SharedPreferencesUtils.readBoolean(this, "hasSetupAccount", true))
-//            startActivity(new Intent(this, HomeActivity.class));
 
         setupViewPager((ViewPager) findViewById(R.id.container));
     }
@@ -48,9 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*
-         * Nothing
-         */
+        NavigationUtils.onBackPressed(this);
     }
 
     /**

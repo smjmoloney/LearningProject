@@ -29,51 +29,30 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.user_creation_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.user_creation_college_school_fragment, container, false);
 
-        TextView questionView = (TextView) rootView.findViewById(R.id.question_view);
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linear_layout);
+        View college = rootView.findViewById(R.id.college_layout);
+        college.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_college));
+                userCreationActivity.getViewPager().setCurrentItem(
+                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                );
+            }
+        });
 
-        collegeSchoolFragment(questionView, linearLayout);
+        View school = rootView.findViewById(R.id.school_layout);
+        school.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_school));
+                userCreationActivity.getViewPager().setCurrentItem(
+                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                );
+            }
+        });
 
         return rootView;
-    }
-
-    private void collegeSchoolFragment(TextView questionView, LinearLayout linearLayout) {
-        UserCreationHelper.updateQuestionText(questionView, R.string.user_creation_college_school_question);
-
-        final int college = R.string.user_creation_college;
-        linearLayout.addView(
-                UserCreationHelper.createAnswerButton(
-                        getActivity(),
-                        college,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                User.getInstance().setCollegeSchool(getString(college));
-                                userCreationActivity.getViewPager().setCurrentItem(
-                                        userCreationActivity.getViewPager().getCurrentItem() + 1
-                                );
-                            }
-                        }
-                )
-        );
-
-        final int school = R.string.user_creation_school;
-        linearLayout.addView(
-                UserCreationHelper.createAnswerButton(
-                        getActivity(),
-                        school,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                User.getInstance().setCollegeSchool(getString(school));
-                                userCreationActivity.getViewPager().setCurrentItem(
-                                        userCreationActivity.getViewPager().getCurrentItem() + 1
-                                );
-                            }
-                        }
-                )
-        );
     }
 }

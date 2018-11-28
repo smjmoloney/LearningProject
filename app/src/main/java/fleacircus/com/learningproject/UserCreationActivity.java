@@ -11,8 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import fleacircus.com.learningproject.UserCreation.UserCreationEmailPasswordFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationCollegeSchoolFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationCourseFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationNameFragment;
+import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
+import fleacircus.com.learningproject.Utils.OnboardingUtils;
 import fleacircus.com.learningproject.Utils.SharedPreferencesUtils;
 
 public class UserCreationActivity extends AppCompatActivity {
@@ -40,29 +45,19 @@ public class UserCreationActivity extends AppCompatActivity {
         this.viewPager = viewPager;
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new UserCreationEmailPasswordFragment());
-//        adapter.addFragment(new UserCreationTeacherStudentFragment());
-//        adapter.addFragment(new UserCreationCollegeSchoolFragment());
-//        adapter.addFragment(new UserCreationLocationFragment());
-//        adapter.addFragment(new UserCreationCourseFragment());
+        adapter.addFragment(new UserCreationTeacherStudentFragment());
+        adapter.addFragment(new UserCreationCollegeSchoolFragment());
+        adapter.addFragment(new UserCreationLocationFragment());
+        adapter.addFragment(new UserCreationCourseFragment());
+        adapter.addFragment(new UserCreationNameFragment());
         viewPager.setAdapter(adapter);
 
-//        OnboardingUtils.colourOnlyOnboarding(
-//                viewPager,
-//                new int[]{
-//                        ContextCompat.getColor(this, R.color.cyan),
-//                        ContextCompat.getColor(this, R.color.orange),
-//                        ContextCompat.getColor(this, R.color.green),
-//                        ContextCompat.getColor(this, R.color.white)
-//                }
-//        );
+        OnboardingUtils.noDragOnlyOnboarding(viewPager);
     }
 
     @Override
     public void onBackPressed() {
-        /*
-         * Nothing
-         */
+        NavigationUtils.onBackPressed(this);
     }
 
     /**

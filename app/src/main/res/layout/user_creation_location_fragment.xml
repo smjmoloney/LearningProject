@@ -20,7 +20,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/qiestion_text"
+                android:id="@+id/question_text"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -43,7 +43,7 @@
             android:background="@color/blue_dark">
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/location_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -51,6 +51,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:spinnerMode="dialog"
+
+                android:theme="@style/CustomSpinner"
+
                 app:layout_constraintBottom_toTopOf="@+id/submit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

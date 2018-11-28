@@ -9,21 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class SetupFragment extends Fragment {
 
     private EditText email, password, confirm;
     private TextView emailPrompt, passwordPrompt, confirmPrompt;
+
     private LoginActivity loginActivity;
 
     public SetupFragment() {
@@ -37,9 +33,6 @@ public class SetupFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /*
-         * CREATE CUSTOM LAYOUTS FOR EACH FRAGMENT
-         */
         View rootView = inflater.inflate(R.layout.login_setup_fragment, container, false);
 
         setLoginActivity(rootView);
@@ -60,7 +53,7 @@ public class SetupFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateSetup();
+                validateSetupInput();
             }
         });
 
@@ -75,10 +68,7 @@ public class SetupFragment extends Fragment {
         });
     }
 
-    /*
-    UPDATE FOR REGISTRATION
-     */
-    private void validateSetup() {
+    private void validateSetupInput() {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         String confirmPasswordText = confirm.getText().toString();
@@ -87,12 +77,22 @@ public class SetupFragment extends Fragment {
         passwordPrompt.setText("");
         confirmPrompt.setText("");
 
-        if (!InputValidationUtils.validateEmail(emailText))
-            emailPrompt.setText(R.string.login_email_prompt);
+        boolean confirmSetup = true;
+        if (!InputValidationUtils.validateEmail(emailText)) {
+            emailPrompt.setText(R.string.setup_email_prompt);
+            confirmSetup = false;
+        }
 
-        if (!InputValidationUtils.validatePassword(passwordText))
-            passwordPrompt.setText(R.string.login_password_prompt);
-        else if (!InputValidationUtils.validateMatch(passwordText, confirmPasswordText))
-            confirmPrompt.setText(R.string.login_confirm_prompt);
+        if (!InputValidationUtils.validatePassword(passwordText)) {
+            passwordPrompt.setText(R.string.setup_password_prompt);
+            confirmSetup = false;
+        } else if (!InputValidationUtils.validateMatch(passwordText, confirmPasswordText)) {
+            confirmPrompt.setText(R.string.setup_confirm_prompt);
+            confirmSetup = false;
+        }
+
+        if (confirmSetup)
+            CustomDatabaseUtils.addUser(loginActivity, getString(R.string.setup_confirm_result),
+                    emailText, passwordText);
     }
 }
