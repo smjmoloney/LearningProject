@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fleacircus.com.learningproject.Login.LoginFragment;
-import fleacircus.com.learningproject.Login.SetupFragment;
+import fleacircus.com.learningproject.Login.SignUpFragment;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment());
-        adapter.addFragment(new SetupFragment());
+        adapter.addFragment(new SignUpFragment());
         viewPager.setAdapter(adapter);
 
         OnboardingUtils.noDragOnlyOnboarding(viewPager);

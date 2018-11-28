@@ -5,10 +5,16 @@ package fleacircus.com.learningproject.Utils;
  */
 public class StringUtils {
     public static String toLowerCase(String temp) {
-        return temp.toLowerCase();
+        if (temp != null)
+            return temp.toLowerCase();
+
+        return null;
     }
 
     public static String toUpperCase(String temp) {
-        return temp.toUpperCase();
+        if (temp != null)
+            return temp.toUpperCase();
+
+        return null;
     }
 }

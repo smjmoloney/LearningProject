@@ -1,6 +1,5 @@
 package fleacircus.com.learningproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +17,6 @@ import fleacircus.com.learningproject.UserCreation.UserCreationNameFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
-import fleacircus.com.learningproject.Utils.SharedPreferencesUtils;
 
 public class UserCreationActivity extends AppCompatActivity {
     /**
@@ -30,9 +28,6 @@ public class UserCreationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_creation_activity);
-
-        if (SharedPreferencesUtils.readBoolean(this, "hasSetupAccount", true))
-            startActivity(new Intent(this, HomeActivity.class));
 
         setupViewPager((ViewPager) findViewById(R.id.container));
     }

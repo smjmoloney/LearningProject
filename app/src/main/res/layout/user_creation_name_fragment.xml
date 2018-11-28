@@ -44,7 +44,7 @@
             android:background="@color/blue_dark">
 
             <EditText
-                android:id="@+id/text_input"
+                android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -79,7 +79,7 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_input" />
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <Button
                 android:id="@+id/submit"

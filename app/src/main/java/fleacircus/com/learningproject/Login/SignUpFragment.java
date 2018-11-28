@@ -15,14 +15,14 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
-public class SetupFragment extends Fragment {
+public class SignUpFragment extends Fragment {
 
     private EditText email, password, confirm;
     private TextView emailPrompt, passwordPrompt, confirmPrompt;
 
     private LoginActivity loginActivity;
 
-    public SetupFragment() {
+    public SignUpFragment() {
     }
 
     @Override
@@ -35,12 +35,12 @@ public class SetupFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.login_setup_fragment, container, false);
 
-        setLoginActivity(rootView);
+        setSignUpFragment(rootView);
 
         return rootView;
     }
 
-    private void setLoginActivity(View rootView) {
+    private void setSignUpFragment(View rootView) {
         email = rootView.findViewById(R.id.email);
         password = rootView.findViewById(R.id.password);
         confirm = rootView.findViewById(R.id.confirm);
@@ -53,7 +53,7 @@ public class SetupFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateSetupInput();
+                validateSignUpInput();
             }
         });
 
@@ -68,7 +68,7 @@ public class SetupFragment extends Fragment {
         });
     }
 
-    private void validateSetupInput() {
+    private void validateSignUpInput() {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         String confirmPasswordText = confirm.getText().toString();
@@ -92,7 +92,7 @@ public class SetupFragment extends Fragment {
         }
 
         if (confirmSetup)
-            CustomDatabaseUtils.addUser(loginActivity, getString(R.string.setup_confirm_result),
-                    emailText, passwordText);
+            CustomDatabaseUtils.addUser(loginActivity, confirmPrompt,
+                    getString(R.string.setup_confirm_result), emailText, passwordText);
     }
 }

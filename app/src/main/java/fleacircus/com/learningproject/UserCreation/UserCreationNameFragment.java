@@ -49,9 +49,9 @@ public class UserCreationNameFragment extends Fragment {
                 }
 
                 CustomUser.getInstance().setName(name.getText().toString());
-                CustomDatabaseUtils.addObject("users",
-                        FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        CustomUser.getInstance());
+                CustomDatabaseUtils.updateObject("users",
+                        FirebaseAuth.getInstance().getCurrentUser().getUid(), CustomUser.getInstance(),
+                        userCreationActivity, getString(R.string.setup_update_result));
 
                 startActivity(new Intent(userCreationActivity, HomeActivity.class));
             }

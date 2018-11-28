@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">LearningProject</string>
+    <string name="action_profile">Profile</string>
     <string name="action_logout">Logout</string>
-    <string name="sample_text">Sample</string>
 
     <!-- Item Slider -->
     <string name="slide_delete">DELETE</string>
@@ -40,8 +40,12 @@
     <string name="login_password_placeholder">Password</string>
     <string name="login_password_confirm_placeholder">Confirm Password</string>
     <string name="login_failure_prompt">Some fields are empty or incorrect.</string>
+    <string name="login_confirm_result">Signing in…</string>
+
     <string name="setup_email_prompt">Please enter a valid email address.</string>
     <string name="setup_password_prompt">Password must be at least 8 characters.</string>
     <string name="setup_confirm_prompt">Passwords do not match.</string>
+    <string name="setup_confirm_prompt_email">Email is already in use.</string>
     <string name="setup_confirm_result">Signing up…</string>
+    <string name="setup_update_result">Updating…</string>
 </resources>

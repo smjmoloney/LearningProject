@@ -8,21 +8,23 @@ public class CustomDebugUtils {
         return false;
     }
 
-    public static void valueNotInitialised(String nullValue, String value) {
+    public static boolean valueNotInitialised(String nullValue, String value) {
         if (value != null) {
             Log.e("VALUE", value);
-            return;
+            return false;
         }
 
         Log.e("VALUE", nullValue);
+        return true;
     }
 
-    public static void valueNotInitialised(String nullValue, Object value) {
+    public static boolean valueNotInitialised(String nullValue, Object value) {
         if (value != null) {
             Log.e("VALUE", "NOT NULL");
-            return;
+            return false;
         }
 
         Log.e("VALUE", nullValue);
+        return true;
     }
 }

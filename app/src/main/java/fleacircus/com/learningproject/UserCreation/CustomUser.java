@@ -3,13 +3,22 @@ package fleacircus.com.learningproject.UserCreation;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CustomUser {
-    private static CustomUser ourInstance = new CustomUser();
+    private static final CustomUser ourInstance = new CustomUser();
 
     private String teacherStudent, collegeSchool, location = "null", course;
     private String email, name;
 
     public static CustomUser getInstance() {
         return ourInstance;
+    }
+
+    public static void updateInstance(CustomUser ourInstance) {
+        getInstance().setName(ourInstance.name);
+        getInstance().setCourse(ourInstance.course);
+        getInstance().setLocation(ourInstance.location);
+        getInstance().setCollegeSchool(ourInstance.collegeSchool);
+        getInstance().setEmail(ourInstance.email);
+        getInstance().setTeacherStudent(ourInstance.teacherStudent);
     }
 
     public String getTeacherStudent() {

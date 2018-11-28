@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,12 +46,12 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.login_login_fragment, container, false);
 
-        setLoginActivity(rootView);
+        setLoginFragment(rootView);
 
         return rootView;
     }
 
-    private void setLoginActivity(View rootView) {
+    private void setLoginFragment(View rootView) {
         email = rootView.findViewById(R.id.email);
         password = rootView.findViewById(R.id.password);
 
@@ -87,7 +88,8 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        CustomDatabaseUtils.loginUser(loginActivity, emailText, passwordText, new OnGetDataListener() {
+        CustomDatabaseUtils.loginUser(loginActivity, getString(R.string.login_confirm_result),
+                emailText, passwordText, new OnGetDataListener() {
             @Override
             public void onStart() {
 
@@ -100,7 +102,7 @@ public class LoginFragment extends Fragment {
                         new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                documentSnapshot.toObject(CustomUser.class);
+                                CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
                             }
                         });
 
