@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void validateLogin() {
-        String emailText = email.getText().toString();
+        final String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
         inputPrompt.setText("");
@@ -103,6 +103,7 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
+                                CustomUser.getInstance().setEmail(emailText);
                             }
                         });
 
