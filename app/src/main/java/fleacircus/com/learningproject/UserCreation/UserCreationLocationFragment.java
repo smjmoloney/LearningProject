@@ -57,11 +57,12 @@ public class UserCreationLocationFragment extends Fragment {
             }
 
             @Override
-            public void onSuccess(DocumentSnapshot data) {
-                List<String> list = (List<String>) data.get("names");
+            public void onSuccess(Object object, boolean isQuery) {
+                List<String> list = (List<String>) ((DocumentSnapshot) object).get("names");
                 if (list != null)
                     locations.setAdapter(new ArrayAdapter<>(userCreationActivity, android.R.layout.simple_spinner_item, list));
             }
+
 
             @Override
             public void onFailed(FirebaseFirestoreException databaseError) {

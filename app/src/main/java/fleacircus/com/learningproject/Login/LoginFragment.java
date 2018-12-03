@@ -90,30 +90,23 @@ public class LoginFragment extends Fragment {
 
         CustomDatabaseUtils.loginUser(loginActivity, getString(R.string.login_confirm_result),
                 emailText, passwordText, new OnGetDataListener() {
-            @Override
-            public void onStart() {
+                    @Override
+                    public void onStart() {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(DocumentSnapshot data) {
-                FirebaseFirestore.getInstance().collection("users").document(
-                        FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnSuccessListener(
-                        new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
-                                CustomUser.getInstance().setEmail(emailText);
-                            }
-                        });
+                    @Override
+                    public void onSuccess(Object object, boolean isQuery) {
+                        CustomUser.updateInstance(((DocumentSnapshot) object).toObject(CustomUser.class));
+                        CustomUser.getInstance().setEmail(emailText);
 
                         loginActivity.startActivity(new Intent(loginActivity, HomeActivity.class));
-            }
+                    }
 
-            @Override
-            public void onFailed(FirebaseFirestoreException databaseError) {
-                inputPrompt.setText(R.string.login_failure_prompt);
-            }
-        });
+                    @Override
+                    public void onFailed(FirebaseFirestoreException databaseError) {
+                        inputPrompt.setText(R.string.login_failure_prompt);
+                    }
+                });
     }
 }

@@ -17,6 +17,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -93,8 +98,7 @@ public class CustomDatabaseUtils {
 
                             progressDialog.dismiss();
                             context.startActivity(new Intent(context, UserCreationActivity.class));
-                        }
-                        else {
+                        } else {
                             progressDialog.dismiss();
                             confirmPrompt.setText(R.string.setup_confirm_prompt_email);
                         }
@@ -105,7 +109,6 @@ public class CustomDatabaseUtils {
     public static void loginUser(final Context context, String message,
                                  String emailText, String passwordText,
                                  final OnGetDataListener listener) {
-
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(message);
         progressDialog.show();
@@ -116,7 +119,7 @@ public class CustomDatabaseUtils {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
-                            listener.onSuccess(null);
+                            listener.onSuccess(null, false);
                         else
                             listener.onFailed(null);
 
@@ -132,7 +135,26 @@ public class CustomDatabaseUtils {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         if (documentSnapshot != null)
-                            listener.onSuccess(documentSnapshot);
+                            listener.onSuccess(documentSnapshot, false);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleUsersWhere(String collection, String location, String course, final OnGetDataListener listener) {
+        listener.onStart();
+
+        FirebaseFirestore.getInstance().collection(collection)
+                .whereEqualTo("location", location)
+                .orderBy("course")
+                .startAt(course)
+                .endAt(course)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
                         else
                             listener.onFailed(e);
                     }

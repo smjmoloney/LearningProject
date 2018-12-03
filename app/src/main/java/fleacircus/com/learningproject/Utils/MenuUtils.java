@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import fleacircus.com.learningproject.FindActivity;
 import fleacircus.com.learningproject.ProfileActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
@@ -25,6 +26,9 @@ public class MenuUtils {
                 break;
             case R.id.action_profile:
                 context.startActivity(new Intent(context, ProfileActivity.class));
+                break;
+            case R.id.action_find:
+                context.startActivity(new Intent(context, FindActivity.class));
                 break;
         }
     }

@@ -20,17 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- NO ACTION BAR -->
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
             android:name=".UserCreationActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!-- ACTION BAR -->
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".FindActivity"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

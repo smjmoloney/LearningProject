@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">LearningProject</string>
     <string name="action_profile">Profile</string>
+    <string name="action_find">Find</string>
     <string name="action_logout">Logout</string>
 
-    <!-- Item Slider -->
+    <!-- CustomListUserItem Slider -->
     <string name="slide_delete">DELETE</string>
 
     <!--
