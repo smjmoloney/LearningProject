@@ -30,16 +30,10 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
 import fleacircus.com.learningproject.UserCreationActivity;
 
+/**
+ * Utility class to assist with database queries and editing tools.
+ */
 public class CustomDatabaseUtils {
-    private static final CustomDatabaseUtils ourInstance = new CustomDatabaseUtils();
-
-    static CustomDatabaseUtils getInstance() {
-        return ourInstance;
-    }
-
-    private CustomDatabaseUtils() {
-    }
-
     public static void updateObject(String collection, String document, Object o,
                                     Context context, String message) {
         final ProgressDialog progressDialog = new ProgressDialog(context);

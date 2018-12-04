@@ -121,8 +121,8 @@ public class FindActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 List<String> list = (List<String>) ((DocumentSnapshot) object).get(
-                        StringUtils.toLowerCase(locations.getSelectedItem().toString())
-                );
+                        StringUtils.toLowerCase(locations.getSelectedItem().toString()));
+
                 if (list != null)
                     courses.setAdapter(new ArrayAdapter<>(FindActivity.this, android.R.layout.simple_spinner_item, list));
             }

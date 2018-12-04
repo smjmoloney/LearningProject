@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void applyCurrentUserOrSetup() {
-        CustomDatabaseUtils.read("users", FirebaseAuth.getInstance().getCurrentUser().getUid(), new OnGetDataListener() {
+        CustomDatabaseUtils.read("users",FirebaseAuth.getInstance().getCurrentUser().getUid(), new OnGetDataListener() {
             @Override
             public void onStart() {
 
@@ -66,6 +66,9 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * When the back button, available on Android devices, is pressed.
+     */
     @Override
     public void onBackPressed() {
         NavigationUtils.onBackPressed(this);

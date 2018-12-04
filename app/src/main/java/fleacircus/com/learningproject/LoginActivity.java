@@ -19,31 +19,38 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager viewPager;
+    private ViewPager viewPager;
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        setupViewPager((ViewPager) findViewById(R.id.container));
+        setupViewPager();
     }
 
-    public ViewPager getViewPager() {
-        return viewPager;
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        this.viewPager = viewPager;
-
+    /**
+     * Initialises our viewPager and attaches an adapter
+     * that stores a number of user creation fragments.
+     */
+    private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment());
         adapter.addFragment(new SignUpFragment());
+
+        viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
         OnboardingUtils.noDragOnlyOnboarding(viewPager);
     }
 
+    /**
+     * When the back button, available on Android devices, is pressed.
+     */
     @Override
     public void onBackPressed() {
         NavigationUtils.onBackPressed(this);
