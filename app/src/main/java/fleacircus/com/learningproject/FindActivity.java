@@ -64,7 +64,7 @@ public class FindActivity extends AppCompatActivity {
     }
 
     private void find(String location, String course) {
-        CustomDatabaseUtils.readMultipleUsersWhere("users", location, course, new OnGetDataListener() {
+        CustomDatabaseUtils.readMultipleUsersWhere(location, course, new OnGetDataListener() {
             @Override
             public void onStart() {
 

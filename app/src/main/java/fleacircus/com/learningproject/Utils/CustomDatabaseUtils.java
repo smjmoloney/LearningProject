@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
+import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
 import fleacircus.com.learningproject.UserCreationActivity;
@@ -34,12 +35,7 @@ import fleacircus.com.learningproject.UserCreationActivity;
  * Utility class to assist with database queries and editing tools.
  */
 public class CustomDatabaseUtils {
-    public static void updateObject(String collection, String document, Object o,
-                                    Context context, String message) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
+    public static void updateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
         FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -73,12 +69,8 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void addUser(final Context context, final TextView confirmPrompt,
-                               String message, final String emailText, String passwordText) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
+    public static void addUser(final Context context, final ProgressDialog progressDialog,
+                               final TextView confirmPrompt, final String emailText, String passwordText) {
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -86,7 +78,6 @@ public class CustomDatabaseUtils {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             CustomUser.getInstance().setEmail(emailText);
-
                             addObject("users", firebaseAuth.getCurrentUser().getUid(),
                                     CustomUser.getInstance());
 
@@ -100,20 +91,14 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void loginUser(final Context context, String message,
-                                 String emailText, String passwordText,
-                                 final OnGetDataListener listener) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
+    public static void login(final ProgressDialog progressDialog, String emailText, String passwordText, final OnGetDataListener listener) {
         listener.onStart();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
-                            listener.onSuccess(null, false);
+                            listener.onSuccess(task.getResult(), false);
                         else
                             listener.onFailed(null);
 
@@ -136,10 +121,9 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void readMultipleUsersWhere(String collection, String location, String course, final OnGetDataListener listener) {
+    public static void readMultipleUsersWhere(String location, String course, final OnGetDataListener listener) {
         listener.onStart();
-
-        FirebaseFirestore.getInstance().collection(collection)
+        FirebaseFirestore.getInstance().collection("users")
                 .whereEqualTo("location", location)
                 .orderBy("course")
                 .startAt(course)
