@@ -32,8 +32,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_college));
-                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
-                        getActivity().getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });
@@ -43,8 +43,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_school));
-                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
-                        getActivity().getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });

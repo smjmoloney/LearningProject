@@ -73,8 +73,8 @@ public class UserCreationLocationFragment extends Fragment {
                 CustomUser.getInstance().setLocation(locations.getSelectedItem().toString());
 
                 int temp = (CustomUser.getInstance().getCollegeSchool().contains("college")) ? 1 : 2;
-                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
-                        getActivity().getViewPager().getCurrentItem() + temp
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + temp
                 );
             }
         });

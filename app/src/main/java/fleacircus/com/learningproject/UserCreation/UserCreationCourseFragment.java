@@ -65,8 +65,8 @@ public class UserCreationCourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCourse(courses.getSelectedItem().toString());
-                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
-                        getActivity().getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });
