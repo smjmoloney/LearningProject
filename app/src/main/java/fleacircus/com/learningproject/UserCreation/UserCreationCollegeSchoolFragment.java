@@ -15,16 +15,12 @@ import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationCollegeSchoolFragment extends Fragment {
 
-    UserCreationActivity userCreationActivity;
-
     public UserCreationCollegeSchoolFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userCreationActivity = (UserCreationActivity) getActivity();
     }
 
     @Override
@@ -36,8 +32,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_college));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
+                        getActivity().getViewPager().getCurrentItem() + 1
                 );
             }
         });
@@ -47,8 +43,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_school));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
+                        getActivity().getViewPager().getCurrentItem() + 1
                 );
             }
         });

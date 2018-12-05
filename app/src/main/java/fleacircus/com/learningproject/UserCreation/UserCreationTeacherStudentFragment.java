@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationTeacherStudentFragment extends Fragment {
-
-    UserCreationActivity userCreationActivity;
 
     public UserCreationTeacherStudentFragment() {
     }
@@ -20,32 +19,39 @@ public class UserCreationTeacherStudentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userCreationActivity = (UserCreationActivity) getActivity();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.user_creation_teacher_student_fragment, container, false);
 
+        rootView.findViewById(R.id.question_layout).startAnimation(
+                AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in));
+
         View student = rootView.findViewById(R.id.student_layout);
+        student.startAnimation(
+                AnimationUtils.loadAnimation(getActivity(), R.anim.slide_right));
+
         student.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setTeacherStudent(getString(R.string.user_creation_student));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });
 
         View teacher = rootView.findViewById(R.id.teacher_layout);
+        teacher.startAnimation(
+                AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left));
+
         teacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setTeacherStudent(getString(R.string.user_creation_teacher));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });

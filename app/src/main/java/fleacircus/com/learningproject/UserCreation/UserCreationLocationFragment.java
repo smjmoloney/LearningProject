@@ -26,16 +26,12 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class UserCreationLocationFragment extends Fragment {
 
-    UserCreationActivity userCreationActivity;
-
     public UserCreationLocationFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userCreationActivity = (UserCreationActivity) getActivity();
     }
 
     @Override
@@ -60,7 +56,7 @@ public class UserCreationLocationFragment extends Fragment {
             public void onSuccess(Object object, boolean isQuery) {
                 List<String> list = (List<String>) ((DocumentSnapshot) object).get("names");
                 if (list != null)
-                    locations.setAdapter(new ArrayAdapter<>(userCreationActivity, android.R.layout.simple_spinner_item, list));
+                    locations.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, list));
             }
 
 
@@ -77,8 +73,8 @@ public class UserCreationLocationFragment extends Fragment {
                 CustomUser.getInstance().setLocation(locations.getSelectedItem().toString());
 
                 int temp = (CustomUser.getInstance().getCollegeSchool().contains("college")) ? 1 : 2;
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + temp
+                (UserCreationActivity) getActivity().getViewPager().setCurrentItem(
+                        getActivity().getViewPager().getCurrentItem() + temp
                 );
             }
         });
