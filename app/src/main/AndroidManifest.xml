@@ -36,6 +36,9 @@
         <activity
             android:name=".FindActivity"
             android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CourseActivity"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

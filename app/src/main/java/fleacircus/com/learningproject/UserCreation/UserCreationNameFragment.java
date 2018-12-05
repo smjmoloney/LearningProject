@@ -53,7 +53,7 @@ public class UserCreationNameFragment extends Fragment {
 
                 CustomUser.getInstance().setName(name.getText().toString());
 
-                CustomDatabaseUtils.updateObject("users",
+                CustomDatabaseUtils.addOrUpdateObject("users",
                         FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         CustomUser.getInstance(), ProgressDialogHelper.createProgressDialog(
                                 getActivity(), getString(R.string.setup_update_result)));

@@ -35,8 +35,11 @@ import fleacircus.com.learningproject.UserCreationActivity;
  * Utility class to assist with database queries and editing tools.
  */
 public class CustomDatabaseUtils {
-    public static void updateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
-        FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
+    public static void addOrUpdateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
+        FirebaseFirestore.getInstance()
+                .collection(collection)
+                .document(document)
+                .set(o)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -48,22 +51,6 @@ public class CustomDatabaseUtils {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Log.e("MESSAGE", "FAIL");
-                    }
-                });
-    }
-
-    public static void addObject(String collection, String document, Object o) {
-        FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e("MESSAGE", "SUCCESS");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
                         Log.e("MESSAGE", "FAIL");
                     }
                 });
@@ -71,17 +58,15 @@ public class CustomDatabaseUtils {
 
     public static void addUser(final Context context, final ProgressDialog progressDialog,
                                final TextView confirmPrompt, final String emailText, String passwordText) {
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
+        FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             CustomUser.getInstance().setEmail(emailText);
-                            addObject("users", firebaseAuth.getCurrentUser().getUid(),
-                                    CustomUser.getInstance());
-
-                            progressDialog.dismiss();
+                            addOrUpdateObject("users", FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                                    CustomUser.getInstance(), progressDialog);
                             context.startActivity(new Intent(context, UserCreationActivity.class));
                         } else {
                             progressDialog.dismiss();
@@ -93,7 +78,8 @@ public class CustomDatabaseUtils {
 
     public static void login(final ProgressDialog progressDialog, String emailText, String passwordText, final OnGetDataListener listener) {
         listener.onStart();
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passwordText)
+        FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -109,7 +95,9 @@ public class CustomDatabaseUtils {
 
     public static void read(String collection, final String document, final OnGetDataListener listener) {
         listener.onStart();
-        FirebaseFirestore.getInstance().collection(collection).document(document)
+        FirebaseFirestore.getInstance()
+                .collection(collection)
+                .document(document)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -137,5 +125,34 @@ public class CustomDatabaseUtils {
                             listener.onFailed(e);
                     }
                 });
+    }
+
+    public static void testRead(String course, String topic, String question, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("learn")
+                .document(course)
+                .collection(topic)
+                .document(question)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot != null)
+                            listener.onSuccess(documentSnapshot, false);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                        if (queryDocumentSnapshots != null)
+//                            listener.onSuccess(queryDocumentSnapshots, true);
+//                        else
+//                            listener.onFailed(e);
+//                    }
+//                });
     }
 }

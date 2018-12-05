@@ -3,15 +3,30 @@ package fleacircus.com.learningproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import fleacircus.com.learningproject.FlashCard.FlashCard;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -20,7 +35,7 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class HomeActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
@@ -41,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void applyCurrentUserOrSetup() {
-        CustomDatabaseUtils.read("users",FirebaseAuth.getInstance().getCurrentUser().getUid(), new OnGetDataListener() {
+        CustomDatabaseUtils.read("users", FirebaseAuth.getInstance().getCurrentUser().getUid(), new OnGetDataListener() {
             @Override
             public void onStart() {
 
@@ -50,8 +65,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 if (!isQuery) {
-                    DocumentSnapshot documentSnapshot = (DocumentSnapshot) object;
-                    CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
+                    CustomUser user = ((DocumentSnapshot) object).toObject(CustomUser.class);
+
+                    if (user != null)
+                        CustomUser.updateInstance(user);
+                    else
+                        FirebaseAuth.getInstance().signOut();
 
                     if (CustomUser.getInstance().getName() == null)
                         startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));

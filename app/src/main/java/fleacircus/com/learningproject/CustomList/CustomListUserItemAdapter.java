@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 import fleacircus.com.learningproject.R;
@@ -41,6 +43,8 @@ public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUs
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = list.get(position);
+        if (user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+            return;
 
         if (position % 2 == 1)
             ((CardView) holder.itemView).setCardBackgroundColor(

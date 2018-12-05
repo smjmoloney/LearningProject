@@ -13,6 +13,9 @@ public class CustomUser {
     }
 
     public static void updateInstance(CustomUser ourInstance) {
+        if (ourInstance == null)
+            return;
+
         getInstance().setName(ourInstance.name);
         getInstance().setCourse(ourInstance.course);
         getInstance().setLocation(ourInstance.location);
