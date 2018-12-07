@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fleacircus.com.learningproject.CustomList.CustomListUserItemAdapter;
-import fleacircus.com.learningproject.CustomList.CustomListView;
+import fleacircus.com.learningproject.CustomList.CustomListAdapter;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -73,7 +73,7 @@ public class FindActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 if (isQuery)
-                    CustomListView.setRecyclerView(FindActivity.this, findViewById(R.id.recycler),
+                    CustomListAdapter.setRecyclerView(FindActivity.this, findViewById(R.id.recycler),
                             new CustomListUserItemAdapter(new ArrayList<>(((QuerySnapshot) object)
                                     .toObjects(CustomUser.class))));
                 else

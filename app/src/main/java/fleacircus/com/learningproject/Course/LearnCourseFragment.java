@@ -19,7 +19,7 @@ import java.util.Map;
 import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.CustomList.CustomListLearnCourseItemAdapter;
-import fleacircus.com.learningproject.CustomList.CustomListView;
+import fleacircus.com.learningproject.CustomList.CustomListAdapter;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -88,7 +88,7 @@ public class LearnCourseFragment extends Fragment {
                         });
                     }
 
-                    CustomListView.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
+                    CustomListAdapter.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
                             new CustomListLearnCourseItemAdapter(courses));
                 }
             }

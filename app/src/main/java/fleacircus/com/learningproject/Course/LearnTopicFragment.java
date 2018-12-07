@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.CustomList.CustomListLearnTopicItemAdapter;
-import fleacircus.com.learningproject.CustomList.CustomListView;
+import fleacircus.com.learningproject.CustomList.CustomListAdapter;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
@@ -32,7 +32,7 @@ public class LearnTopicFragment extends Fragment {
         if (c == null)
             return rootView;
 
-        CustomListView.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
+        CustomListAdapter.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
                 new CustomListLearnTopicItemAdapter(c.getTopics()));
 
         return rootView;
