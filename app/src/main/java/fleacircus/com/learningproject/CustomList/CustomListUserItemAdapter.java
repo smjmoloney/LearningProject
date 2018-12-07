@@ -17,7 +17,7 @@ import fleacircus.com.learningproject.UserCreation.CustomUser;
 
 public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUserItemAdapter.Holder> {
 
-    private ArrayList<CustomUser> list;
+    private ArrayList<CustomUser> list = new ArrayList<>();
 
     public static class Holder extends RecyclerView.ViewHolder {
         private TextView userDetails;
@@ -30,7 +30,18 @@ public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUs
     }
 
     public CustomListUserItemAdapter(ArrayList<CustomUser> list) {
-        this.list = list;
+        String temp = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        for (CustomUser user : list) {
+            if (user.getEmail() == null)
+                continue;
+
+            if (temp != null) {
+                if (user.getEmail().equals(temp))
+                    continue;
+
+                this.list.add(user);
+            }
+        }
     }
 
     @NonNull
@@ -43,7 +54,7 @@ public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUs
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = list.get(position);
-        if (user.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+        if (user.getEmail() == null)
             return;
 
         if (position % 2 == 1)
@@ -52,11 +63,11 @@ public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUs
 
         holder.userDetails.setText(
                 user.getEmail() + "\n"
-                + user.getName() + "\n"
-                + user.getCourse() + "\n"
-                + user.getCollegeSchool() + "\n"
-                + user.getTeacherStudent() + "\n"
-                + user.getLocation()
+                        + user.getName() + "\n"
+                        + user.getCourse() + "\n"
+                        + user.getCollegeSchool() + "\n"
+                        + user.getTeacherStudent() + "\n"
+                        + user.getLocation()
         );
     }
 

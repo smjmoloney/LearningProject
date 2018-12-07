@@ -3,6 +3,8 @@ package fleacircus.com.learningproject.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,18 +23,18 @@ public class MenuUtils {
 
     public static void onOptionsItemSelected(Context context, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_logout:
-                FirebaseAuth.getInstance().signOut();
-                CustomUser.updateInstance(new CustomUser());
-                break;
             case R.id.action_profile:
                 context.startActivity(new Intent(context, ProfileActivity.class));
+                break;
+            case R.id.action_find:
+                context.startActivity(new Intent(context, FindActivity.class));
                 break;
             case R.id.action_course:
                 context.startActivity(new Intent(context, CourseActivity.class));
                 break;
-            case R.id.action_find:
-                context.startActivity(new Intent(context, FindActivity.class));
+            case R.id.action_logout:
+                FirebaseAuth.getInstance().signOut();
+                CustomUser.updateInstance(new CustomUser());
                 break;
         }
     }

@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_profile"
         android:orderInCategory="1"
-        android:title="@string/action_profile"
+        android:title="@string/title_profile"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_find"
@@ -15,7 +15,7 @@
     <item
         android:id="@+id/action_course"
         android:orderInCategory="2"
-        android:title="@string/action_course"
+        android:title="@string/title_course"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"

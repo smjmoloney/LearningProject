@@ -73,7 +73,7 @@ public class LoginFragment extends Fragment {
     private void validateLogin() {
         inputPrompt.setText("");
 
-        final String emailText = email.getText().toString();
+        String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
         if (!InputValidationUtils.validateEmail(emailText)
@@ -92,8 +92,6 @@ public class LoginFragment extends Fragment {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 CustomUser.updateInstance(new CustomUser());
-                CustomUser.getInstance().setEmail(((AuthResult) object).getUser().getEmail());
-
                 getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
             }
 

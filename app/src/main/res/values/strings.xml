@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">LearningProject</string>
-    <string name="action_profile">Profile</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_course">Courses</string>
     <string name="action_find">Find</string>
-    <string name="action_course">Course</string>
     <string name="action_logout">Logout</string>
 
     <!-- CustomListUserItem Slider -->

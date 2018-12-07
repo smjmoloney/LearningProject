@@ -17,6 +17,7 @@ public class CustomUser {
             return;
 
         getInstance().setName(ourInstance.name);
+        getInstance().setEmail(ourInstance.email);
         getInstance().setCourse(ourInstance.course);
         getInstance().setLocation(ourInstance.location);
         getInstance().setCollegeSchool(ourInstance.collegeSchool);

@@ -19,14 +19,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
-import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
 import fleacircus.com.learningproject.UserCreationActivity;
@@ -121,6 +116,41 @@ public class CustomDatabaseUtils {
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         if (queryDocumentSnapshots != null)
                             listener.onSuccess(queryDocumentSnapshots, true);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleCourses(String createLearn, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection(createLearn)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleTopics(String course, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("learn")
+                .document(course)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot != null)
+                            listener.onSuccess(documentSnapshot, false);
                         else
                             listener.onFailed(e);
                     }
