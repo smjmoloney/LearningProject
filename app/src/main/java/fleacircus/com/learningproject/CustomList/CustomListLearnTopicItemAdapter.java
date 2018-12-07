@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fleacircus.com.learningproject.Course.CustomCourse;
-import fleacircus.com.learningproject.Course.CustomTopic;
+import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.R;
 

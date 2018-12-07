@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
 

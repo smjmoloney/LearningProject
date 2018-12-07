@@ -1,4 +1,4 @@
-package fleacircus.com.learningproject.Course;
+package fleacircus.com.learningproject.CustomClasses;
 
 public class CustomTopic {
     private String title;

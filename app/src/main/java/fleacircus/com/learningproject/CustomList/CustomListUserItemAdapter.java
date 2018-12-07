@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 
 public class CustomListUserItemAdapter extends RecyclerView.Adapter<CustomListUserItemAdapter.Holder> {
 

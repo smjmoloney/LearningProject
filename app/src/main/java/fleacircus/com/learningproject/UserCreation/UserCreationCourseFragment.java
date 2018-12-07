@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;

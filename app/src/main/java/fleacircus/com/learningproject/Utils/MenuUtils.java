@@ -3,8 +3,6 @@ package fleacircus.com.learningproject.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,7 +12,7 @@ import fleacircus.com.learningproject.CourseActivity;
 import fleacircus.com.learningproject.FindActivity;
 import fleacircus.com.learningproject.ProfileActivity;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 
 public class MenuUtils {
     public static void onCreateOptionsMenu(Activity activity, Menu menu) {

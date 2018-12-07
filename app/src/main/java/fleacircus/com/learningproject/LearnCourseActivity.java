@@ -7,11 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import fleacircus.com.learningproject.Course.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.Course.LearnCourseFragment;
 import fleacircus.com.learningproject.Course.LearnTopicFragment;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;

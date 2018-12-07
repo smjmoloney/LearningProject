@@ -21,7 +21,7 @@ import java.util.List;
 import fleacircus.com.learningproject.CustomList.CustomListUserItemAdapter;
 import fleacircus.com.learningproject.CustomList.CustomListView;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.MenuUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;

@@ -1,6 +1,5 @@
 package fleacircus.com.learningproject.CustomList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fleacircus.com.learningproject.Course.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.R;
 

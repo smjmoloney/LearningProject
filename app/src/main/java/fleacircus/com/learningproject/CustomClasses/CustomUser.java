@@ -1,4 +1,4 @@
-package fleacircus.com.learningproject.UserCreation;
+package fleacircus.com.learningproject.CustomClasses;
 
 import fleacircus.com.learningproject.Utils.StringUtils;
 

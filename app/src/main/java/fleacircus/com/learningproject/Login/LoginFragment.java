@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
@@ -19,7 +18,7 @@ import fleacircus.com.learningproject.HomeActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 

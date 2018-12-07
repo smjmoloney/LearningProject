@@ -13,7 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.MenuUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;

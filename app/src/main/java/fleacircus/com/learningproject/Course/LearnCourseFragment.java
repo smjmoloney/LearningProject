@@ -16,9 +16,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.CustomList.CustomListLearnCourseItemAdapter;
 import fleacircus.com.learningproject.CustomList.CustomListView;
-import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;

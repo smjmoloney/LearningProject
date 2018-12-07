@@ -3,28 +3,15 @@ package fleacircus.com.learningproject.Course;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.DebugUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import fleacircus.com.learningproject.CustomList.CustomListLearnCourseItemAdapter;
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.CustomList.CustomListLearnTopicItemAdapter;
 import fleacircus.com.learningproject.CustomList.CustomListView;
 import fleacircus.com.learningproject.LearnCourseActivity;
-import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
-import fleacircus.com.learningproject.Utils.CustomDebugUtils;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class LearnTopicFragment extends Fragment {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.HomeActivity;
 import fleacircus.com.learningproject.R;
