@@ -10,9 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.Course.LearnAnswerFragment;
 import fleacircus.com.learningproject.Course.LearnCourseFragment;
+import fleacircus.com.learningproject.Course.LearnQuestionFragment;
 import fleacircus.com.learningproject.Course.LearnTopicFragment;
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomQuestion;
+import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
 public class LearnCourseActivity extends AppCompatActivity {
@@ -20,8 +24,8 @@ public class LearnCourseActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager viewPager;
-    private ArrayList<CustomCourse> courses;
     private CustomCourse selectedCourse;
+    private CustomQuestion selectedQuestion;
 
     /**
      * @return The viewPager variable that stores our
@@ -32,20 +36,23 @@ public class LearnCourseActivity extends AppCompatActivity {
         return viewPager;
     }
 
-    public ArrayList<CustomCourse> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(ArrayList<CustomCourse> courses) {
-        this.courses = courses;
-    }
-
     public CustomCourse getSelectedCourse() {
+        if (selectedCourse == null)
+            return new CustomCourse();
+
         return selectedCourse;
     }
 
     public void setSelectedCourse(CustomCourse selectedCourse) {
         this.selectedCourse = selectedCourse;
+    }
+
+    public CustomQuestion getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public void setSelectedQuestion(CustomQuestion selectedQuestion) {
+        this.selectedQuestion = selectedQuestion;
     }
 
     @Override
@@ -64,6 +71,8 @@ public class LearnCourseActivity extends AppCompatActivity {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LearnCourseFragment());
         adapter.addFragment(new LearnTopicFragment());
+        adapter.addFragment(new LearnQuestionFragment());
+        adapter.addFragment(new LearnAnswerFragment());
 
         viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);

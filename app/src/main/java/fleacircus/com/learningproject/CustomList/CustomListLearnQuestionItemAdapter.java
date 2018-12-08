@@ -11,25 +11,26 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomQuestion;
+import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.R;
 
-public class CustomListLearnCourseItemAdapter extends RecyclerView.Adapter<CustomListLearnCourseItemAdapter.Holder> {
+public class CustomListLearnQuestionItemAdapter extends RecyclerView.Adapter<CustomListLearnQuestionItemAdapter.Holder> {
 
-    private ArrayList<CustomCourse> list = new ArrayList<>();
+    private ArrayList<CustomQuestion> list = new ArrayList<>();
 
     public static class Holder extends RecyclerView.ViewHolder {
-        private TextView courseDetails;
+        private TextView questionDetails;
 
         private Holder(View itemView) {
             super(itemView);
 
-            courseDetails = itemView.findViewById(R.id.details);
+            questionDetails = itemView.findViewById(R.id.details);
         }
     }
 
-    public CustomListLearnCourseItemAdapter(ArrayList<CustomCourse> list) {
+    public CustomListLearnQuestionItemAdapter(ArrayList<CustomQuestion> list) {
         this.list.addAll(list);
     }
 
@@ -42,7 +43,7 @@ public class CustomListLearnCourseItemAdapter extends RecyclerView.Adapter<Custo
 
     @Override
     public void onBindViewHolder(@NonNull final Holder holder, int position) {
-        holder.courseDetails.setText(list.get(position).getTitle());
+        holder.questionDetails.setText(list.get(position).getTitle());
 
         CardView card = (CardView) holder.itemView;
         if (position % 2 == 1)
@@ -57,7 +58,7 @@ public class CustomListLearnCourseItemAdapter extends RecyclerView.Adapter<Custo
                         ((LearnCourseActivity) context).getViewPager().getCurrentItem() + 1
                 );
 
-                ((LearnCourseActivity) context).setSelectedCourse(list.get(holder.getAdapterPosition()));
+                ((LearnCourseActivity) context).setSelectedQuestion(list.get(holder.getAdapterPosition()));
             }
         });
     }

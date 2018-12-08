@@ -11,25 +11,26 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomAnswer;
+import fleacircus.com.learningproject.CustomClasses.CustomQuestion;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.R;
 
-public class CustomListLearnCourseItemAdapter extends RecyclerView.Adapter<CustomListLearnCourseItemAdapter.Holder> {
+public class CustomListLearnAnswerItemAdapter extends RecyclerView.Adapter<CustomListLearnAnswerItemAdapter.Holder> {
 
-    private ArrayList<CustomCourse> list = new ArrayList<>();
+    private ArrayList<CustomAnswer> list = new ArrayList<>();
 
     public static class Holder extends RecyclerView.ViewHolder {
-        private TextView courseDetails;
+        private TextView answerDetails;
 
         private Holder(View itemView) {
             super(itemView);
 
-            courseDetails = itemView.findViewById(R.id.details);
+            answerDetails = itemView.findViewById(R.id.details);
         }
     }
 
-    public CustomListLearnCourseItemAdapter(ArrayList<CustomCourse> list) {
+    public CustomListLearnAnswerItemAdapter(ArrayList<CustomAnswer> list) {
         this.list.addAll(list);
     }
 
@@ -42,24 +43,12 @@ public class CustomListLearnCourseItemAdapter extends RecyclerView.Adapter<Custo
 
     @Override
     public void onBindViewHolder(@NonNull final Holder holder, int position) {
-        holder.courseDetails.setText(list.get(position).getTitle());
+        holder.answerDetails.setText(list.get(position).getTitle());
 
         CardView card = (CardView) holder.itemView;
         if (position % 2 == 1)
             card.setCardBackgroundColor(holder.itemView.getContext()
                     .getResources().getColor(R.color.bg_row_background));
-
-        card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = holder.itemView.getContext();
-                ((LearnCourseActivity) context).getViewPager().setCurrentItem(
-                        ((LearnCourseActivity) context).getViewPager().getCurrentItem() + 1
-                );
-
-                ((LearnCourseActivity) context).setSelectedCourse(list.get(holder.getAdapterPosition()));
-            }
-        });
     }
 
     @Override

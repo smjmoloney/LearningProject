@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -146,43 +147,36 @@ public class CustomDatabaseUtils {
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("learn")
                 .document(course)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                .collection("topics")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if (documentSnapshot != null)
-                            listener.onSuccess(documentSnapshot, false);
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
                         else
                             listener.onFailed(e);
                     }
                 });
     }
 
-    public static void testRead(String course, String topic, String question, final OnGetDataListener listener) {
+    public static void readMultipleQuestions(String course, String topic, final OnGetDataListener listener) {
         listener.onStart();
         FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .collection("learn")
                 .document(course)
-                .collection(topic)
-                .document(question)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                .collection("topics")
+                .document(topic)
+                .collection("questions")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if (documentSnapshot != null)
-                            listener.onSuccess(documentSnapshot, false);
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
                         else
                             listener.onFailed(e);
                     }
                 });
-//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                        if (queryDocumentSnapshots != null)
-//                            listener.onSuccess(queryDocumentSnapshots, true);
-//                        else
-//                            listener.onFailed(e);
-//                    }
-//                });
     }
 }

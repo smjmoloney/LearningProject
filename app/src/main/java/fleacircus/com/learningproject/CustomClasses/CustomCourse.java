@@ -7,13 +7,20 @@ public class CustomCourse {
 
     private String title;
     private ArrayList<CustomTopic> topics;
+    private CustomTopic selectedTopic;
+
+    public CustomCourse() {
+    }
+
+    public CustomCourse(String title) {
+        this.title = title;
+    }
 
     public void clearInstance() {
         if (ourInstance == null)
             return;
 
         getInstance().setTitle(null);
-        getInstance().setTopics(null);
     }
 
     public static CustomCourse getInstance() {
@@ -34,5 +41,13 @@ public class CustomCourse {
 
     public void setTopics(ArrayList<CustomTopic> topics) {
         this.topics = topics;
+    }
+
+    public CustomTopic getSelectedTopic() {
+        return selectedTopic;
+    }
+
+    public void setSelectedTopic(CustomTopic selectedTopic) {
+        this.selectedTopic = selectedTopic;
     }
 }

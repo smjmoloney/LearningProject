@@ -1,6 +1,7 @@
 package fleacircus.com.learningproject.CustomList;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -42,9 +43,7 @@ public class CustomListLearnTopicItemAdapter extends RecyclerView.Adapter<Custom
 
     @Override
     public void onBindViewHolder(@NonNull final Holder holder, int position) {
-        String temp = list.get(position).getTitle();
-        if (temp == null)
-            holder.topicDetails.setText("N/A");
+        holder.topicDetails.setText(list.get(position).getTitle());
 
         CardView card = (CardView) holder.itemView;
         if (position % 2 == 1)
@@ -58,6 +57,8 @@ public class CustomListLearnTopicItemAdapter extends RecyclerView.Adapter<Custom
                 ((LearnCourseActivity) context).getViewPager().setCurrentItem(
                         ((LearnCourseActivity) context).getViewPager().getCurrentItem() + 1
                 );
+
+                ((LearnCourseActivity) context).getSelectedCourse().setSelectedTopic(list.get(holder.getAdapterPosition()));
             }
         });
     }

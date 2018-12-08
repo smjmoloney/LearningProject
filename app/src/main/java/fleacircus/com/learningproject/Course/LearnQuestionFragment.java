@@ -7,15 +7,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomQuestion;
 import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.CustomList.CustomListAdapter;
+import fleacircus.com.learningproject.CustomList.CustomListLearnQuestionItemAdapter;
 import fleacircus.com.learningproject.CustomList.CustomListLearnTopicItemAdapter;
 import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.Listeners.AbstractFragment;
@@ -24,9 +33,9 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
 
-public class LearnTopicFragment extends AbstractFragment {
+public class LearnQuestionFragment extends AbstractFragment {
 
-    public LearnTopicFragment() {
+    public LearnQuestionFragment() {
     }
 
     @Override
@@ -41,24 +50,23 @@ public class LearnTopicFragment extends AbstractFragment {
         CustomListAdapter.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
                 new CustomListLearnTopicItemAdapter(new ArrayList<CustomTopic>()));
 
-        getTopics(rootView);
+        getQuestions(rootView);
 
         return rootView;
     }
 
-    private void getTopics(final View rootView) {
+    private void getQuestions(final View rootView) {
         getAvailableActivity(new IActivityEnabledListener() {
             @Override
             public void onActivityEnabled(FragmentActivity activity) {
-                if (((LearnCourseActivity) activity).getSelectedCourse() == null)
+                CustomCourse course = ((LearnCourseActivity) activity).getSelectedCourse();
+                if (course.getSelectedTopic() == null)
                     return;
 
-                String temp = ((LearnCourseActivity) activity).getSelectedCourse().getTitle();
+                String cTitle = course.getTitle();
+                String tTitle = course.getSelectedTopic().getTitle();
 
-                if (temp == null)
-                    temp = "NA";
-
-                CustomDatabaseUtils.readMultipleTopics(temp, new OnGetDataListener() {
+                CustomDatabaseUtils.readMultipleQuestions(cTitle, tTitle, new OnGetDataListener() {
                     @Override
                     public void onStart() {
 
@@ -67,14 +75,19 @@ public class LearnTopicFragment extends AbstractFragment {
                     @Override
                     public void onSuccess(Object object, boolean isQuery) {
                         if (isQuery) {
-                            ArrayList<CustomTopic> topics = new ArrayList<>();
+                            ArrayList<CustomQuestion> questions = new ArrayList<>();
+
                             for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
-                                topics.add(new CustomTopic(q.getId()));
-                                Log.e("TEST", q.getId());
+                                CustomQuestion c = new CustomQuestion(q.getId());
+
+                                Map<String, Object> map = q.getData();
+                                List<Map.Entry<String, Object>> list = new ArrayList<>(map.entrySet());
+                                c.setAnswers(list);
+                                questions.add(c);
                             }
 
                             CustomListAdapter.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
-                                    new CustomListLearnTopicItemAdapter(topics));
+                                    new CustomListLearnQuestionItemAdapter(questions));
                         }
                     }
 

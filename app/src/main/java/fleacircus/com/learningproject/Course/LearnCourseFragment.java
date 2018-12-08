@@ -8,18 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import fleacircus.com.learningproject.CustomClasses.CustomCourse;
 import fleacircus.com.learningproject.CustomClasses.CustomTopic;
-import fleacircus.com.learningproject.CustomList.CustomListLearnCourseItemAdapter;
 import fleacircus.com.learningproject.CustomList.CustomListAdapter;
+import fleacircus.com.learningproject.CustomList.CustomListLearnCourseItemAdapter;
+import fleacircus.com.learningproject.LearnCourseActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -53,39 +52,10 @@ public class LearnCourseFragment extends Fragment {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 if (isQuery) {
-                    ArrayList<CustomCourse> courses = new ArrayList<>();
-                    for (QueryDocumentSnapshot o : (QuerySnapshot) object) {
-                        final CustomCourse c = new CustomCourse();
-                        c.setTitle(o.getId());
-                        courses.add(c);
-
-                        CustomDatabaseUtils.readMultipleTopics(c.getTitle(), new OnGetDataListener() {
-                            @Override
-                            public void onStart() {
-
-                            }
-
-                            @Override
-                            public void onSuccess(Object object, boolean isQuery) {
-                                if (!isQuery) {
-                                    Map<String, Object> map = ((DocumentSnapshot) object).getData();
-
-                                    ArrayList<CustomTopic> topics = new ArrayList<>();
-                                    for (Map.Entry<String, Object> entry : map.entrySet()) {
-                                        CustomTopic t = new CustomTopic();
-                                        t.setTitle(entry.getKey());
-                                        topics.add(t);
-                                    }
-
-                                    c.setTopics(topics);
-                                }
-                            }
-
-                            @Override
-                            public void onFailed(FirebaseFirestoreException databaseError) {
-                                Log.e("FirebaseFirestoreEx", databaseError.toString());
-                            }
-                        });
+                    final ArrayList<CustomCourse> courses = new ArrayList<>();
+                    for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
+                        Log.e("TEST", q.getId());
+                        courses.add(new CustomCourse(q.getId()));
                     }
 
                     CustomListAdapter.setRecyclerView(getActivity(), rootView.findViewById(R.id.recycler),
