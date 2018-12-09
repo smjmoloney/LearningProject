@@ -18,6 +18,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1.25">
 
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="309dp"
+                android:layout_height="202dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/signupnow" />
+
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
