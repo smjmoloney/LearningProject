@@ -23,6 +23,10 @@ public class MenuUtils {
                 FirebaseAuth.getInstance().signOut();
                 CustomUser.updateInstance(new CustomUser());
                 break;
+            case R.id.action_icon_logout:
+                FirebaseAuth.getInstance().signOut();
+                CustomUser.updateInstance(new CustomUser());
+                break;
             case R.id.action_profile:
                 context.startActivity(new Intent(context, ProfileActivity.class));
                 break;
