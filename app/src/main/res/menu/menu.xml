@@ -12,4 +12,11 @@
         android:orderInCategory="2"
         android:title="@string/action_logout"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_icon_logout"
+        android:title="@string/action_logout"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/btn_radio"/>
+
 </menu>
