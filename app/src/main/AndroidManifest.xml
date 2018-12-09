@@ -13,17 +13,30 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".HomeActivity"
+            android:name=".IntroActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".IntroActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".IntroActivity" />
+        </activity>
+
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="sensorPortrait"/>
+
         <activity
             android:name=".ProfileActivity"
             android:screenOrientation="sensorPortrait" />
