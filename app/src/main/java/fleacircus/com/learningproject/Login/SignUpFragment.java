@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -20,15 +21,12 @@ public class SignUpFragment extends Fragment {
     private EditText email, password, confirm;
     private TextView emailPrompt, passwordPrompt, confirmPrompt;
 
-    private LoginActivity loginActivity;
-
     public SignUpFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginActivity = (LoginActivity) getActivity();
     }
 
     @Override
@@ -61,21 +59,21 @@ public class SignUpFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginActivity.getViewPager().setCurrentItem(
-                        loginActivity.getViewPager().getCurrentItem() - 1
+                ((LoginActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((LoginActivity) getActivity()).getViewPager().getCurrentItem() - 1
                 );
             }
         });
     }
 
     private void validateSignUpInput() {
-        String emailText = email.getText().toString();
-        String passwordText = password.getText().toString();
-        String confirmPasswordText = confirm.getText().toString();
-
         emailPrompt.setText("");
         passwordPrompt.setText("");
         confirmPrompt.setText("");
+
+        String emailText = email.getText().toString();
+        String passwordText = password.getText().toString();
+        String confirmPasswordText = confirm.getText().toString();
 
         boolean confirmSetup = true;
         if (!InputValidationUtils.validateEmail(emailText)) {
@@ -92,7 +90,7 @@ public class SignUpFragment extends Fragment {
         }
 
         if (confirmSetup)
-            CustomDatabaseUtils.addUser(loginActivity, confirmPrompt,
-                    getString(R.string.setup_confirm_result), emailText, passwordText);
+            CustomDatabaseUtils.addUser(getActivity(), ProgressDialogHelper.createProgressDialog(getActivity(),
+                    getString(R.string.setup_confirm_result)), confirmPrompt, emailText, passwordText);
     }
 }

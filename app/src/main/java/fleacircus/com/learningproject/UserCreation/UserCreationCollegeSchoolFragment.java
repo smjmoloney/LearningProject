@@ -6,16 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import fleacircus.com.learningproject.Helpers.UserCreationHelper;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
 
 public class UserCreationCollegeSchoolFragment extends Fragment {
-
-    UserCreationActivity userCreationActivity;
 
     public UserCreationCollegeSchoolFragment() {
     }
@@ -23,8 +19,6 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userCreationActivity = (UserCreationActivity) getActivity();
     }
 
     @Override
@@ -36,8 +30,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_college));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });
@@ -47,8 +41,8 @@ public class UserCreationCollegeSchoolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCollegeSchool(getString(R.string.user_creation_school));
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });

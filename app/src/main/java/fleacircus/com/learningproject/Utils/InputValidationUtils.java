@@ -32,6 +32,9 @@ public class InputValidationUtils {
     }
 
     public static boolean validateLength(String inputText, int length) {
+        if (inputText == null)
+            return true;
+
         return inputText.length() < length;
     }
 }

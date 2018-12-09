@@ -12,25 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".HomeActivity"
-            android:screenOrientation="sensorPortrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!-- NO ACTION BAR -->
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
             android:name=".UserCreationActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!-- ACTION BAR -->
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".FindActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CourseActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CreateCourseActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".LearnCourseActivity"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>

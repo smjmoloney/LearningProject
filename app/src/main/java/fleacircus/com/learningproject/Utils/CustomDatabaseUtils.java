@@ -13,35 +13,29 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreation.CustomUser;
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.UserCreationActivity;
 
+/**
+ * Utility class to assist with database queries and editing tools.
+ */
 public class CustomDatabaseUtils {
-    private static final CustomDatabaseUtils ourInstance = new CustomDatabaseUtils();
-
-    static CustomDatabaseUtils getInstance() {
-        return ourInstance;
-    }
-
-    private CustomDatabaseUtils() {
-    }
-
-    public static void updateObject(String collection, String document, Object o,
-                                    Context context, String message) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
-        FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
+    public static void addOrUpdateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
+        FirebaseFirestore.getInstance()
+                .collection(collection)
+                .document(document)
+                .set(o)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -58,43 +52,19 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void addObject(String collection, String document, Object o) {
-        FirebaseFirestore.getInstance().collection(collection).document(document).set(o)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e("MESSAGE", "SUCCESS");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("MESSAGE", "FAIL");
-                    }
-                });
-    }
-
-    public static void addUser(final Context context, final TextView confirmPrompt,
-                               String message, final String emailText, String passwordText) {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
+    public static void addUser(final Context context, final ProgressDialog progressDialog,
+                               final TextView confirmPrompt, final String emailText, String passwordText) {
+        FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             CustomUser.getInstance().setEmail(emailText);
-
-                            addObject("users", firebaseAuth.getCurrentUser().getUid(),
-                                    CustomUser.getInstance());
-
-                            progressDialog.dismiss();
+                            addOrUpdateObject("users", FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                                    CustomUser.getInstance(), progressDialog);
                             context.startActivity(new Intent(context, UserCreationActivity.class));
-                        }
-                        else {
+                        } else {
                             progressDialog.dismiss();
                             confirmPrompt.setText(R.string.setup_confirm_prompt_email);
                         }
@@ -102,21 +72,15 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void loginUser(final Context context, String message,
-                                 String emailText, String passwordText,
-                                 final OnGetDataListener listener) {
-
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(message);
-        progressDialog.show();
-
+    public static void login(final ProgressDialog progressDialog, String emailText, String passwordText, final OnGetDataListener listener) {
         listener.onStart();
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(emailText, passwordText)
+        FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
-                            listener.onSuccess(null);
+                            listener.onSuccess(task.getResult(), false);
                         else
                             listener.onFailed(null);
 
@@ -127,12 +91,89 @@ public class CustomDatabaseUtils {
 
     public static void read(String collection, final String document, final OnGetDataListener listener) {
         listener.onStart();
-        FirebaseFirestore.getInstance().collection(collection).document(document)
+        FirebaseFirestore.getInstance()
+                .collection(collection)
+                .document(document)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         if (documentSnapshot != null)
-                            listener.onSuccess(documentSnapshot);
+                            listener.onSuccess(documentSnapshot, false);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleUsersWhere(String location, String course, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance().collection("users")
+                .whereEqualTo("location", location)
+                .orderBy("course")
+                .startAt(course)
+                .endAt(course)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleCourses(String createLearn, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection(createLearn)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleTopics(String course, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("learn")
+                .document(course)
+                .collection("topics")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
+                        else
+                            listener.onFailed(e);
+                    }
+                });
+    }
+
+    public static void readMultipleQuestions(String course, String topic, final OnGetDataListener listener) {
+        listener.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("learn")
+                .document(course)
+                .collection("topics")
+                .document(topic)
+                .collection("questions")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (queryDocumentSnapshots != null)
+                            listener.onSuccess(queryDocumentSnapshots, true);
                         else
                             listener.onFailed(e);
                     }

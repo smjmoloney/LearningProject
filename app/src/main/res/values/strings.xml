@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">LearningProject</string>
-    <string name="action_profile">Profile</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_course">Courses</string>
+    <string name="action_find">Find</string>
     <string name="action_logout">Logout</string>
 
-    <!-- Item Slider -->
+    <!-- CustomListUserItem Slider -->
     <string name="slide_delete">DELETE</string>
 
     <!--
@@ -17,7 +19,7 @@
     <string name="submit_button">SUBMIT</string>
 
     <!--
-    Strings for user creation process
+    Strings for user creation and login process
     -->
     <string name="user_creation_student_teacher_question">ARE YOU A STUDENT OR A TEACHER?</string>
     <string name="user_creation_student">STUDENT</string>
@@ -48,4 +50,10 @@
     <string name="setup_confirm_prompt_email">Email is already in use.</string>
     <string name="setup_confirm_result">Signing up…</string>
     <string name="setup_update_result">Updating…</string>
+
+    <!--
+    Courses
+    -->
+    <string name="course_create">CREATE</string>
+    <string name="course_learn">LEARN</string>
 </resources>

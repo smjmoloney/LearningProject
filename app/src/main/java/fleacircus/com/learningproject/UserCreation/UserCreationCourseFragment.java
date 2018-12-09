@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
+import fleacircus.com.learningproject.CustomClasses.CustomUser;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
@@ -24,16 +25,12 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class UserCreationCourseFragment extends Fragment {
 
-    UserCreationActivity userCreationActivity;
-
     public UserCreationCourseFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        userCreationActivity = (UserCreationActivity) getActivity();
     }
 
     @Override
@@ -51,11 +48,12 @@ public class UserCreationCourseFragment extends Fragment {
             }
 
             @Override
-            public void onSuccess(DocumentSnapshot data) {
-                List<String> list = (List<String>) data.get(CustomUser.getInstance().getLocation());
+            public void onSuccess(Object object, boolean isQuery) {
+                List<String> list = (List<String>) ((DocumentSnapshot) object).get(CustomUser.getInstance().getLocation());
                 if (list != null)
-                    courses.setAdapter(new ArrayAdapter<>(userCreationActivity, android.R.layout.simple_spinner_item, list));
+                    courses.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, list));
             }
+
 
             @Override
             public void onFailed(FirebaseFirestoreException databaseError) {
@@ -68,8 +66,8 @@ public class UserCreationCourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CustomUser.getInstance().setCourse(courses.getSelectedItem().toString());
-                userCreationActivity.getViewPager().setCurrentItem(
-                        userCreationActivity.getViewPager().getCurrentItem() + 1
+                ((UserCreationActivity) getActivity()).getViewPager().setCurrentItem(
+                        ((UserCreationActivity) getActivity()).getViewPager().getCurrentItem() + 1
                 );
             }
         });

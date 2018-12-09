@@ -1,4 +1,4 @@
-package fleacircus.com.learningproject.UserCreation;
+package fleacircus.com.learningproject.CustomClasses;
 
 import fleacircus.com.learningproject.Utils.StringUtils;
 
@@ -13,7 +13,11 @@ public class CustomUser {
     }
 
     public static void updateInstance(CustomUser ourInstance) {
+        if (ourInstance == null)
+            return;
+
         getInstance().setName(ourInstance.name);
+        getInstance().setEmail(ourInstance.email);
         getInstance().setCourse(ourInstance.course);
         getInstance().setLocation(ourInstance.location);
         getInstance().setCollegeSchool(ourInstance.collegeSchool);

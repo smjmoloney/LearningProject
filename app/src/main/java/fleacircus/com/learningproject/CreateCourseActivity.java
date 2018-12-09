@@ -1,11 +1,13 @@
 package fleacircus.com.learningproject;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,11 @@ import fleacircus.com.learningproject.UserCreation.UserCreationCourseFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationNameFragment;
 import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
+import fleacircus.com.learningproject.Utils.MenuUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
-/**
- * This class is the foundation of tools given to the user
- * when setting up an account.
- */
-public class UserCreationActivity extends AppCompatActivity {
+public class CreateCourseActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -40,7 +39,7 @@ public class UserCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_creation_activity);
+        setContentView(R.layout.create_course_activity);
 
         setupViewPager();
     }
@@ -51,24 +50,12 @@ public class UserCreationActivity extends AppCompatActivity {
      */
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserCreationTeacherStudentFragment());
-        adapter.addFragment(new UserCreationCollegeSchoolFragment());
-        adapter.addFragment(new UserCreationLocationFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
-        adapter.addFragment(new UserCreationNameFragment());
+//        adapter.addFragment();
 
-        viewPager = findViewById(R.id.container);
-        viewPager.setAdapter(adapter);
+//        viewPager = findViewById(R.id.container);
+//        viewPager.setAdapter(adapter);
 
-        OnboardingUtils.noDragOnlyOnboarding(viewPager);
-    }
-
-    /**
-     * When the back button, available on Android devices, is pressed.
-     */
-    @Override
-    public void onBackPressed() {
-        NavigationUtils.onBackPressed(this);
+//        OnboardingUtils.noDragOnlyOnboarding(viewPager);
     }
 
     /**

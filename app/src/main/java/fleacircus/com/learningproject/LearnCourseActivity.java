@@ -10,23 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import fleacircus.com.learningproject.UserCreation.UserCreationCollegeSchoolFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationCourseFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationLocationFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationNameFragment;
-import fleacircus.com.learningproject.UserCreation.UserCreationTeacherStudentFragment;
-import fleacircus.com.learningproject.Utils.NavigationUtils;
+import fleacircus.com.learningproject.Course.LearnAnswerFragment;
+import fleacircus.com.learningproject.Course.LearnCourseFragment;
+import fleacircus.com.learningproject.Course.LearnQuestionFragment;
+import fleacircus.com.learningproject.Course.LearnTopicFragment;
+import fleacircus.com.learningproject.CustomClasses.CustomCourse;
+import fleacircus.com.learningproject.CustomClasses.CustomQuestion;
+import fleacircus.com.learningproject.CustomClasses.CustomTopic;
 import fleacircus.com.learningproject.Utils.OnboardingUtils;
 
-/**
- * This class is the foundation of tools given to the user
- * when setting up an account.
- */
-public class UserCreationActivity extends AppCompatActivity {
+public class LearnCourseActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager viewPager;
+    private CustomCourse selectedCourse;
+    private CustomQuestion selectedQuestion;
 
     /**
      * @return The viewPager variable that stores our
@@ -37,10 +36,29 @@ public class UserCreationActivity extends AppCompatActivity {
         return viewPager;
     }
 
+    public CustomCourse getSelectedCourse() {
+        if (selectedCourse == null)
+            return new CustomCourse();
+
+        return selectedCourse;
+    }
+
+    public void setSelectedCourse(CustomCourse selectedCourse) {
+        this.selectedCourse = selectedCourse;
+    }
+
+    public CustomQuestion getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public void setSelectedQuestion(CustomQuestion selectedQuestion) {
+        this.selectedQuestion = selectedQuestion;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_creation_activity);
+        setContentView(R.layout.learn_course_activity);
 
         setupViewPager();
     }
@@ -51,24 +69,15 @@ public class UserCreationActivity extends AppCompatActivity {
      */
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserCreationTeacherStudentFragment());
-        adapter.addFragment(new UserCreationCollegeSchoolFragment());
-        adapter.addFragment(new UserCreationLocationFragment());
-        adapter.addFragment(new UserCreationCourseFragment());
-        adapter.addFragment(new UserCreationNameFragment());
+        adapter.addFragment(new LearnCourseFragment());
+        adapter.addFragment(new LearnTopicFragment());
+        adapter.addFragment(new LearnQuestionFragment());
+        adapter.addFragment(new LearnAnswerFragment());
 
         viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
         OnboardingUtils.noDragOnlyOnboarding(viewPager);
-    }
-
-    /**
-     * When the back button, available on Android devices, is pressed.
-     */
-    @Override
-    public void onBackPressed() {
-        NavigationUtils.onBackPressed(this);
     }
 
     /**
