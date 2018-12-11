@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,13 +24,27 @@ import fleacircus.com.learningproject.Utils.MenuUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class HomeActivity extends AppCompatActivity {
-    @Override
+
+    private Button quizBtn;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+        String nAme = CustomUser.getInstance().getName();
+        TextView name = findViewById(R.id.nameTxt);
+        name.setText("Name: " + nAme);
 
 //        FirebaseAuth.getInstance().signOut();
         checkIfLoggedInAndHasSetupAccount();
+
+        quizBtn = findViewById(R.id.quizButton);
+        quizBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                openQuizActivity();
+            }
+
+        });
     }
 
     private void checkIfLoggedInAndHasSetupAccount() {
@@ -35,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (FirebaseAuth.getInstance().getCurrentUser() == null)
-                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                    startActivity(new Intent(HomeActivity.this, IntroActivity.class));
                 else
                     applyCurrentUserOrSetup();
             }
@@ -87,5 +104,10 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         MenuUtils.onOptionsItemSelected(this, item);
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openQuizActivity() {
+        Intent intent = new Intent(this, BasicQuizActivity.class);
+        startActivity(intent);
     }
 }
