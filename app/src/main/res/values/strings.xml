@@ -48,4 +48,5 @@
     <string name="setup_confirm_prompt_email">Email is already in use.</string>
     <string name="setup_confirm_result">Signing up…</string>
     <string name="setup_update_result">Updating…</string>
+    <string name="teacher_welcome_message">Your Activity List</string>
 </resources>
