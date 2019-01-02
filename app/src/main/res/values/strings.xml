@@ -48,4 +48,16 @@
     <string name="setup_confirm_prompt_email">Email is already in use.</string>
     <string name="setup_confirm_result">Signing up…</string>
     <string name="setup_update_result">Updating…</string>
+    <string name="teacher_welcome_message">Your Activity List</string>
+
+    <!-- Used on Quiz related pages  -->
+    <string name="exit_quiz">Exit Quiz</string>
+    <string name="Question">Question</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="option_3">Option 3</string>
+    <string name="option_4">Option 4</string>
+
+
+
 </resources>
