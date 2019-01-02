@@ -1,0 +1,38 @@
+{
+	"Questions" : {
+		"1" : {
+			"question" : "Which is not used in Networking",
+			"option1" : "RIP",
+			"option2" : "TCP",
+			"option3" : "TAP",
+			"option4" : "EIGRP",
+			"answer" : "TAP"
+		},
+		"2" : {
+			"question" : "Which is incorrect",
+			"option1" : "AS600",
+			"option2" : "500AS",
+			"option3" : "AS200",
+			"option4" : "AS100",
+			"answer" : "500AS"
+		},
+		"3" : {
+			"question" : "Which protocol does DHCP use at the Transport layer",
+			"option1" : "IP",
+			"option2" : "TCP",
+			"option3" : "ARP",
+			"option4" : "UDP",
+			"answer" : "UDP"
+		},
+		"4" : {
+			"question" : "How long is an IPv6 address",
+			"option1" : "32 bits",
+			"option2" : "128 bytes",
+			"option3" : "64 bits",
+			"option4" : "128 bits",
+			"answer" : "128 bits"
+		}
+	}
+}	
+	
+			
