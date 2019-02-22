@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="fleacircus.com.learningproject.HomeActivity">
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="1"
+        android:title="@string/title_profile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_find"
+        android:orderInCategory="2"
+        android:title="@string/action_find"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_course"
+        android:orderInCategory="2"
+        android:title="@string/title_course"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="2"
+        android:title="@string/action_logout"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_icon_logout"
+        android:title="@string/action_logout"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/btn_radio"/>
+
+</menu>
