@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void applyCurrentUserToProfile() {
 
         ImageView imageview = findViewById(R.id.profilePic);
-        Drawable myDrawable = getResources().getDrawable(R.drawable.profilepic);
+        Drawable myDrawable = getResources().getDrawable(R.drawable.ic_person);
         imageview.setImageDrawable(myDrawable);
 
         String nAme = CustomUser.getInstance().getName();
