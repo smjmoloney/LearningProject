@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LearningProject</string>
+    <string name="app_name">FlashLearning</string>
     <string name="action_profile">Profile</string>
     <string name="action_logout">Logout</string>
 
@@ -48,4 +48,36 @@
     <string name="setup_confirm_prompt_email">Email is already in use.</string>
     <string name="setup_confirm_result">Signing up…</string>
     <string name="setup_update_result">Updating…</string>
+
+    <!--
+    Strings for quiz
+    -->
+    <string name="enter_quiz_name_here">enter Quiz Name here</string>
+    <string name="Question">Question</string>
+    <string name="option_1">option_1</string>
+    <string name="option_2">option_2</string>
+    <string name="option_3">option_3</string>
+    <string name="option_4">option_4</string>
+    <string name="answer">Answer</string>
+    <string name="exit_quiz">Exit Quiz</string>
+    <string name="create_quiz">Create Quiz</string>
+    <!--
+    Strings for flashcard
+    -->
+    <string name="exit_flashCard">Exit Flashcard</string>
+    <string name="enter_definition_here">enter definition here</string>
+    <string name="enter_word_here">enter word here</string>
+    <!--
+    Strings for user homepage / workspace
+    -->
+    <string name="quiz_library">Quiz Library</string>
+    <string name="flashcard_library">Flashcard Library</string>
+    <string name="create_new_flashcards">Create New Flashcards</string>
+    <string name="create_new_quiz">Create New Quiz</string>
+    <string name="workspace">Workspace</string>
+    <string name="create_new_flashcard">Create New Flashcard</string>
+    <string name="enter_flashcard_set_name_here">enter flashcard set name here</string>
+    <string name="flashlearning">FlashLearning</string>
+
+
 </resources>
