@@ -1,21 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_layout"
+    android:id="@+id/main_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    android:orientation="vertical"
+    tools:context=".IntroActivity">
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/gradient_blue_green"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workspace"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:textStyle="italic"
+            tools:fontFamily="@font/sofia" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:background="#fff"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:ignore="NestedWeights">
+
+            <ImageView
+                android:id="@+id/createQuizImg"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/create_new" />
+            <TextView
+                android:textColor="#000"
+                android:text="@string/create_new_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <ImageView
+                android:id="@+id/createFlashCardImg"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/flashcards" />
+            <TextView
+                android:textColor="#000"
+                android:text="@string/create_new_flashcards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/quizLibrary"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/quiz" />
+            <TextView
+                android:textColor="#000"
+                android:text="@string/quiz_library"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/flashcardsLibrary"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/cards" />
+            <TextView
+                android:textColor="#000"
+                android:text="@string/flashcard_library"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
