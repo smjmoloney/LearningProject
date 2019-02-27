@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/exit_flashcard"
+        android:orderInCategory="1"
+        android:title="@string/exit_flashCard"
+        app:showAsAction="never" />
+</menu>
