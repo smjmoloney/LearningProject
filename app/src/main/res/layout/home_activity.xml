@@ -54,6 +54,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <ImageView
+                android:id="@+id/FlashcardImg"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/cards" />
+            <TextView
+                android:textColor="#000"
+                android:text="@string/flashcard_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
         <LinearLayout
@@ -64,13 +75,13 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/FlashcardImg"
+                android:id="@+id/profileImg"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@drawable/cards" />
+                android:background="@drawable/profile" />
             <TextView
                 android:textColor="#000"
-                android:text="@string/flashcard_selection"
+                android:text="@string/profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
