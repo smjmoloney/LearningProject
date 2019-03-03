@@ -25,21 +25,20 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageView selectQuiz, selectFlashcard;
+    private ImageView selectQuiz, selectFlashcard, selectProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-//        FirebaseAuth.getInstance().signOut();
         checkIfLoggedInAndHasSetupAccount();
 
         selectQuiz = findViewById(R.id.QuizImg);
         selectQuiz.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                createNewQuiz();
+                QuizAction();
             }
         });
 
@@ -47,9 +46,17 @@ public class HomeActivity extends AppCompatActivity {
         selectFlashcard.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                createFlashCardAction();
+                FlashCardAction();
             }
 
+        });
+
+        selectProfile = findViewById(R.id.profileImg);
+        selectProfile.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                ProfileAction();
+            }
         });
 
     }
@@ -67,33 +74,33 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void applyCurrentUserOrSetup() {
-        CustomDatabaseUtils.read("users", FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                new OnGetDataListener() {
-                    @Override
-                    public void onStart() {
+        CustomDatabaseUtils.read("users", FirebaseAuth.getInstance().getCurrentUser().getUid(), new OnGetDataListener() {
+            @Override
+            public void onStart() {
 
-                    }
+            }
 
-                    @Override
-                    public void onSuccess(DocumentSnapshot data) {
-                        FirebaseFirestore.getInstance().collection("users").document(
-                                FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnSuccessListener(
-                                new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
-                                    }
-                                });
+            @Override
+            public void onSuccess(Object object, boolean isQuery) {
+                if (!isQuery) {
+                    CustomUser user = ((DocumentSnapshot) object).toObject(CustomUser.class);
 
-                        if (data.get("name") == null)
-                            startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
-                    }
+                    if (user != null)
+                        CustomUser.updateInstance(user);
+                    else
+                        FirebaseAuth.getInstance().signOut();
 
-                    @Override
-                    public void onFailed(FirebaseFirestoreException databaseError) {
-                        Log.e("FirebaseFirestoreEx", databaseError.toString());
-                    }
-                });
+                    if (CustomUser.getInstance().getName() == null)
+                        startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
+                } else
+                    Log.e("OnSuccess", "Must not be a query.");
+            }
+
+            @Override
+            public void onFailed(FirebaseFirestoreException databaseError) {
+                Log.e("FirebaseFirestoreEx", databaseError.toString());
+            }
+        });
     }
 
     @Override
@@ -115,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     // start new activity to access Flashcards - create and learn
-    public void createFlashCardAction() {
+    public void FlashCardAction() {
         Toast.makeText(HomeActivity.this, "You selected Flashcard", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Flashcard_introActivity.class);
         startActivity(intent);
@@ -123,9 +130,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
     // start new activity to access Quiz - create and learn
-    public void createNewQuiz() {
+    public void QuizAction() {
         Toast.makeText(HomeActivity.this, "You selected Quiz", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Quiz_introActivity.class);
+        startActivity(intent);
+    }
+
+    // start new activity to access user Profile
+    public void ProfileAction() {
+        Toast.makeText(HomeActivity.this, "You selected Profile", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }

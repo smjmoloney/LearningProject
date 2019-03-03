@@ -1,8 +1,12 @@
 package fleacircus.com.learningproject;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,5 +33,29 @@ public class Flashcard_create_New extends AppCompatActivity {
         // start new activity when button clicked
         Flashcard_create_NameDialogBox dialog = new Flashcard_create_NameDialogBox();
         dialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.flashcard_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle exit of Flashcard Set Up
+        switch (item.getItemId()) {
+            case R.id.exit_flashcard:
+                exitFlashcard();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void exitFlashcard() {
+        // return to Home Activity screen upon exiting Flashcard set up
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }

@@ -61,36 +61,7 @@ public class Flashcard_create_NameDialogBox extends AppCompatDialogFragment {
 
                         // get the User ID
                         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-/*
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @SuppressLint("LongLogTag")
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    // if document exist, update array
-                                    if (document.exists()) {
-                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-
-                                        // add a new flashcard to the "Flashcard_Name" array field.
-                                        docRef.update("Flashcards_"+uid, FieldValue.arrayUnion(flashcardName));
-
-                                    } else {
-                                        // if document does not exist, create document and FlashcardList with Flashcard Name
-                                        Log.d(TAG, "Create Document in FlashcardList for User");
-
-                                        // add the Flashcard to the user's FlashcardListing using Flashcard Name
-                                        Map<String, Object> flashcardList = new HashMap<>();
-                                        flashcardList.put("Flashcards_"+uid, Arrays.asList(flashcardName));
-                                        db.collection("FlashcardList").document(uid).set(flashcardList);
-                                    }
-                                } else {
-                                    Log.d(TAG, "get failed with ", task.getException());
-                                }
-                            }
-                        });*/
-
+                        
                         // include a basic zero count for number of questions
                         Map<String, Object> card = new HashMap<>();
                         card.put("count", 0);

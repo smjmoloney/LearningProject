@@ -1,11 +1,15 @@
 package fleacircus.com.learningproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -94,7 +98,7 @@ public class Quiz_create_NewQuestions extends AppCompatActivity {
         // save the quiz to user's main collection_userID with Quiz Name
         db.collection("Quizzes").document(uid)
                 .collection(quizName+"_"+uid).document(quizName)
-                .set(quiz)
+                .update(quiz)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -116,11 +120,35 @@ public class Quiz_create_NewQuestions extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
+                    @SuppressLint("LongLogTag")
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Quiz_create_NewQuestions.this, "Error!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, e.toString());
                     }
                 });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.quiz_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.exit_quiz:
+                ExitQuiz();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void ExitQuiz() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
