@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -92,7 +93,7 @@ public class SignUpFragment extends Fragment {
         }
 
         if (confirmSetup)
-            CustomDatabaseUtils.addUser(loginActivity, confirmPrompt,
-                    getString(R.string.setup_confirm_result), emailText, passwordText);
+            CustomDatabaseUtils.addUser(getActivity(), ProgressDialogHelper.createProgressDialog(getActivity(),
+                    getString(R.string.setup_confirm_result)), confirmPrompt, emailText, passwordText);
     }
 }

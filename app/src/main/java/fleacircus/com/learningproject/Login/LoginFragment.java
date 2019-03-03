@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.HomeActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
@@ -77,10 +78,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void validateLogin() {
-        final String emailText = email.getText().toString();
-        String passwordText = password.getText().toString();
-
         inputPrompt.setText("");
+
+        String emailText = email.getText().toString();
+        String passwordText = password.getText().toString();
 
         if (!InputValidationUtils.validateEmail(emailText)
                 || !InputValidationUtils.validatePassword(passwordText)) {
@@ -88,26 +89,17 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        CustomDatabaseUtils.loginUser(loginActivity, getString(R.string.login_confirm_result),
-                emailText, passwordText, new OnGetDataListener() {
+        CustomDatabaseUtils.login(ProgressDialogHelper.createProgressDialog(getActivity(),
+                getString(R.string.login_confirm_result)), emailText, passwordText, new OnGetDataListener() {
             @Override
             public void onStart() {
 
             }
 
             @Override
-            public void onSuccess(DocumentSnapshot data) {
-                FirebaseFirestore.getInstance().collection("users").document(
-                        FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnSuccessListener(
-                        new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                CustomUser.updateInstance(documentSnapshot.toObject(CustomUser.class));
-                                CustomUser.getInstance().setEmail(emailText);
-                            }
-                        });
-
-                        loginActivity.startActivity(new Intent(loginActivity, HomeActivity.class));
+            public void onSuccess(Object object, boolean isQuery) {
+                CustomUser.updateInstance(new CustomUser());
+                getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
             }
 
             @Override
