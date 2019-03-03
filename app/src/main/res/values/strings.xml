@@ -67,17 +67,24 @@
     <string name="exit_flashCard">Exit Flashcard</string>
     <string name="enter_definition_here">enter definition here</string>
     <string name="enter_word_here">enter word here</string>
+    <string name="enter_flashcard_set_name_here">enter flashcard set name here</string>
+    <string name="create_new_flashcard">create new Flashcard</string>
     <!--
     Strings for user homepage / workspace
     -->
-    <string name="quiz_library">Quiz Library</string>
-    <string name="flashcard_library">Flashcard Library</string>
-    <string name="create_new_flashcards">Create New Flashcards</string>
-    <string name="create_new_quiz">Create New Quiz</string>
+    <string name="quiz_selection">Quiz</string>
+    <string name="flashcard_selection">Flashcard</string>
     <string name="workspace">Workspace</string>
-    <string name="create_new_flashcard">Create New Flashcard</string>
-    <string name="enter_flashcard_set_name_here">enter flashcard set name here</string>
+    <!--
+    Strings for intro page
+    -->
     <string name="flashlearning">FlashLearning</string>
+    <!--
+    Strings for quiz or flashcard learning / creation
+    -->
+    <string name="course_create">CREATE</string>
+    <string name="course_learn">LEARN</string>
+    <string name="title_course">Courses</string>
 
 
 </resources>
