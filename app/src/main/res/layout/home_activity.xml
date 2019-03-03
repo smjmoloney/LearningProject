@@ -44,25 +44,13 @@
             tools:ignore="NestedWeights">
 
             <ImageView
-                android:id="@+id/createQuizImg"
+                android:id="@+id/QuizImg"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="@drawable/create_new" />
+                android:background="@drawable/quiz" />
             <TextView
                 android:textColor="#000"
-                android:text="@string/create_new_quiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <ImageView
-                android:id="@+id/createFlashCardImg"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:background="@drawable/flashcards" />
-            <TextView
-                android:textColor="#000"
-                android:text="@string/create_new_flashcards"
+                android:text="@string/quiz_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -76,24 +64,13 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/quizLibrary"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:background="@drawable/quiz" />
-            <TextView
-                android:textColor="#000"
-                android:text="@string/quiz_library"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/flashcardsLibrary"
+                android:id="@+id/FlashcardImg"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:background="@drawable/cards" />
             <TextView
                 android:textColor="#000"
-                android:text="@string/flashcard_library"
+                android:text="@string/flashcard_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
