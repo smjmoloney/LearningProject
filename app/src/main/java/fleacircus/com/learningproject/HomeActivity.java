@@ -25,7 +25,7 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageView createQ, viewQuiz, createFlashCard, viewFlashCard;
+    private ImageView selectQuiz, selectFlashcard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +35,16 @@ public class HomeActivity extends AppCompatActivity {
 //        FirebaseAuth.getInstance().signOut();
         checkIfLoggedInAndHasSetupAccount();
 
-        createQ = findViewById(R.id.createQuizImg);
-        createQ.setOnClickListener(new View.OnClickListener() {
+        selectQuiz = findViewById(R.id.QuizImg);
+        selectQuiz.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 createNewQuiz();
             }
         });
 
-        viewQuiz = findViewById(R.id.quizLibrary);
-        viewQuiz.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                listQuizzes();
-            }
-
-        });
-
-        createFlashCard = findViewById(R.id.createFlashCardImg);
-        createFlashCard.setOnClickListener(new View.OnClickListener() {
+        selectFlashcard = findViewById(R.id.FlashcardImg);
+        selectFlashcard.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 createFlashCardAction();
@@ -61,14 +52,6 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-        viewFlashCard = findViewById(R.id.flashcardsLibrary);
-        viewFlashCard.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                listFlashcards();
-            }
-
-        });
     }
 
     private void checkIfLoggedInAndHasSetupAccount() {
@@ -130,31 +113,19 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // start new activity which displays list of flashcard sets
-    public void listFlashcards() {
-        Toast.makeText(HomeActivity.this, "You selected Flashcards List", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Flashcard_ListView.class);
-        startActivity(intent);
-    }
 
-    // start new activity to create new flashcard set
+    // start new activity to access Flashcards - create and learn
     public void createFlashCardAction() {
-        Toast.makeText(HomeActivity.this, "You selected Create New Flashcard", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Flashcard_create_New.class);
+        Toast.makeText(HomeActivity.this, "You selected Flashcard", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Flashcard_introActivity.class);
         startActivity(intent);
     }
 
-    // start new activity which displays list of quizzes
-    public void listQuizzes() {
-        Toast.makeText(HomeActivity.this, "You selected Quiz List", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Quiz_Listview.class);
-        startActivity(intent);
-    }
 
-    // start new activity to create new quiz
+    // start new activity to access Quiz - create and learn
     public void createNewQuiz() {
-        Toast.makeText(HomeActivity.this, "You selected Create New Quiz", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Quiz_create_New.class);
+        Toast.makeText(HomeActivity.this, "You selected Quiz", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Quiz_introActivity.class);
         startActivity(intent);
     }
 }
