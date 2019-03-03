@@ -42,24 +42,26 @@
             android:name=".UserCreationActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Quiz_create_New" />
         <activity android:name=".Quiz_create_NewQuestions" />
         <activity android:name=".Quiz_create_NameDialogBox" />
-        <activity android:name=".Quiz_mainActivity" />
+        <activity android:name=".Quiz_introActivity" />
         <activity android:name=".Quiz_Listview" />
+        <activity android:name=".Quiz_mainActivity" />
         <activity android:name=".Quiz_resultActivity" />
+
         <activity android:name=".Flashcard_create_Cards" />
         <activity android:name=".Flashcard_create_New" />
         <activity android:name=".Flashcard_create_NameDialogBox" />
+        <activity android:name=".Flashcard_introActivity" />
         <activity android:name=".Flashcard_ListView" />
+        <activity android:name=".Flashcard_mainActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="fleacircus.com.learingprojectclean.Flashcard_main" />
-        <activity android:name="fleacircus.com.Flashcard_Main" />
-        <activity android:name=".Flashcard_mainActivity"></activity>
     </application>
 
 </manifest>
