@@ -5,4 +5,6 @@
     <item name="saveFlashcardBtn" type="id"/>
     <item name="exit_flashcard" type="id"/>
     <item name="createNewFlashcardBtn" type="id" />
+    <item name="action_find" type="id" />
+    <item name="action_workspace" type="id" />
 </resources>
