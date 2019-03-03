@@ -47,9 +47,11 @@
         <activity android:name=".Quiz_create_NewQuestions" />
         <activity android:name=".Quiz_create_NameDialogBox" />
         <activity android:name=".Quiz_introActivity" />
-        <activity android:name=".Quiz_Listview" />
+        <activity android:name=".Quiz_ListView" />
         <activity android:name=".Quiz_mainActivity" />
         <activity android:name=".Quiz_resultActivity" />
+
+        <activity android:name=".FindActivity"/>
 
         <activity android:name=".Flashcard_create_Cards" />
         <activity android:name=".Flashcard_create_New" />
