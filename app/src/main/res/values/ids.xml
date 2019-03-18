@@ -3,6 +3,7 @@
     <item name="createNewQuizBtn" type="id"/>
     <item name="saveQuestionBtn" type="id"/>
     <item name="saveFlashcardBtn" type="id"/>
+    <item name="nextFlashcardBtn" type="id"/>
     <item name="exit_flashcard" type="id"/>
     <item name="createNewFlashcardBtn" type="id" />
     <item name="action_find" type="id" />

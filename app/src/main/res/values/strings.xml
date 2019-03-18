@@ -73,6 +73,7 @@
     <string name="enter_flashcard_set_name_here">enter flashcard set name here</string>
     <string name="create_new_flashcard">create new Flashcard</string>
     <string name="flashcard_library">Flashcard Library</string>
+    <string name="flip">Flip</string>
     <!--
     Strings for user homepage / workspace
     -->
@@ -90,6 +91,8 @@
     <string name="course_learn">LEARN</string>
     <string name="title_course">Courses</string>
     <string name="profile">Profile</string>
+
+
 
 
 </resources>
