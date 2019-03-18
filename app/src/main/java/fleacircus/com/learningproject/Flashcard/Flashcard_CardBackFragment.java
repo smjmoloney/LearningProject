@@ -2,11 +2,14 @@ package fleacircus.com.learningproject.Flashcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import fleacircus.com.learningproject.Flashcard_create_Cards;
@@ -32,34 +35,50 @@ public class Flashcard_CardBackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
+        Button btnBack;
+        if(getActivity() instanceof Flashcard_create_Cards) {
 
-        cardBackTxt = view.findViewById(R.id.card_back_text);
-        cardBackTxt.setOnClickListener(new View.OnClickListener() {
+            View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
 
-            public void onClick(View v) {
+            cardBackTxt = view.findViewById(R.id.card_back_text);
 
+            btnBack = view.findViewById(R.id.buttonBack);
+            btnBack.setOnClickListener(new View.OnClickListener() {
 
-                if(getActivity() instanceof Flashcard_mainActivity) {
+                public void onClick(View v) {
 
-                    String string1= "Card Back";
-                    cardBackTxt.setText(string1);
-
-                ((Flashcard_mainActivity)getActivity()).flipToFrontSideCard();
-                }
-
-                if(getActivity() instanceof Flashcard_create_Cards) {
                     // assign user input text to variable
                     backTxt = cardBackTxt.getText().toString();
                     // attach it with method to flashcard activity
                     listener.userInputBackSent(backTxt);
                     // flip flashcard method
-                    ((Flashcard_create_Cards)getActivity()).flipToFrontSideCard();
+                    ((Flashcard_create_Cards) getActivity()).flipToFrontSideCard();
                 }
-            }
-        });
 
-        return view;
+            });
+            return view;
+        }
+
+            View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
+
+            cardBackTxt = view.findViewById(R.id.card_back_text);
+            try{
+                String data = getArguments().getString("BACK_DATA");//Get pass data with its key value
+                cardBackTxt.setText(data);
+             }
+            catch (NullPointerException e) {
+            }
+
+            btnBack = view.findViewById(R.id.buttonBack);
+            btnBack.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    ((Flashcard_mainActivity)getActivity()).flipToFrontSideCard();
+                }
+
+            });
+            return view;
+
     }
 
     // method called when fragment attached to activity
