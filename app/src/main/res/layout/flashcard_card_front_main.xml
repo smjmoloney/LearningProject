@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/card_front_text"
+        android:id="@+id/card_front_text_main"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerVertical="true"
@@ -31,20 +30,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonFront"
+        android:id="@+id/buttonFrontMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="#00b300"
-        android:text="Flip"
+        android:text="@string/flip"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_front_text" />
+        app:layout_constraintTop_toBottomOf="@+id/card_front_text_main" />
 
     <android.support.design.widget.FloatingActionButton
 
-        android:id="@id/saveFlashcardBtn"
+        android:id="@id/nextFlashcardBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"
@@ -53,12 +52,12 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_save"
+        android:src="@drawable/ic_navigate_next"
         app:backgroundTint="#3333ff"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_front_text" />
+        app:layout_constraintTop_toBottomOf="@+id/card_front_text_main" />
 
 </android.support.constraint.ConstraintLayout>
