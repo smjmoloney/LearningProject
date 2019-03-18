@@ -34,18 +34,12 @@ public class Quiz_mainActivity extends AppCompatActivity {
 
     private Button opt1, opt2, opt3, opt4;
     private TextView questionTxt;
-    private int total = 0;
-    private int questionNo = 1;
-    private int correct = 0;
-    private int incorrect = 0;
+    private int total, questionNo, questionCount, correct, incorrect;
     private String quizName;
 
     // get the User ID
     private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private DocumentReference docRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +55,13 @@ public class Quiz_mainActivity extends AppCompatActivity {
 
         Intent quizList = getIntent();
         quizName = quizList.getStringExtra("qName");
+
+        total = 0;
+        questionNo = 1;
+        // use minus 1 (-1) so that the generateQuestion if statement doesn't trigger before count gotten from firestore
+        questionCount = -1;
+        correct = 0;
+        incorrect = 0;
 
         generateQuestions();
     }
@@ -91,18 +92,19 @@ public class Quiz_mainActivity extends AppCompatActivity {
 
     private void generateQuestions() {
 
-        if (total == 2) {
+        if (total == questionCount) {
             Intent startResult = new Intent(Quiz_mainActivity.this, Quiz_resultActivity.class);
             startResult.putExtra("total", String.valueOf(total));
             startResult.putExtra("correct", String.valueOf(correct));
             startResult.putExtra("incorrect", String.valueOf(incorrect));
             startActivity(startResult);
-        } else {
+        }
 
+        else {
             // points towards first question
             // retrieve questions from the user's Quizzes and Quiz Name
-            docRef = db.collection("Quizzes").document(uid)
-                .collection(quizName+"_"+uid).document(quizName);
+            DocumentReference docRef = db.collection("Quizzes").document(uid)
+                    .collection(quizName + "_" + uid).document(quizName);
             docRef.get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -112,6 +114,7 @@ public class Quiz_mainActivity extends AppCompatActivity {
 
                             if (snapshot.exists()) {
 
+                                questionCount = snapshot.getDouble("count").intValue();
                                 String quizQuestion = snapshot.getString(KEY_QUESTION+"_"+questionNo);
                                 questionTxt.setText(quizQuestion);
                                 String quizOption1 = snapshot.getString(KEY_OPTION1+"_"+questionNo);

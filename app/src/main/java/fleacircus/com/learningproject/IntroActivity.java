@@ -8,14 +8,12 @@ import android.widget.Button;
 
 public class IntroActivity extends AppCompatActivity {
 
-    private Button enterApp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
 
-        enterApp = findViewById(R.id.enterButton);
+        Button enterApp = findViewById(R.id.enterButton);
         enterApp.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

@@ -25,8 +25,6 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageView selectQuiz, selectFlashcard, selectProfile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
         checkIfLoggedInAndHasSetupAccount();
 
-        selectQuiz = findViewById(R.id.QuizImg);
+        ImageView selectQuiz = findViewById(R.id.QuizImg);
         selectQuiz.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -42,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        selectFlashcard = findViewById(R.id.FlashcardImg);
+        ImageView selectFlashcard = findViewById(R.id.FlashcardImg);
         selectFlashcard.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -51,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-        selectProfile = findViewById(R.id.profileImg);
+        ImageView selectProfile = findViewById(R.id.profileImg);
         selectProfile.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

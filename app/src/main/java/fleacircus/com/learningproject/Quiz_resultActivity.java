@@ -8,18 +8,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class Quiz_resultActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-    TextView totalQuestions, correctQuestions, incorrectQuestions;
+public class Quiz_resultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_resultactivity);
 
-        totalQuestions = findViewById(R.id.totalTxtBox);
-        correctQuestions = findViewById(R.id.correctTxtBox);
-        incorrectQuestions = findViewById(R.id.incorrectTxtBox);
+        TextView totalQuestions = findViewById(R.id.totalTxtBox);
+        TextView correctQuestions = findViewById(R.id.correctTxtBox);
+        TextView incorrectQuestions = findViewById(R.id.incorrectTxtBox);
 
         // get intent from Quiz Activity
         Intent results = getIntent();

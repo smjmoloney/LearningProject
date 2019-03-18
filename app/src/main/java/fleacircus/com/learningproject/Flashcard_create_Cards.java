@@ -1,6 +1,5 @@
 package fleacircus.com.learningproject;
 
-import android.support.design.widget.FloatingActionButton;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,9 +27,6 @@ import fleacircus.com.learningproject.Flashcard.Flashcard_CardFrontFragment;
 
 public class Flashcard_create_Cards extends AppCompatActivity implements Flashcard_CardFrontFragment.FragmentFrontListener, Flashcard_CardBackFragment.FragmentBackListener {
 
-    private static final String TAG = "Flashcard_create_Cards";
-
-    private Flashcard_CardFrontFragment cardFront;
     private Flashcard_CardBackFragment cardBack;
     private String flashcardName,front, back;
 
@@ -43,11 +38,11 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.flashcard_create_card);
+        setContentView(R.layout.flashcard_card);
 
         // create Front and Back Fragments for Flashcard
         cardBack = new Flashcard_CardBackFragment();
-        cardFront = new Flashcard_CardFrontFragment();
+        Flashcard_CardFrontFragment cardFront = new Flashcard_CardFrontFragment();
 
         // assign front of the card for initial set up
         if (savedInstanceState == null) {
@@ -64,16 +59,8 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
         // set flashcard count to 1 to start adding flashcards below
         count = 1;
 
-        // use Floating Action Button to add questions
-        FloatingActionButton fab = findViewById(R.id.saveFlashcardBtn);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveFlashcard();
-            }
-        });
-    }
 
+    }
 
     public void flipToFrontSideCard() {
 
@@ -155,7 +142,6 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Flashcard_create_Cards.this, "Error!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, e.toString());
                     }
                 });
     }
