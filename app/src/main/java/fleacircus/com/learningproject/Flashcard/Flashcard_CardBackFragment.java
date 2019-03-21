@@ -2,10 +2,8 @@ package fleacircus.com.learningproject.Flashcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +19,8 @@ import fleacircus.com.learningproject.R;
  */
 @SuppressLint("ValidFragment")
 public class Flashcard_CardBackFragment extends Fragment {
+
+    private static final String BACK_DATA = "back_data";
 
     private EditText cardBackTxt;
     private String backTxt;
@@ -64,7 +64,7 @@ public class Flashcard_CardBackFragment extends Fragment {
             cardBackTxt = view.findViewById(R.id.card_back_text);
 
             // get data passed from Flashcard_mainActivity
-            String getArgument = getArguments().getString("back_data");
+            String getArgument = getArguments().getString(BACK_DATA);
             cardBackTxt.setText(getArgument);
 
             // button to flip flashcard to front side of card
@@ -103,4 +103,13 @@ public class Flashcard_CardBackFragment extends Fragment {
         // reference not required so make it null
         listener = null;
     }
+
+    public static Flashcard_CardBackFragment newInstance(String text) {
+        Flashcard_CardBackFragment cardBack = new Flashcard_CardBackFragment();
+        Bundle args = new Bundle();
+        args.putString(BACK_DATA, text);
+        cardBack.setArguments(args);
+        return cardBack;
+    }
+
 }

@@ -2,11 +2,9 @@ package fleacircus.com.learningproject.Flashcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +22,10 @@ import fleacircus.com.learningproject.R;
 @SuppressLint("ValidFragment")
 public class Flashcard_CardFrontFragment extends Fragment {
 
+    private static final String FRONT_DATA = "front_data";
+
     private EditText cardFrontTxt;
-    private String frontTxt, newText;
+    private String frontTxt;
     private FragmentFrontListener listener;
 
     // method to be used in connection with user inputted and passing into flashcard activity
@@ -77,7 +77,7 @@ public class Flashcard_CardFrontFragment extends Fragment {
         cardFrontTxt = view.findViewById(R.id.card_front_text_main);
 
         // get data passed from Flashcard_mainActivity
-        String getArgument = getArguments().getString("front_data");
+        String getArgument = getArguments().getString(FRONT_DATA);
         cardFrontTxt.setText(getArgument);
 
         // button to flip flashcard to reverse side of card
@@ -126,5 +126,13 @@ public class Flashcard_CardFrontFragment extends Fragment {
         super.onDetach();
         // reference not required so make it null
         listener = null;
+    }
+
+    public static Flashcard_CardFrontFragment newInstance(String text) {
+        Flashcard_CardFrontFragment cardFront = new Flashcard_CardFrontFragment();
+        Bundle args = new Bundle();
+        args.putString(FRONT_DATA, text);
+        cardFront.setArguments(args);
+        return cardFront;
     }
 }
