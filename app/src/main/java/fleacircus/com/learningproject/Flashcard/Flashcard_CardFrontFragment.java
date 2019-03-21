@@ -54,7 +54,7 @@ public class Flashcard_CardFrontFragment extends Fragment {
                     frontTxt = cardFrontTxt.getText().toString();
                     // attach it with method to flashcard activity
                     listener.userInputFrontSent(frontTxt);
-                    // flip flashcard method
+                    // flip flashcard to reverse side of card
                     ((Flashcard_create_Cards)getActivity()).flipToReverseSideCard();
                 }
 
@@ -76,14 +76,11 @@ public class Flashcard_CardFrontFragment extends Fragment {
 
         cardFrontTxt = view.findViewById(R.id.card_front_text_main);
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            String data = bundle.getString("FRONT_DATA");//Get pass data with its key value
-            cardFrontTxt.setText(data);
-        }
+        // get data passed from Flashcard_mainActivity
+        String getArgument = getArguments().getString("front_data");
+        cardFrontTxt.setText(getArgument);
 
-        cardFrontTxt.setText(newText);
-
+        // button to flip flashcard to reverse side of card
         btnFront = view.findViewById(R.id.buttonFrontMain);
         btnFront.setOnClickListener(new View.OnClickListener() {
 

@@ -51,7 +51,7 @@ public class Flashcard_CardBackFragment extends Fragment {
                     backTxt = cardBackTxt.getText().toString();
                     // attach it with method to flashcard activity
                     listener.userInputBackSent(backTxt);
-                    // flip flashcard method
+                    // flip flashcard to front side of card
                     ((Flashcard_create_Cards) getActivity()).flipToFrontSideCard();
                 }
 
@@ -62,13 +62,12 @@ public class Flashcard_CardBackFragment extends Fragment {
             View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
 
             cardBackTxt = view.findViewById(R.id.card_back_text);
-            try{
-                String data = getArguments().getString("BACK_DATA");//Get pass data with its key value
-                cardBackTxt.setText(data);
-             }
-            catch (NullPointerException e) {
-            }
 
+            // get data passed from Flashcard_mainActivity
+            String getArgument = getArguments().getString("back_data");
+            cardBackTxt.setText(getArgument);
+
+            // button to flip flashcard to front side of card
             btnBack = view.findViewById(R.id.buttonBack);
             btnBack.setOnClickListener(new View.OnClickListener() {
 
