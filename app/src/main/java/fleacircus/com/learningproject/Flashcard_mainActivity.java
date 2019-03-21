@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,12 +27,14 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
     // Firebase connection
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private static final String FRONT_DATA = "front_data";
+    private static final String BACK_DATA = "back_data";
+
     // variables
     private Flashcard_CardFrontFragment cardFront;
     private Flashcard_CardBackFragment cardBack;
     private String flashcardName,front, back;
-    private int cardCount;
-    private Bundle data;
+    private int cardCount, count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +44,20 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
         // retrieve intent from previous activity (Flashcard_Listview) and store data in variables
         Intent flashcardList = getIntent();
         flashcardName = flashcardList.getStringExtra("flashcard_Name");
-        front = flashcardList.getStringExtra("front_data");
-        back = flashcardList.getStringExtra("back_data");
+        front = flashcardList.getStringExtra(FRONT_DATA);
+        back = flashcardList.getStringExtra(BACK_DATA);
+        count = flashcardList.getExtras().getInt("count");
 
         // create a bundle instance and put data in a string to pass to Fragments
-        data = new Bundle();//create bundle instance
-        data.putString("front_data", front);
-        data.putString("back_data", back);
+        Bundle data = new Bundle();
+        data.putString(FRONT_DATA, front);
+        data.putString(BACK_DATA, back);
 
         // create Front and Back Fragments for Flashcard and assign data to Fragments for display on screen
         cardFront = new Flashcard_CardFrontFragment();
         cardBack = new Flashcard_CardBackFragment();
         cardFront.setArguments(data);
         cardBack.setArguments(data);
-
 
         cardCount = 1;
 
@@ -95,31 +96,31 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
 
     public void generateFlashcards() {
 
-        cardCount = 2;
+        cardCount++;
 
-        // points towards first question
-        // retrieve questions from the user's Quizzes and Quiz Name
-        DocumentReference docRef = db.collection("FlashcardSets").document(uid)
-                .collection(flashcardName + "_" + uid).document(flashcardName);
-        docRef.get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        if(cardCount<=count) {
 
-                        DocumentSnapshot snapshot = task.getResult();
+            // points towards first question
+            // retrieve questions from the user's Quizzes and Quiz Name
+            DocumentReference docRef = db.collection("FlashcardSets").document(uid)
+                    .collection(flashcardName + "_" + uid).document(flashcardName);
+            docRef.get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                        if (snapshot.exists()) {
-                                front = snapshot.getString("Card_Front_"+cardCount);
-                                back = snapshot.getString("Card_Back_"+cardCount);
-                                Log.d("mainactivity", "front data: "+ front);
-                                Log.d("mainactivity", "back data: "+ back);
-                                data.putString("front_data", front);//put string to pass with a key value
-                                data.putString("back_data", back);//put string to pass with a key value
-                                cardFront.setArguments(data);//Set bundle data to fragment
-                                cardBack.setArguments(data);
+                            DocumentSnapshot snapshot = task.getResult();
+
+                            if (snapshot.exists()) {
+                                front = snapshot.getString("Card_Front_" + cardCount);
+                                back = snapshot.getString("Card_Back_" + cardCount);
+
+                                Flashcard_CardFrontFragment fragment = Flashcard_CardFrontFragment.newInstance(front);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void flipToFrontSideCard() {
@@ -133,6 +134,8 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
 
     public void flipToReverseSideCard() {
 
+        Flashcard_CardBackFragment fragment = Flashcard_CardBackFragment.newInstance(back);
+
         // Create and commit a new fragment transaction that adds the fragment for the back of
         // the card, uses custom animations, and is part of the fragment manager's back stack.
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -141,7 +144,7 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
                 R.anim.card_flip_right_in, R.anim.card_flip_right_out,
                 R.anim.card_flip_left_in, R.anim.card_flip_left_out);
 
-        transaction.replace(R.id.container, cardBack);
+        transaction.replace(R.id.container, fragment);
 
         fragmentManager.popBackStack();
         // Add this transaction to the back stack, allowing users to press Back

@@ -34,6 +34,7 @@ public class Flashcard_ListView extends AppCompatActivity {
             .collection("flashcardList_"+uid);
     private Flashcard_ListAdapter fAdapter;
     private String front, back;
+    private int count;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class Flashcard_ListView extends AppCompatActivity {
                                 if (snapshot.exists()) {
                                     front = snapshot.getString("Card_Front_1");
                                     back = snapshot.getString("Card_Back_1");
+                                    count = snapshot.getDouble("count").intValue();
 
                         Toast.makeText(Flashcard_ListView.this,
                                 " FlashcardName: " + flashcardName, Toast.LENGTH_SHORT).show();
@@ -87,6 +89,7 @@ public class Flashcard_ListView extends AppCompatActivity {
                         intent.putExtra("flashcard_Name", String.valueOf(flashcardName));
                         intent.putExtra("front_data", String.valueOf(front));
                         intent.putExtra("back_data", String.valueOf(back));
+                        intent.putExtra("count", count);
                         startActivity(intent);
                                 }
                             }
