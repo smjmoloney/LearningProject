@@ -94,11 +94,40 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
         startActivity(intent);
     }
 
-    public void generateFlashcards() {
+    public void generateNextFlashcards() {
 
         cardCount++;
 
         if(cardCount<=count) {
+
+            // points towards first question
+            // retrieve questions from the user's Quizzes and Quiz Name
+            DocumentReference docRef = db.collection("FlashcardSets").document(uid)
+                    .collection(flashcardName + "_" + uid).document(flashcardName);
+            docRef.get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                            DocumentSnapshot snapshot = task.getResult();
+
+                            if (snapshot.exists()) {
+                                front = snapshot.getString("Card_Front_" + cardCount);
+                                back = snapshot.getString("Card_Back_" + cardCount);
+
+                                Flashcard_CardFrontFragment fragment = Flashcard_CardFrontFragment.newInstance(front);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+                            }
+                        }
+                    });
+        }
+    }
+
+    public void generatePrevFlashcards() {
+
+        cardCount--;
+
+        if(cardCount!=0) {
 
             // points towards first question
             // retrieve questions from the user's Quizzes and Quiz Name

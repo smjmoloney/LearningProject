@@ -54,17 +54,19 @@ public class Flashcard_CardFrontFragment extends Fragment {
                     frontTxt = cardFrontTxt.getText().toString();
                     // attach it with method to flashcard activity
                     listener.userInputFrontSent(frontTxt);
+                    // call method from parent Activity
                     // flip flashcard to reverse side of card
                     ((Flashcard_create_Cards)getActivity()).flipToReverseSideCard();
                 }
 
             });
 
-            // use Floating Action Button to add questions
-            FloatingActionButton fab = view.findViewById(R.id.saveFlashcardBtn);
-            fab.setOnClickListener(new View.OnClickListener() {
+            // use Floating Action Button to add flashcard details
+            FloatingActionButton save = view.findViewById(R.id.saveFlashcardBtn);
+            save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // call method from parent Activity
                     ((Flashcard_create_Cards)getActivity()).saveFlashcard();
                 }
             });
@@ -85,21 +87,30 @@ public class Flashcard_CardFrontFragment extends Fragment {
         btnFront.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
+                // call method from parent Activity
                 ((Flashcard_mainActivity) getActivity()).flipToReverseSideCard();
             }
         });
 
-        // use Floating Action Button to add questions
-        FloatingActionButton fab = view.findViewById(R.id.nextFlashcardBtn);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // use Floating Action Button to go to next Flashcard
+        FloatingActionButton next = view.findViewById(R.id.nextFlashcardBtn);
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((Flashcard_mainActivity)getActivity()).generateFlashcards();
+                // call method from parent Activity
+                ((Flashcard_mainActivity)getActivity()).generateNextFlashcards();
             }
         });
 
-
+        // use Floating Action Button to go to previous Flashcard
+        FloatingActionButton prev = view.findViewById(R.id.beforeFlashcardBtn);
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // call method from parent Activity
+                ((Flashcard_mainActivity)getActivity()).generatePrevFlashcards();
+            }
+        });
 
         return view;
     }

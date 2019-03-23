@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -18,7 +21,7 @@ import fleacircus.com.learningproject.Quiz.Quiz_Listing;
 import fleacircus.com.learningproject.Quiz.Quiz_ListAdapter;
 
 
-public class Quiz_Listview extends AppCompatActivity {
+public class Quiz_ListView extends AppCompatActivity {
 
     private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -58,10 +61,10 @@ public class Quiz_Listview extends AppCompatActivity {
 
                 // retrieve document ID (quizName)
                 String id = documentSnapshot.getId();
-                Toast.makeText(Quiz_Listview.this,
+                Toast.makeText(Quiz_ListView.this,
                         " QuizName: " + id, Toast.LENGTH_SHORT).show();
                 // create a new intent to start new activity
-                Intent intent = new Intent(Quiz_Listview.this, Quiz_mainActivity.class);
+                Intent intent = new Intent(Quiz_ListView.this, Quiz_mainActivity.class);
                 // store and pass over quizName to new activity
                 intent.putExtra("qName", String.valueOf(id));
                 startActivity(intent);
@@ -77,5 +80,28 @@ public class Quiz_Listview extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         qAdapter.stopListening();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.quiz_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.exit_quiz:
+                ExitQuiz();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void ExitQuiz() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }

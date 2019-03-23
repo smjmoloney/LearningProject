@@ -61,7 +61,7 @@ public class Flashcard_create_NameDialogBox extends AppCompatDialogFragment {
 
                         // get the User ID
                         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        
+
                         // include a basic zero count for number of questions
                         Map<String, Object> card = new HashMap<>();
                         card.put("count", 0);
