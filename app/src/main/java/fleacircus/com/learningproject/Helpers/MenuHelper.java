@@ -46,9 +46,6 @@ public class MenuHelper {
 
     public static void onOptionsItemSelected(AppCompatActivity activity, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_find:
-                activity.startActivity(new Intent(activity, FindUserActivity.class));
-                break;
             case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
                 CustomUser.updateInstance(new CustomUser());

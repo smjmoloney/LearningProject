@@ -1,5 +1,9 @@
 package fleacircus.com.learningproject.Adapters;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.FoundUserActivity;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.R;
 
@@ -25,9 +32,17 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        @OnClick
+        void onClick(View view) {
+            Log.e("POS", getAdapterPosition() + ""); //clicked item position
+
+            Context context = view.getContext();
+            context.startActivity(new Intent(context, FoundUserActivity.class));
         }
     }
-
 
     public FindUserAdapter(List<CustomUser> users) {
         temp = users;

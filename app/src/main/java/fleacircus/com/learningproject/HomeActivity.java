@@ -185,8 +185,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setFindUsers(String text) {
-        find.setAdapter(new FindUserAdapter(null));
-
         if (text.length() < 1)
             return;
 
