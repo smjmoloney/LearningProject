@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".FoundUserActivity"></activity>
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="sensorPortrait">
@@ -28,6 +27,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserCreationActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FoundUserActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
