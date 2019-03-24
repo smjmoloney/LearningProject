@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">LearningProject</string>
+    <string name="action_find">Find Users</string>
+    <string name="action_logout">Logout</string>
+
+    <!-- Form Strings -->
+    <string name="submit_button">SUBMIT</string>
+
+    <!-- Login Strings -->
+    <string name="prompt_sign">Don\'t have an account? Sign up.</string>
+    <string name="prompt_login">Already have an account? Log in.</string>
+    <string name="placeholder_email">Email</string>
+    <string name="placeholder_password">Password</string>
+    <string name="placeholder_confirm_password">Confirm Password</string>
+    <string name="prompt_failure">Some fields are empty or incorrect.</string>
+    <string name="dialog_confirm">Signing in…</string>
+
+    <!-- Sign Strings -->
+    <string name="message_email">Please enter a valid email address.</string>
+    <string name="message_password">Password must be at least 8 characters.</string>
+    <string name="message_confirm_password">Passwords do not match.</string>
+    <string name="message_email_usage">Email is already in use.</string>
+    <string name="dialog_confirm_sign">Signing up…</string>
+    <string name="dialog_confirm_update">Updating…</string>
+
+    <!-- Setup Strings -->
+    <string name="question_student">ARE YOU A STUDENT OR A TEACHER?</string>
+    <string name="answer_student">STUDENT</string>
+    <string name="answer_teacher">TEACHER</string>
+
+    <string name="question_school_teacher">DO YOU TEACH IN A COLLEGE OR SCHOOL?</string>
+    <string name="question_school">DO YOU ATTEND A COLLEGE OR SCHOOL?</string>
+    <string name="answer_college">COLLEGE</string>
+    <string name="answer_school">SCHOOL</string>
+
+    <string name="question_location_teacher">IN WHICH %1$s DO YOU TEACH?</string>
+    <string name="question_location">WHICH %1$s DO YOU ATTEND?</string>
+    <string name="question_course">WHICH COURSE DO YOU ATTEND?</string>
+
+    <string name="question_name">PLEASE ENTER YOUR NAME</string>
+    <string name="placeholder_name">Name</string>
+    <string name="message_name">Name must be at least 3 characters.</string>
+
+    <!-- SEARCH & FILTER -->
+    <string name="location">LOCATION</string>
+    <string name="course">COURSE</string>
+    <string name="users_find">Search for users…</string>
+</resources>

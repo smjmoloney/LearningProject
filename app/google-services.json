@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "975777597690",
+    "firebase_url": "https://learningproject-master.firebaseio.com",
+    "project_id": "learningproject-master",
+    "storage_bucket": "learningproject-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975777597690:android:0459359048dea3e9",
+        "android_client_info": {
+          "package_name": "fleacircus.com.learingprojectclean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975777597690-nbt6pt6uhk09caar25b5o0e61fi0v8js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fleacircus.com.learingprojectclean",
+            "certificate_hash": "e42f351c010cc5f6674fc5b1faa1f00e7a8cf794"
+          }
+        },
+        {
+          "client_id": "975777597690-7bm32epa1ntcdng0d1rairdp6137hs6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBm69b6lf1cjlO17ciQgnJw7IOdPsb2g8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975777597690-7bm32epa1ntcdng0d1rairdp6137hs6n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975777597690:android:74564be00866b8c6",
+        "android_client_info": {
+          "package_name": "fleacircus.com.learningproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975777597690-v6u37l3ket1t932ua50rnljllgq758qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fleacircus.com.learningproject",
+            "certificate_hash": "f559b02fef1e427fc2a39fbce6f70da798eb4996"
+          }
+        },
+        {
+          "client_id": "975777597690-7bm32epa1ntcdng0d1rairdp6137hs6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBm69b6lf1cjlO17ciQgnJw7IOdPsb2g8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975777597690-7bm32epa1ntcdng0d1rairdp6137hs6n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
