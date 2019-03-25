@@ -122,6 +122,19 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         String l = StringUtils.capitliseEach(user.getLocation());
         TextView location = view.findViewById(R.id.location);
         location.setText(l);
+
+        String college = StringUtils.toLowerCase(
+                holder.itemView.getContext().getString(R.string.answer_college));
+
+        String student = StringUtils.toLowerCase(
+                holder.itemView.getContext().getString(R.string.answer_student));
+
+        if (!user.getCollegeSchool().equals(college) || !user.getTeacherStudent().equals(student))
+            return;
+
+        String c = StringUtils.capitliseEach(user.getCourse());
+        TextView course = view.findViewById(R.id.course);
+        course.setText(c);
     }
 
     @Override
