@@ -27,28 +27,13 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
 
-    private List<CustomUser> mUsers;
+    private static List<CustomUser> mUsers;
     private List<CustomUser> users = new ArrayList<>();
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
-
-        @OnClick
-        void onClick(View view) {
-            Activity activity = (Activity) view.getContext();
-
-            Intent intent = new Intent(activity, FoundUserActivity.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                ImageView image = view.findViewById(R.id.image_profile);
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, image, "image_profile");
-
-                activity.startActivity(intent, options.toBundle());
-            } else
-                activity.startActivity(intent);
         }
     }
 
@@ -97,6 +82,22 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         return results;
     }
 
+    private void onClick(CustomUser user, View view) {
+        Activity activity = (Activity) view.getContext();
+
+        Intent intent = new Intent(activity, FoundUserActivity.class);
+        intent.putExtra("user", user);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            ImageView image = view.findViewById(R.id.image_profile);
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(activity, image, "image_profile");
+
+            activity.startActivity(intent, options.toBundle());
+        } else
+            activity.startActivity(intent);
+    }
+
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -108,6 +109,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = users.get(position);
         View view = holder.itemView;
+        view.setOnClickListener(v -> onClick(user, view));
 
         ImageView image = view.findViewById(R.id.image_profile);
 

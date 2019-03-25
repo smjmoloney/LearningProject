@@ -1,8 +1,10 @@
 package fleacircus.com.learningproject.Classes;
 
+import java.io.Serializable;
+
 import fleacircus.com.learningproject.Utils.StringUtils;
 
-public class CustomUser {
+public class CustomUser implements Serializable {
     private static final CustomUser ourInstance = new CustomUser();
 
     private String teacherStudent, collegeSchool, location, course;
