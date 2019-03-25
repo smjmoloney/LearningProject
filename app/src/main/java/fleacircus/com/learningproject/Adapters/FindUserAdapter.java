@@ -1,8 +1,8 @@
 package fleacircus.com.learningproject.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,8 +27,8 @@ import fleacircus.com.learningproject.R;
 
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
 
+    private List<CustomUser> mUsers;
     private List<CustomUser> users = new ArrayList<>();
-    private List<CustomUser> temp;
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
@@ -37,15 +38,22 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
 
         @OnClick
         void onClick(View view) {
-            Log.e("POS", getAdapterPosition() + ""); //clicked item position
+            Activity activity = (Activity) view.getContext();
 
-            Context context = view.getContext();
-            context.startActivity(new Intent(context, FoundUserActivity.class));
+            Intent intent = new Intent(activity, FoundUserActivity.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                ImageView image = view.findViewById(R.id.image_profile);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(activity, image, "image_profile");
+
+                activity.startActivity(intent, options.toBundle());
+            } else
+                activity.startActivity(intent);
         }
     }
 
     public FindUserAdapter(List<CustomUser> users) {
-        temp = users;
+        mUsers = users;
     }
 
     @Override
@@ -60,7 +68,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                List<CustomUser> filteredResults = temp;
+                List<CustomUser> filteredResults = mUsers;
                 if (constraint.length() > 0)
                     filteredResults = getFilteredResults(constraint.toString().toLowerCase());
 
@@ -76,7 +84,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         List<CustomUser> results = new ArrayList<>();
 
         constraint = constraint.toLowerCase();
-        for (CustomUser item : temp) {
+        for (CustomUser item : mUsers) {
             boolean name = item.getName() != null && item.getName().contains(constraint);
             boolean course = item.getCourse() != null && item.getCourse().contains(constraint);
             boolean email = item.getEmail() != null && item.getEmail().contains(constraint);
