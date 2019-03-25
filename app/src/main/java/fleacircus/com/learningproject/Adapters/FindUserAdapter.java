@@ -3,7 +3,6 @@ package fleacircus.com.learningproject.Adapters;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.FoundUserActivity;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
 
@@ -115,11 +115,13 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         if (imageID != 0)
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
 
+        String n = StringUtils.capitliseEach(user.getName());
         TextView name = view.findViewById(R.id.name);
-        name.setText(user.getName());
+        name.setText(n);
 
+        String l = StringUtils.capitliseEach(user.getLocation());
         TextView location = view.findViewById(R.id.location);
-        location.setText(user.getEmail());
+        location.setText(l);
     }
 
     @Override

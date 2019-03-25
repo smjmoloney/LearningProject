@@ -17,4 +17,20 @@ public class StringUtils {
 
         return null;
     }
+
+    public static String capitliseEach(String temp) {
+        String[] words = temp.split(" ");
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1).toLowerCase();
+
+            if (i > 0)
+                result.append(" ");
+
+            result.append(words[i]);
+        }
+
+        return result.toString();
+    }
 }

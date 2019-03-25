@@ -40,7 +40,7 @@ public class CollegeSchoolFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.school_layout)
     void schoolLayout() {
-        CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_college));
+        CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_school));
 
         UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
         //noinspection ConstantConditions

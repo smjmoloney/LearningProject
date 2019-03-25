@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -39,6 +41,10 @@ public class NameFragment extends Fragment {
             messageName.setText(R.string.message_name);
             return;
         }
+
+        //noinspection ConstantConditions
+        String e = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        CustomUser.getInstance().setEmail(e);
 
         String n = name.getText().toString();
         CustomUser.getInstance().setName(n);
