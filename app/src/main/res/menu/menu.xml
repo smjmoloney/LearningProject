@@ -3,18 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="fleacircus.com.learningproject.HomeActivity">
     <item
-        android:id="@+id/action_find"
-        android:title="@string/action_find"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

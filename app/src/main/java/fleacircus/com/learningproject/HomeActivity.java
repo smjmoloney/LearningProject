@@ -1,16 +1,12 @@
 package fleacircus.com.learningproject;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.LayoutAnimationController;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,14 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import fleacircus.com.learningproject.Adapters.CourseAdapter;
-import fleacircus.com.learningproject.Adapters.FindUserAdapter;
 import fleacircus.com.learningproject.Adapters.GridImageAdapter;
 import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -56,15 +50,10 @@ public class HomeActivity extends AppCompatActivity {
     TextView course;
     @BindView(R.id.courses)
     RecyclerView courses;
-    @BindView(R.id.find)
-    RecyclerView find;
     @BindView(R.id.grid)
     GridView grid;
     @BindView(R.id.cover)
     View cover;
-
-    long animationDuration = 500;
-    float coverAlpha = .75f;
 
     /*
      * Temporary method allowing us to test various animations as
@@ -73,24 +62,24 @@ public class HomeActivity extends AppCompatActivity {
      */
     @OnClick(R.id.image_profile)
     void imageClick() {
-        //noinspection ConstantConditions
-        Parcelable recyclerViewState = courses.getLayoutManager().onSaveInstanceState();
-
-        /*
-         * Animate items within our recycler view
-         */
-        Context context = courses.getContext();
-        LayoutAnimationController controller = CustomAnimationUtils.loadLayoutAnimation(context, R.anim.layout_up);
-
-        courses.setLayoutAnimation(controller);
-        courses.scheduleLayoutAnimation();
-
-        if (recyclerViewState != null)
-            courses.getLayoutManager().onRestoreInstanceState(recyclerViewState);
-
-        /*
-         * Animate all other items currently on screen
-         */
+//        //noinspection ConstantConditions
+//        Parcelable recyclerViewState = courses.getLayoutManager().onSaveInstanceState();
+//
+//        /*
+//         * Animate items within our recycler view
+//         */
+//        Context context = courses.getContext();
+//        LayoutAnimationController controller = CustomAnimationUtils.loadLayoutAnimation(context, R.anim.layout_up);
+//
+//        courses.setLayoutAnimation(controller);
+//        courses.scheduleLayoutAnimation();
+//
+//        if (recyclerViewState != null)
+//            courses.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+//
+//        /*
+//         * Animate all other items currently on screen
+//         */
 //        Animation right = CustomAnimationUtils.loadAnimation(this, R.anim.animation_slide_right);
 //        right.setDuration(animationDuration);
 //
@@ -105,140 +94,42 @@ public class HomeActivity extends AppCompatActivity {
 //        course.startAnimation(left);
     }
 
-    private void findClick(boolean isVisible) {
-        View activityContent = findViewById(android.R.id.content);
-//        View menuItem = findViewById(R.id.action_search);
-        Animator anim = CustomAnimationUtils.circleAnimation(
-                activityContent,
-//                menuItem,
-                find,
-                animationDuration,
-                isVisible);
-
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                if (isVisible)
-                    find.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        if (!isVisible) {
-            find.setVisibility(View.VISIBLE);
-
-            cover.setAlpha(0);
-            cover.animate().alpha(coverAlpha).setDuration(animationDuration / 2);
-        } else {
-            cover.setAlpha(coverAlpha);
-            cover.animate().alpha(0).setDuration(animationDuration * 2);
-        }
-    }
-
     @OnClick(R.id.fab)
     void fabClick() {
-        View activityContent = findViewById(android.R.id.content);
-//        FloatingActionButton fab = findViewById(R.id.fab);
+        long duration = (long) getResources().getInteger(R.integer.duration_default);
+        float alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
 
+        View content = findViewById(android.R.id.content);
         CustomAnimationUtils.circleAnimation(
-                activityContent,
-//                fab,
+                content,
                 grid,
-                animationDuration,
+                duration,
                 false);
 
         grid.setVisibility(View.VISIBLE);
-
-        cover.setAlpha(0f);
-        cover.animate().alpha(coverAlpha).setDuration(animationDuration / 2);
+        CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2);
     }
 
     @OnItemClick(R.id.grid)
     void itemClick(int position) {
-        View activityContent = findViewById(android.R.id.content);
-//        FloatingActionButton fab = findViewById(R.id.fab);
+        long duration = (long) getResources().getInteger(R.integer.duration_default);
+        float alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
 
+        View content = findViewById(android.R.id.content);
         Animator anim = CustomAnimationUtils.circleAnimation(
-                activityContent,
-//                fab,
+                content,
                 grid,
-                animationDuration,
+                duration,
                 true);
 
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                grid.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        cover.setAlpha(coverAlpha);
-        cover.animate().alpha(0).setDuration(animationDuration * 2);
+        CustomAnimationUtils.visibilityListener(anim, grid, false);
+        CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2);
 
         CustomUser.getInstance().setImageID(position);
         CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
 
         int drawable = (int) grid.getAdapter().getItem(position);
         image.setImageResource(drawable);
-    }
-
-    private void setFindUsers(String text) {
-        if (text.length() < 1)
-            return;
-
-        String[] collection = new String[]{"users"};
-//        String[][] filters = new String[][]{
-//                {"name", text},
-//                {"location", text}
-//        };
-
-        CustomDatabaseUtils.read(collection, new OnGetDataListener() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(Object object, boolean isQuery) {
-                try {
-                    if (isQuery) {
-                        List<CustomUser> mDataset = new ArrayList<>();
-
-                        /*
-                         * The above list is populated by a QueryDocumentSnapshot
-                         * which retrieves all documents within a collection. Each
-                         * document/object is converted into a CustomUser class
-                         * and added.
-                         */
-                        for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
-                            CustomUser u = q.toObject(CustomUser.class);
-                            mDataset.add(u);
-                        }
-
-                        /*
-                         * The {@link RecyclerHelper#setRecyclerView(Context, View, RecyclerView.Adapter)}
-                         * method will apply the provided data set to the given adapter which
-                         * is then presented using our recycler view. This method is and will be
-                         * used frequently, thus it has been placed within a helper class.
-                         */
-                        RecyclerView.Adapter adapter = new FindUserAdapter(mDataset);
-                        ((FindUserAdapter) adapter).getFilter().filter(text);
-
-                        RecyclerHelper.setRecyclerView(getApplicationContext(), find, adapter);
-                    } else
-                        Log.e("OnSuccess", object + " must be a query.");
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailed(FirebaseFirestoreException databaseError) {
-                Log.e("FirebaseFirestoreEx", databaseError.toString());
-            }
-        });
     }
 
     /**
@@ -371,14 +262,12 @@ public class HomeActivity extends AppCompatActivity {
             View content = findViewById(android.R.id.content);
             ButterKnife.bind(HomeActivity.this, content);
 
-            setCurrentUser();
-
             cover.bringToFront();
-            ((View) find.getParent()).bringToFront();
-            ((View) grid.getParent()).bringToFront();
 
+            ((View) grid.getParent()).bringToFront();
             grid.setAdapter(new GridImageAdapter(getApplicationContext()));
-            find.setAdapter(new FindUserAdapter(null));
+
+            setCurrentUser();
         });
     }
 
@@ -390,39 +279,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuHelper.onCreateOptionsMenu(this, menu, true);
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                MenuHelper.toggleMenuVisibility(menu, false);
-                findClick(false);
-
-                SearchView searchView = (SearchView) searchItem.getActionView();
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        setFindUsers(searchView.getQuery().toString());
-                        return false;
-                    }
-                });
-
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                invalidateOptionsMenu();
-                findClick(true);
-
-                return true;
-            }
-        });
+        MenuHelper.onCreateOptionsMenuSearch(menu, menu.findItem(R.id.action_search), this);
 
         return super.onCreateOptionsMenu(menu);
     }

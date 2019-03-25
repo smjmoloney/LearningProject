@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">LearningProject</string>
-    <string name="action_find">Find Users</string>
     <string name="action_logout">Logout</string>
 
     <!-- Form Strings -->

@@ -1,6 +1,7 @@
 package fleacircus.com.learningproject.Utils;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
@@ -81,5 +82,20 @@ public class CustomAnimationUtils extends AnimationUtils {
                 ViewAnimationUtils.createCircularReveal(revealedView, cLocation[0], cLocation[1], start, end),
                 animationDuration
         );
+    }
+
+    public static void alphaAnimation(View view, float start, float end, long duration) {
+        view.setAlpha(start);
+        view.animate().alpha(end).setDuration(duration);
+    }
+
+    public static void visibilityListener(Animator animatior, View view, boolean isVisibleOnEnd) {
+        animatior.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                view.setVisibility((isVisibleOnEnd) ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
     }
 }
