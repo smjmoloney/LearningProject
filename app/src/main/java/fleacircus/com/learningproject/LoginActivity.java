@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import fleacircus.com.learningproject.Classes.CustomViewPager;
 import fleacircus.com.learningproject.Login.LoginFragment;
 import fleacircus.com.learningproject.Login.SignFragment;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
@@ -19,9 +20,9 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
 
-    public ViewPager getViewPager() {
+    public CustomViewPager getViewPager() {
         return viewPager;
     }
 
@@ -31,9 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         adapter.addFragment(new SignFragment());
 
         viewPager = findViewById(R.id.container);
+        viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
 
-        NavigationUtils.disableDragging(viewPager);
+//        NavigationUtils.disableDragging(viewPager);
     }
 
     @Override

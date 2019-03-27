@@ -15,11 +15,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.Classes.CustomViewPager;
 import fleacircus.com.learningproject.Helpers.FragmentHelper;
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.HomeActivity;
@@ -34,12 +34,11 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.message_confirm)
     TextView messageConfirm;
 
-
     @OnClick(R.id.button_submit)
     void validateLogin() {
         LoginActivity loginActivity = (LoginActivity) getActivity();
         //noinspection ConstantConditions
-        ViewPager viewPager = loginActivity.getViewPager();
+        CustomViewPager viewPager = loginActivity.getViewPager();
 
         TextView email = viewPager.findViewById(R.id.email);
         TextView password = viewPager.findViewById(R.id.password);

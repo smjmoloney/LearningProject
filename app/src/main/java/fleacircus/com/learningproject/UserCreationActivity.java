@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import fleacircus.com.learningproject.Classes.CustomViewPager;
 import fleacircus.com.learningproject.UserCreation.CollegeSchoolFragment;
 import fleacircus.com.learningproject.UserCreation.CourseFragment;
 import fleacircus.com.learningproject.UserCreation.LocationFragment;
@@ -22,9 +23,9 @@ public class UserCreationActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
 
-    public ViewPager getViewPager() {
+    public CustomViewPager getViewPager() {
         return viewPager;
     }
 
@@ -37,9 +38,10 @@ public class UserCreationActivity extends AppCompatActivity {
         adapter.addFragment(new NameFragment());
 
         viewPager = findViewById(R.id.container);
+        viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
 
-        NavigationUtils.disableDragging(viewPager);
+//        NavigationUtils.disableDragging(viewPager);
     }
 
     @Override
