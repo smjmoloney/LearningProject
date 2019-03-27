@@ -40,8 +40,6 @@ public class UserCreationActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.container);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
-
-//        NavigationUtils.disableDragging(viewPager);
     }
 
     @Override
