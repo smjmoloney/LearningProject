@@ -37,6 +37,7 @@ public class GridImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(context);
         imageView.setImageResource((int) getItem(position));
+        
         return imageView;
     }
 }

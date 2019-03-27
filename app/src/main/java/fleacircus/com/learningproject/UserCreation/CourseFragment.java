@@ -18,6 +18,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,17 +34,21 @@ public class CourseFragment extends Fragment {
     @BindView(R.id.spinner)
     Spinner spinner;
 
+    private ViewPager viewPager;
+
     public CourseFragment() {
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        viewPager = userCreationActivity.getViewPager();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.button_submit)
     void courseClick() {
-        CustomUser.getInstance().setCourse(spinner.getSelectedItem().toString());
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setCourse(spinner.getSelectedItem().toString());
 
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
+        FragmentHelper.progressFragment(viewPager, 1);
     }
 
     private void selectCourse() {
@@ -61,19 +66,20 @@ public class CourseFragment extends Fragment {
                         if (!documentSnapshot.exists())
                             return;
 
-                        String loc = CustomUser.getInstance().getLocation();
-                        Object names = documentSnapshot.get(loc);
+                        String location = CustomUser.getInstance().getLocation();
+                        Object names = documentSnapshot.get(location);
                         if (!(names instanceof ArrayList))
                             return;
 
                         List<String> courses = new ArrayList<>();
-                        for (Object obj : (ArrayList) names)
-                            if (obj instanceof String)
-                                courses.add((String) obj);
+                        for (Object o : (ArrayList) names)
+                            if (o instanceof String)
+                                courses.add((String) o);
 
+                        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
                         //noinspection ConstantConditions
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                getActivity(),
+                                userCreationActivity,
                                 R.layout.item_spinner,
                                 courses);
                         spinner.setAdapter(adapter);
@@ -99,11 +105,10 @@ public class CourseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course, container, false);
-        ButterKnife.bind(this, view);
-
         if (CustomUser.getInstance().getLocation() == null)
             return view;
 
+        ButterKnife.bind(this, view);
         selectCourse();
 
         return view;
@@ -112,7 +117,6 @@ public class CourseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         FragmentUtils.refreshFragment(getFragmentManager(), this);
     }
 }

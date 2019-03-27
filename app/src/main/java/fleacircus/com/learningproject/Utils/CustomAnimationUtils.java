@@ -8,29 +8,27 @@ import android.view.animation.AnimationUtils;
 import io.codetail.animation.ViewAnimationUtils;
 
 public class CustomAnimationUtils extends AnimationUtils {
-    public static Animator startAnimator(Animator anim, long animationDuration) {
+    private static Animator startAnimator(Animator anim, long animationDuration) {
         anim.setDuration(animationDuration);
         anim.start();
 
         return anim;
     }
 
-    public static Animator circleAnimation(View activityContent,
+    public static Animator circleAnimation(View content,
                                            View clickedView,
                                            View revealedView,
                                            long animationDuration,
-                                           boolean isVisible) {
+                                           boolean isVisibleOnEnd) {
         int cx = (clickedView.getLeft() + clickedView.getRight()) / 2;
         int cy = (clickedView.getTop() + clickedView.getBottom()) / 2;
 
-        int radius = Math.max(activityContent.getWidth(), activityContent.getHeight());
+        int start = 0, end = 0;
+        int radius = Math.max(content.getWidth(), content.getHeight());
 
-        int start = 0;
-        if (isVisible)
+        if (isVisibleOnEnd)
             start = radius;
-
-        int end = 0;
-        if (!isVisible)
+        else
             end = radius;
 
         return CustomAnimationUtils.startAnimator(
@@ -39,21 +37,19 @@ public class CustomAnimationUtils extends AnimationUtils {
         );
     }
 
-    public static Animator circleAnimation(View activityContent,
+    public static Animator circleAnimation(View content,
                                            View revealedView,
                                            long animationDuration,
-                                           boolean isVisible) {
-        int radius = Math.max(activityContent.getWidth(), activityContent.getHeight());
+                                           boolean isVisibleOnEnd) {
+        int start = 0, end = 0;
+        int radius = Math.max(content.getWidth(), content.getHeight());
 
-        int start = 0;
-        if (isVisible)
+        if (isVisibleOnEnd)
             start = radius;
-
-        int end = 0;
-        if (!isVisible)
+        else
             end = radius;
 
-        int x = activityContent.getWidth() / 2;
+        int x = content.getWidth() / 2;
         return CustomAnimationUtils.startAnimator(
                 ViewAnimationUtils.createCircularReveal(revealedView, x, 0, start, end),
                 animationDuration
@@ -68,14 +64,12 @@ public class CustomAnimationUtils extends AnimationUtils {
         int[] cLocation = new int[2];
         clickedView.getLocationOnScreen(cLocation);
 
+        int start = 0, end = 0;
         int radius = Math.max(activityContent.getWidth(), activityContent.getHeight());
 
-        int start = 0;
         if (isVisible)
             start = radius;
-
-        int end = 0;
-        if (!isVisible)
+        else
             end = radius;
 
         return CustomAnimationUtils.startAnimator(
@@ -89,8 +83,8 @@ public class CustomAnimationUtils extends AnimationUtils {
         view.animate().alpha(end).setDuration(duration);
     }
 
-    public static void visibilityListener(Animator animatior, View view, boolean isVisibleOnEnd) {
-        animatior.addListener(new AnimatorListenerAdapter() {
+    public static void visibilityListener(Animator animator, View view, boolean isVisibleOnEnd) {
+        animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);

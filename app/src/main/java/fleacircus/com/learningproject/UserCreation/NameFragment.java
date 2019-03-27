@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.HomeActivity;
@@ -36,20 +35,22 @@ public class NameFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.button_submit)
     void nameClick() {
-        boolean l = InputValidationUtils.validateLength(name.getText().toString(), 3);
-        if (l) {
+        boolean length = InputValidationUtils.validateLength(name.getText().toString(), 3);
+        if (length) {
             messageName.setText(R.string.message_name);
             return;
         }
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         //noinspection ConstantConditions
-        String e = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        CustomUser.getInstance().setEmail(e);
-
+        String e = auth.getCurrentUser().getEmail();
         String n = name.getText().toString();
-        CustomUser.getInstance().setName(n);
 
-        CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setEmail(e);
+        customUser.setName(n);
+
+        CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
         startActivity(new Intent(getActivity(), HomeActivity.class));
     }
 
@@ -60,16 +61,12 @@ public class NameFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_name, container, false);
-        ButterKnife.bind(this, view);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_name, container, false);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         FragmentUtils.refreshFragment(getFragmentManager(), this);
     }
 }

@@ -33,4 +33,10 @@ public class StringUtils {
 
         return result.toString();
     }
+
+    public static boolean hasMatch(String a, String b) {
+        a = toLowerCase(a);
+        b = toLowerCase(b);
+        return a.equals(b);
+    }
 }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -21,30 +21,31 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CollegeSchoolFragment extends Fragment {
-    @BindView(R.id.question_text)
-    TextView question;
+
+    private ViewPager viewPager;
 
     public CollegeSchoolFragment() {
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        viewPager = userCreationActivity.getViewPager();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.college_layout)
     void collegeClick() {
-        CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_college));
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setCollegeSchool(getString(R.string.answer_college));
 
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
+        FragmentHelper.progressFragment(viewPager, 1);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.school_layout)
     void schoolLayout() {
-        CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_school));
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setCollegeSchool(getString(R.string.answer_school));
 
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
+        FragmentHelper.progressFragment(viewPager, 1);
     }
 
     @Override
@@ -55,15 +56,23 @@ public class CollegeSchoolFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_college_school, container, false);
+
+        CustomUser customUser = CustomUser.getInstance();
+        if (customUser.getTeacherStudent() == null)
+            return view;
+
         ButterKnife.bind(this, view);
 
-        if (CustomUser.getInstance().getTeacherStudent() != null) {
-            String teacher = StringUtils.toLowerCase(getString(R.string.answer_teacher));
-            if (CustomUser.getInstance().getTeacherStudent().equals(teacher)) {
-                String temp = getString(R.string.question_school_teacher);
-                question.setText(temp);
-            }
-        }
+        String status = CustomUser.getInstance().getTeacherStudent();
+        String answer = getString(R.string.answer_teacher);
+        boolean match = StringUtils.hasMatch(status, answer);
+        if (!match)
+            return view;
+
+        String teacher = getString(R.string.question_school_teacher);
+
+        TextView question = viewPager.findViewById(R.id.question_text);
+        question.setText(teacher);
 
         return view;
     }
@@ -71,7 +80,6 @@ public class CollegeSchoolFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         FragmentUtils.refreshFragment(getFragmentManager(), this);
     }
 }

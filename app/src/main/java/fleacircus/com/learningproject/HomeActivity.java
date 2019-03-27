@@ -42,14 +42,6 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.image_profile)
     ImageView image;
-    @BindView(R.id.name)
-    TextView name;
-    @BindView(R.id.location)
-    TextView location;
-    @BindView(R.id.course)
-    TextView course;
-    @BindView(R.id.courses)
-    RecyclerView courses;
     @BindView(R.id.grid)
     GridView grid;
     @BindView(R.id.cover)
@@ -106,8 +98,8 @@ public class HomeActivity extends AppCompatActivity {
                 duration,
                 false);
 
-        grid.setVisibility(View.VISIBLE);
         CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2);
+        grid.setVisibility(View.VISIBLE);
     }
 
     @OnItemClick(R.id.grid)
@@ -125,8 +117,10 @@ public class HomeActivity extends AppCompatActivity {
         CustomAnimationUtils.visibilityListener(anim, grid, false);
         CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2);
 
-        CustomUser.getInstance().setImageID(position);
-        CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setImageID(position);
+
+        CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
 
         int drawable = (int) grid.getAdapter().getItem(position);
         image.setImageResource(drawable);
@@ -140,6 +134,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void setCourses() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
         //noinspection ConstantConditions
         String uid = auth.getCurrentUser().getUid();
         String[] collection = new String[]{"users", uid, "courses"};
@@ -173,6 +168,7 @@ public class HomeActivity extends AppCompatActivity {
                          * is then presented using our recycler view. This method is and will be
                          * used frequently, thus it has been placed within a helper class.
                          */
+                        RecyclerView courses = findViewById(R.id.courses);
                         RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
@@ -190,6 +186,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setCurrentUser() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
         //noinspection ConstantConditions
         String uid = auth.getCurrentUser().getUid();
         String[] document = new String[]{"users", uid};
@@ -218,12 +215,16 @@ public class HomeActivity extends AppCompatActivity {
 
                         String n = StringUtils.toUpperCase(user.getName());
                         String l = StringUtils.toUpperCase(user.getLocation());
+                        TextView name = findViewById(R.id.name);
+                        TextView location = findViewById(R.id.location);
                         name.setText(n);
                         location.setText(l);
 
                         String c = user.getCollegeSchool();
-                        if (c.equals(StringUtils.toLowerCase(getString(R.string.answer_college))))
+                        if (StringUtils.hasMatch(c, getString(R.string.answer_college))) {
+                            TextView course = findViewById(R.id.course);
                             course.setText(StringUtils.toUpperCase(user.getCourse()));
+                        }
 
                         int imageID = user.getImageID();
                         if (imageID != 0)
@@ -264,8 +265,11 @@ public class HomeActivity extends AppCompatActivity {
 
             cover.bringToFront();
 
-            ((View) grid.getParent()).bringToFront();
-            grid.setAdapter(new GridImageAdapter(getApplicationContext()));
+            View parent = (View) grid.getParent();
+            parent.bringToFront();
+
+            GridImageAdapter gridImageAdapter = new GridImageAdapter(getApplicationContext());
+            grid.setAdapter(gridImageAdapter);
 
             setCurrentUser();
         });
@@ -280,7 +284,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuHelper.onCreateOptionsMenu(this, menu, true);
         MenuHelper.onCreateOptionsMenuSearch(menu, menu.findItem(R.id.action_search), this);
-
         return super.onCreateOptionsMenu(menu);
     }
 

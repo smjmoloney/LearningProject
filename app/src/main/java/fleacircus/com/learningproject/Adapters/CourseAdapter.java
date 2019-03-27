@@ -14,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.Utils.ColorUtils;
+import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
@@ -25,7 +27,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
             super(itemView);
         }
     }
-
 
     public CourseAdapter(List<CustomCourse> courses) {
         this.courses = courses;
@@ -47,27 +48,30 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         CustomCourse course = courses.get(position);
         View view = holder.itemView;
 
-        TextView crs = view.findViewById(R.id.course);
-        crs.setText(course.getName());
+        String name = StringUtils.capitliseEach(course.getName());
+        String description = course.getDescription();
 
-        TextView dstn = view.findViewById(R.id.description);
-        dstn.setText(course.getDescription());
+        TextView n = view.findViewById(R.id.course);
+        TextView d = view.findViewById(R.id.description);
+        n.setText(name);
+        d.setText(description);
 
-        if (!course.getUserID().equals(uid)) {
-            ConstraintLayout constraintLayout = view.findViewById(R.id.constraint);
-            constraintLayout.setBackgroundColor(
-                    view.getResources().getColor(R.color.blue_off_white));
+        boolean uidMatch = StringUtils.hasMatch(course.getUserID(), uid);
+        if (uidMatch)
+            return;
 
-            TextView ctr = view.findViewById(R.id.creator);
+        String creator = course.getUserID() + " - " + course.getEmail();
 
-            String temp = course.getUserID() + " - " + course.getEmail();
-            ctr.setText(temp);
+        TextView c = view.findViewById(R.id.creator);
+        c.setText(creator);
 
-            int bob = view.getResources().getColor(R.color.blue_off_black);
-            crs.setTextColor(bob);
-            dstn.setTextColor(bob);
-            ctr.setTextColor(bob);
-        }
+        ConstraintLayout constraintLayout = view.findViewById(R.id.constraint);
+        ColorUtils.setBackgroundColor(constraintLayout, R.color.blue_off_white);
+
+        int bob = view.getResources().getColor(R.color.blue_off_black);
+        n.setTextColor(bob);
+        d.setTextColor(bob);
+        c.setTextColor(bob);
     }
 
     @Override

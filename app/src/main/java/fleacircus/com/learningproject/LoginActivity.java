@@ -30,15 +30,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        setupViewPager(findViewById(R.id.container));
+        setupViewPager();
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        this.viewPager = viewPager;
-
+    private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment());
         adapter.addFragment(new SignFragment());
+
+        viewPager = findViewById(R.id.container);
         viewPager.setAdapter(adapter);
 
         NavigationUtils.disableDragging(viewPager);

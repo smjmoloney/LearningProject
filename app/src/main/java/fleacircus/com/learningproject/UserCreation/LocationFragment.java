@@ -17,6 +17,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,39 +31,53 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class LocationFragment extends Fragment {
-    @BindView(R.id.question_text)
-    TextView question;
+
     @BindView(R.id.spinner)
     Spinner spinner;
 
+    private ViewPager viewPager;
+
     public LocationFragment() {
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        viewPager = userCreationActivity.getViewPager();
     }
 
     @OnClick(R.id.button_submit)
     void locationClick() {
-        CustomUser.getInstance().setLocation(spinner.getSelectedItem().toString());
+        CustomUser customUser = CustomUser.getInstance();
+        customUser.setLocation(spinner.getSelectedItem().toString());
 
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        String status = CustomUser.getInstance().getTeacherStudent();
+        String answer = getString(R.string.answer_teacher);
+        boolean match = StringUtils.hasMatch(status, answer);
 
-        int temp = 1;
-        if (CustomUser.getInstance().getTeacherStudent().equals("teacher"))
-            temp = 2;
+        int process = 1;
+        if (match)
+            process = 2;
 
-        //noinspection ConstantConditions
-        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), temp);
+        FragmentHelper.progressFragment(viewPager, process);
     }
 
     private void populateSpinner() {
-        String education = CustomUser.getInstance().getCollegeSchool();
-        String temp = getString(R.string.question_location, StringUtils.toUpperCase(education));
+        if (CustomUser.getInstance().getTeacherStudent() == null)
+            return;
 
-        if (CustomUser.getInstance().getTeacherStudent() != null) {
-            String teacher = StringUtils.toLowerCase(getString(R.string.answer_teacher));
-            if (CustomUser.getInstance().getTeacherStudent().equals(teacher))
-                temp = getString(R.string.question_location_teacher, StringUtils.toUpperCase(education));
-        }
+        TextView question = viewPager.findViewById(R.id.question_text);
 
-        question.setText(temp);
+        int questionLocation = R.string.question_location;
+        int questionLocationTeacher = R.string.question_location_teacher;
+
+        CustomUser customUser = CustomUser.getInstance();
+
+        String education = StringUtils.toUpperCase(customUser.getCollegeSchool());
+        String status = CustomUser.getInstance().getTeacherStudent();
+        String answer = getString(R.string.answer_teacher);
+        boolean match = StringUtils.hasMatch(status, answer);
+        if (!match)
+            question.setText(getString(questionLocation, education));
+        else
+            question.setText(getString(questionLocationTeacher, education));
 
         CustomDatabaseUtils.read(new String[]{"user_creation", education}, new OnGetDataListener() {
             @Override
@@ -87,9 +102,10 @@ public class LocationFragment extends Fragment {
                             if (obj instanceof String)
                                 locations.add((String) obj);
 
+                        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
                         //noinspection ConstantConditions
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                getActivity(),
+                                userCreationActivity,
                                 R.layout.item_spinner,
                                 locations);
                         spinner.setAdapter(adapter);
@@ -115,11 +131,10 @@ public class LocationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
-        ButterKnife.bind(this, view);
-
         if (CustomUser.getInstance().getCollegeSchool() == null)
             return view;
 
+        ButterKnife.bind(this, view);
         populateSpinner();
 
         return view;
@@ -128,7 +143,6 @@ public class LocationFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
         FragmentUtils.refreshFragment(getFragmentManager(), this);
     }
 }

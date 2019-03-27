@@ -13,12 +13,13 @@ import fleacircus.com.learningproject.Helpers.MenuHelper;
 public class FoundUserActivity extends AppCompatActivity {
 
     private void setSelectedUser() {
-        CustomUser user = (CustomUser) getIntent().getSerializableExtra("user");
-        ImageView image = findViewById(R.id.image_profile);
+        CustomUser customUser = (CustomUser) getIntent().getSerializableExtra("user");
 
-        int imageID = user.getImageID();
-        if (imageID != 0)
+        int imageID = customUser.getImageID();
+        if (imageID != 0) {
+            ImageView image = findViewById(R.id.image_profile);
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
+        }
     }
 
     @Override
@@ -34,7 +35,6 @@ public class FoundUserActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuHelper.onCreateOptionsMenu(this, menu, true);
         MenuHelper.onCreateOptionsMenuSearch(menu, menu.findItem(R.id.action_search), this);
-
         return super.onCreateOptionsMenu(menu);
     }
 
