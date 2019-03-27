@@ -201,32 +201,32 @@ public class HomeActivity extends AppCompatActivity {
             public void onSuccess(Object object, boolean isQuery) {
                 try {
                     if (!isQuery) {
-                        CustomUser user = ((DocumentSnapshot) object).toObject(CustomUser.class);
-                        if (user == null) {
+                        CustomUser customUser = ((DocumentSnapshot) object).toObject(CustomUser.class);
+                        if (customUser == null) {
                             FirebaseAuth.getInstance().signOut();
                             return;
                         }
 
-                        CustomUser.updateInstance(user);
-                        if (user.getName() == null) {
+                        CustomUser.updateInstance(customUser);
+                        if (customUser.getName() == null) {
                             startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
                             return;
                         }
 
-                        String n = StringUtils.toUpperCase(user.getName());
-                        String l = StringUtils.toUpperCase(user.getLocation());
+                        String n = StringUtils.toUpperCase(customUser.getName());
+                        String l = StringUtils.toUpperCase(customUser.getLocation());
                         TextView name = findViewById(R.id.name);
                         TextView location = findViewById(R.id.location);
                         name.setText(n);
                         location.setText(l);
 
-                        String c = user.getCollegeSchool();
+                        String c = customUser.getCollegeSchool();
                         if (StringUtils.hasMatch(c, getString(R.string.answer_college))) {
                             TextView course = findViewById(R.id.course);
-                            course.setText(StringUtils.toUpperCase(user.getCourse()));
+                            course.setText(StringUtils.toUpperCase(customUser.getCourse()));
                         }
 
-                        int imageID = user.getImageID();
+                        int imageID = customUser.getImageID();
                         if (imageID != 0)
                             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
 
