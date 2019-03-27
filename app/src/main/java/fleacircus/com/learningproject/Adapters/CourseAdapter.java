@@ -56,7 +56,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         n.setText(name);
         d.setText(description);
 
-        boolean uidMatch = course.getUserID().equals(uid);
+        boolean uidMatch = StringUtils.hasMatch(course.getUserID(), uid);
         if (uidMatch)
             return;
 
