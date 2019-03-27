@@ -24,8 +24,8 @@ import fleacircus.com.learningproject.Helpers.FragmentHelper;
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.HomeActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
+import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreationActivity;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
@@ -34,18 +34,17 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.message_confirm)
     TextView messageConfirm;
 
-    private ViewPager viewPager;
-
-    public LoginFragment() {
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        viewPager = userCreationActivity.getViewPager();
-    }
 
     @OnClick(R.id.button_submit)
     void validateLogin() {
+        LoginActivity loginActivity = (LoginActivity) getActivity();
+        //noinspection ConstantConditions
+        ViewPager viewPager = loginActivity.getViewPager();
+
         TextView email = viewPager.findViewById(R.id.email);
         TextView password = viewPager.findViewById(R.id.password);
+        TextView messageConfirm = viewPager.findViewById(R.id.message_confirm);
+
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
@@ -56,8 +55,8 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        String temp = getString(R.string.dialog_confirm);
-        ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(getActivity(), temp);
+        String dialog = getString(R.string.dialog_confirm);
+        ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(getActivity(), dialog);
 
         CustomDatabaseUtils.loginUser(emailText, passwordText, new OnGetDataListener() {
             @Override
@@ -91,7 +90,9 @@ public class LoginFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.prompt_sign)
     void promptClick() {
-        FragmentHelper.progressFragment(viewPager, 1);
+        LoginActivity loginActivity = (LoginActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(loginActivity.getViewPager(), 1);
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -17,28 +16,25 @@ import fleacircus.com.learningproject.UserCreationActivity;
 
 public class TeacherStudentFragment extends Fragment {
 
-    private ViewPager viewPager;
-
     public TeacherStudentFragment() {
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        viewPager = userCreationActivity.getViewPager();
     }
 
     @OnClick(R.id.student_layout)
     void studentClick() {
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setTeacherStudent(getString(R.string.answer_student));
+        CustomUser.getInstance().setTeacherStudent(getString(R.string.answer_student));
 
-        FragmentHelper.progressFragment(viewPager, 1);
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
     @OnClick(R.id.teacher_layout)
     void teacherClick() {
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setTeacherStudent(getString(R.string.answer_teacher));
+        CustomUser.getInstance().setTeacherStudent(getString(R.string.answer_teacher));
 
-        FragmentHelper.progressFragment(viewPager, 1);
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
     @Override
@@ -48,6 +44,9 @@ public class TeacherStudentFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmet_teacher_student, container, false);
+        View view = inflater.inflate(R.layout.fragmet_teacher_student, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 }

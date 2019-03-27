@@ -1,7 +1,6 @@
 package fleacircus.com.learningproject.UserCreation;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,9 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.HomeActivity;
@@ -24,6 +23,7 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class NameFragment extends Fragment {
+
     @BindView(R.id.name)
     EditText name;
     @BindView(R.id.message_name)
@@ -32,7 +32,6 @@ public class NameFragment extends Fragment {
     public NameFragment() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.button_submit)
     void nameClick() {
         boolean length = InputValidationUtils.validateLength(name.getText().toString(), 3);
@@ -46,11 +45,10 @@ public class NameFragment extends Fragment {
         String e = auth.getCurrentUser().getEmail();
         String n = name.getText().toString();
 
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setEmail(e);
-        customUser.setName(n);
+        CustomUser.getInstance().setEmail(e);
+        CustomUser.getInstance().setName(n);
 
-        CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
+        CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
         startActivity(new Intent(getActivity(), HomeActivity.class));
     }
 
@@ -61,7 +59,10 @@ public class NameFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_name, container, false);
+        View view = inflater.inflate(R.layout.fragment_name, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
     @Override

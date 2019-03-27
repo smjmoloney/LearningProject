@@ -18,7 +18,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,24 +30,21 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class CourseFragment extends Fragment {
+
     @BindView(R.id.spinner)
     Spinner spinner;
 
-    private ViewPager viewPager;
-
     public CourseFragment() {
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        viewPager = userCreationActivity.getViewPager();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.button_submit)
     void courseClick() {
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setCourse(spinner.getSelectedItem().toString());
+        CustomUser.getInstance().setCourse(spinner.getSelectedItem().toString());
 
-        FragmentHelper.progressFragment(viewPager, 1);
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
     private void selectCourse() {
@@ -76,10 +72,9 @@ public class CourseFragment extends Fragment {
                             if (o instanceof String)
                                 courses.add((String) o);
 
-                        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
                         //noinspection ConstantConditions
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                userCreationActivity,
+                                getActivity(),
                                 R.layout.item_spinner,
                                 courses);
                         spinner.setAdapter(adapter);

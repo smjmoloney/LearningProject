@@ -28,14 +28,6 @@ public class UserCreationActivity extends AppCompatActivity {
         return viewPager;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creation);
-
-        setupViewPager();
-    }
-
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TeacherStudentFragment());
@@ -48,6 +40,14 @@ public class UserCreationActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         NavigationUtils.disableDragging(viewPager);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_creation);
+
+        setupViewPager();
     }
 
     @Override

@@ -23,7 +23,6 @@ class FindHelper {
             return;
 
         String[] collection = new String[]{"users"};
-
         CustomDatabaseUtils.read(collection, new OnGetDataListener() {
             @Override
             public void onStart() {

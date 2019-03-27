@@ -1,7 +1,6 @@
 package fleacircus.com.learningproject.Login;
 
 import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +25,7 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class SignFragment extends Fragment {
+
     @BindView(R.id.email)
     EditText email;
     @BindView(R.id.password)
@@ -43,21 +42,11 @@ public class SignFragment extends Fragment {
     public SignFragment() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.prompt_login)
-    void promptClick() {
-        LoginActivity loginActivity = (LoginActivity) getActivity();
-        //noinspection ConstantConditions
-        FragmentHelper.progressFragment(loginActivity.getViewPager(), -1);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.button_submit)
     void signClick() {
         String e = email.getText().toString();
         String p = password.getText().toString();
         String c = confirm.getText().toString();
-
         messageEmail.setText("");
         messagePassword.setText("");
         messagePasswordConfirm.setText("");
@@ -104,13 +93,20 @@ public class SignFragment extends Fragment {
         }
     }
 
+    @OnClick(R.id.prompt_login)
+    void promptClick() {
+        LoginActivity loginActivity = (LoginActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(loginActivity.getViewPager(), -1);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign, container, false);
         ButterKnife.bind(this, view);
 

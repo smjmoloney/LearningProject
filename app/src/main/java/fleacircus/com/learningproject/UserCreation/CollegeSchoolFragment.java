@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -22,21 +22,17 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CollegeSchoolFragment extends Fragment {
 
-    private ViewPager viewPager;
-
-    public CollegeSchoolFragment() {
-        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
-        //noinspection ConstantConditions
-        viewPager = userCreationActivity.getViewPager();
-    }
+    @BindView(R.id.question_text)
+    TextView question;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.college_layout)
     void collegeClick() {
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setCollegeSchool(getString(R.string.answer_college));
+        CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_college));
 
-        FragmentHelper.progressFragment(viewPager, 1);
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -45,7 +41,9 @@ public class CollegeSchoolFragment extends Fragment {
         CustomUser customUser = CustomUser.getInstance();
         customUser.setCollegeSchool(getString(R.string.answer_school));
 
-        FragmentHelper.progressFragment(viewPager, 1);
+        UserCreationActivity userCreationActivity = (UserCreationActivity) getActivity();
+        //noinspection ConstantConditions
+        FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
     @Override
@@ -70,8 +68,6 @@ public class CollegeSchoolFragment extends Fragment {
             return view;
 
         String teacher = getString(R.string.question_school_teacher);
-
-        TextView question = viewPager.findViewById(R.id.question_text);
         question.setText(teacher);
 
         return view;

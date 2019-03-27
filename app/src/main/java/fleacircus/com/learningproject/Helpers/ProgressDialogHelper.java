@@ -8,7 +8,6 @@ public class ProgressDialogHelper {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage(message);
         progressDialog.show();
-
         return progressDialog;
     }
 }

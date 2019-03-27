@@ -25,14 +25,6 @@ public class LoginActivity extends AppCompatActivity {
         return viewPager;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        setupViewPager();
-    }
-
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment());
@@ -42,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         NavigationUtils.disableDragging(viewPager);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        setupViewPager();
     }
 
     @Override
