@@ -40,6 +40,9 @@
     <string name="placeholder_name">Name</string>
     <string name="message_name">Name must be at least 3 characters.</string>
 
+    <string name="courses_learned">LEARNED</string>
+    <string name="courses_created">CREATED</string>
+
     <!-- SEARCH & FILTER -->
     <string name="location">LOCATION</string>
     <string name="course">COURSE</string>

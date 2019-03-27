@@ -11,28 +11,30 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import fleacircus.com.learningproject.Adapters.CourseAdapter;
 import fleacircus.com.learningproject.Adapters.GridImageAdapter;
-import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.Classes.CustomViewPager;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.Helpers.MenuHelper;
-import fleacircus.com.learningproject.Helpers.RecyclerHelper;
+import fleacircus.com.learningproject.Home.CreatedFragment;
+import fleacircus.com.learningproject.Home.LearnedFragment;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -40,6 +42,7 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class HomeActivity extends AppCompatActivity {
+
     @BindView(R.id.image_profile)
     ImageView image;
     @BindView(R.id.grid)
@@ -126,62 +129,14 @@ public class HomeActivity extends AppCompatActivity {
         image.setImageResource(drawable);
     }
 
-    /**
-     * Method accesses the courses collection of the currently
-     * logged in user and populates our recycler view with each
-     * course. They are defined as documents, each with a number
-     * of fields.
-     */
-    private void setCourses() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+    private void setupViewPager() {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        CustomViewPager viewPager = findViewById(R.id.container);
 
-        //noinspection ConstantConditions
-        String uid = auth.getCurrentUser().getUid();
-        String[] collection = new String[]{"users", uid, "courses"};
-
-        CustomDatabaseUtils.read(collection, new OnGetDataListener() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(Object object, boolean isQuery) {
-                try {
-                    if (isQuery) {
-                        List<CustomCourse> mDataset = new ArrayList<>();
-
-                        /*
-                         * The above list is populated by a QueryDocumentSnapshot
-                         * which retrieves all documents within a collection. Each
-                         * document/object is converted into a CustomCourse class
-                         * and added.
-                         */
-                        for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
-                            CustomCourse c = q.toObject(CustomCourse.class);
-                            mDataset.add(c);
-                        }
-
-                        /*
-                         * The {@link RecyclerHelper#setRecyclerView(Context, View, RecyclerView.Adapter)}
-                         * method will apply the provided data set to the given adapter which
-                         * is then presented using our recycler view. This method is and will be
-                         * used frequently, thus it has been placed within a helper class.
-                         */
-                        RecyclerView courses = findViewById(R.id.courses);
-                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset));
-                    } else
-                        Log.e("OnSuccess", object + " must be a query.");
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailed(FirebaseFirestoreException databaseError) {
-                Log.e("FirebaseFirestoreEx", databaseError.toString());
-            }
-        });
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setAdapter(adapter);
     }
 
     private void setCurrentUser() {
@@ -232,8 +187,6 @@ public class HomeActivity extends AppCompatActivity {
                         int imageID = customUser.getImageID();
                         if (imageID != 0)
                             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
-
-                        setCourses();
                     } else {
                         Log.e("OnSuccess", object + " must not be a query.");
                     }
@@ -266,6 +219,7 @@ public class HomeActivity extends AppCompatActivity {
             View content = findViewById(android.R.id.content);
             ButterKnife.bind(HomeActivity.this, content);
 
+            setupViewPager();
             cover.bringToFront();
 
             View parent = (View) grid.getParent();
@@ -294,5 +248,35 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         MenuHelper.onOptionsItemSelected(this, item);
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> fragmentList = new ArrayList<>();
+
+
+        SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+            addFragment(new LearnedFragment());
+            addFragment(new CreatedFragment());
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        void addFragment(Fragment fragment) {
+            fragmentList.add(fragment);
+        }
     }
 }
