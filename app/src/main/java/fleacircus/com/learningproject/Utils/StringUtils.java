@@ -19,6 +19,7 @@ public class StringUtils {
     }
 
     public static String capitliseEach(String temp) {
+        temp = toLowerCase(temp);
         String[] words = temp.split(" ");
 
         StringBuilder result = new StringBuilder();
