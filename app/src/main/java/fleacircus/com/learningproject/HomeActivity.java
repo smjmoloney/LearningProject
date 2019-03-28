@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity {
                         location.setText(l);
 
                         String t = customUser.getTeacherStudent();
-                        if (StringUtils.hasMatch(t, getString(R.string.answer_teacher))) {
+                        if (!StringUtils.hasMatch(t, getString(R.string.answer_teacher))) {
                             String c = customUser.getCollegeSchool();
                             if (StringUtils.hasMatch(c, getString(R.string.answer_college))) {
                                 TextView course = findViewById(R.id.course);
