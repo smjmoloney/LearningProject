@@ -14,7 +14,23 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FoundUserActivity extends AppCompatActivity {
 
+//    private void setupViewPager() {
+//        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//        adapter.addFragment(new FoundUserFragment());
+//
+//        /*
+//         * The {@link ViewPager} that will host the section contents.
+//         */
+//        CustomViewPager viewPager = findViewById(R.id.container);
+//
+//        TabLayout tabLayout = findViewById(R.id.tabLayout);
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        viewPager.setAdapter(adapter);
+//    }
+
     private void setSelectedUser() {
+        //noinspection ConstantConditions
         CustomUser customUser = (CustomUser) getIntent().getSerializableExtra("user");
 
         String n = StringUtils.toUpperCase(customUser.getName());
@@ -47,6 +63,7 @@ public class FoundUserActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
 
         setSelectedUser();
+//        setupViewPager();
     }
 
     @Override
@@ -61,4 +78,31 @@ public class FoundUserActivity extends AppCompatActivity {
         MenuHelper.onOptionsItemSelected(this, item);
         return super.onOptionsItemSelected(item);
     }
+//
+//    /**
+//     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+//     * one of the sections/tabs/pages.
+//     */
+//    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+//        private final List<Fragment> fragmentList = new ArrayList<>();
+//
+//        SectionsPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        @NonNull
+//        @Override
+//        public Fragment getItem(int position) {
+//            return fragmentList.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return fragmentList.size();
+//        }
+//
+//        void addFragment(Fragment fragment) {
+//            fragmentList.add(fragment);
+//        }
+//    }
 }

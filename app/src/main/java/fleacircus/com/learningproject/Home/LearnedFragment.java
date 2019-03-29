@@ -27,6 +27,7 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class LearnedFragment extends Fragment {
+
     /**
      * Method accesses the courses collection of the currently
      * logged in user and populates our recycler view with each
@@ -63,7 +64,6 @@ public class LearnedFragment extends Fragment {
                             if (!StringUtils.hasMatch(c.getEmail(), auth.getCurrentUser().getEmail()))
                                 mDataset.add(c);
                         }
-
 
                         HomeActivity homeActivity = (HomeActivity) getActivity();
                         /*
