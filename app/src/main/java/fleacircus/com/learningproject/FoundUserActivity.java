@@ -69,7 +69,7 @@ public class FoundUserActivity extends AppCompatActivity {
                          */
                         //noinspection ConstantConditions
                         RecyclerView courses = findViewById(R.id.courses);
-                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset));
+                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset, true));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {

@@ -1,9 +1,11 @@
 package fleacircus.com.learningproject.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -15,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.ColorUtils;
+import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
     private List<CustomCourse> courses;
     private String uid;
+    private boolean hasClick;
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
@@ -28,12 +32,18 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         }
     }
 
-    public CourseAdapter(List<CustomCourse> courses) {
+    public CourseAdapter(List<CustomCourse> courses, boolean hasClick) {
         this.courses = courses;
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         //noinspection ConstantConditions
-        uid = auth.getCurrentUser().getUid();
+        this.uid = auth.getCurrentUser().getUid();
+        this.hasClick = hasClick;
+    }
+
+    private void onClick(Context context, CustomCourse customCourse) {
+        CustomDatabaseUtils.copyDocument(customCourse, new String[]{"users", uid, "courses"});
+        Toast.makeText(context, R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
     }
 
     @NonNull
@@ -47,6 +57,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomCourse course = courses.get(position);
         View view = holder.itemView;
+        if (hasClick)
+            view.setOnClickListener(v -> onClick(view.getContext(), course));
 
         String name = StringUtils.capitliseEach(course.getName());
         String description = course.getDescription();

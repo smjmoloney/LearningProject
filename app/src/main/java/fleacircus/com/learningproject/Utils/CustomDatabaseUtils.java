@@ -1,5 +1,6 @@
 package fleacircus.com.learningproject.Utils;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -108,5 +109,26 @@ public class CustomDatabaseUtils {
                     listener.onFailed(e);
             });
         }
+    }
+
+    public static void copyDocument(Object object, String[] to) {
+        if (to.length < 1) {
+            Log.e("OnSuccess", "No path given (to).");
+            return;
+        }
+
+        FirebaseFirestore instance = FirebaseFirestore.getInstance();
+
+        CollectionReference collectionReference = instance.collection(to[0]);
+        DocumentReference documentReference = null;
+
+        for (int i = 1; i < to.length; i++) {
+            if (i % 2 == 0)
+                collectionReference = documentReference.collection(to[i]);
+            else
+                documentReference = collectionReference.document(to[i]);
+        }
+
+        collectionReference.add(object);
     }
 }

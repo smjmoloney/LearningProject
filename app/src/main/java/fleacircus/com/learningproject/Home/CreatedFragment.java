@@ -74,7 +74,7 @@ public class CreatedFragment extends Fragment {
                          */
                         //noinspection ConstantConditions
                         RecyclerView created = view.findViewById(R.id.courses);
-                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset));
+                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset, false));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
