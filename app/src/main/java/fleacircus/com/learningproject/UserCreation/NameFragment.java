@@ -43,9 +43,11 @@ public class NameFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         //noinspection ConstantConditions
         String e = auth.getCurrentUser().getEmail();
+        String u = auth.getUid();
         String n = name.getText().toString();
 
         CustomUser.getInstance().setEmail(e);
+        CustomUser.getInstance().setUid(u);
         CustomUser.getInstance().setName(n);
 
         CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
