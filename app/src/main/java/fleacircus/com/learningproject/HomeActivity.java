@@ -194,10 +194,19 @@ public class HomeActivity extends AppCompatActivity {
                         if (imageID != 0)
                             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
 
+                        boolean update = false;
+                        if (customUser.getUid() == null) {
+                            customUser.setUid(auth.getUid());
+                            update = true;
+                        }
+
                         if (customUser.getEmail() == null) {
                             customUser.setEmail(auth.getCurrentUser().getEmail());
-                            CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
+                            update = true;
                         }
+
+                        if (update)
+                            CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
                     } else {
                         Log.e("OnSuccess", object + " must not be a query.");
                     }
