@@ -9,6 +9,7 @@ public class CustomUser implements Serializable {
 
     private String teacherStudent, collegeSchool, location, course;
     private String email, name;
+    private String uid;
     private int imageID = 0;
 
     public static CustomUser getInstance() {
@@ -47,12 +48,18 @@ public class CustomUser implements Serializable {
         this.course = StringUtils.toLowerCase(course);
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
     public void setEmail(String email) {
         this.email = StringUtils.toLowerCase(email);
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {
