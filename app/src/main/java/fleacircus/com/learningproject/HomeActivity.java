@@ -275,8 +275,8 @@ public class HomeActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> fragmentList = new ArrayList<>();
 
+        private final List<Fragment> fragmentList = new ArrayList<>();
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
