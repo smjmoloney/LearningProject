@@ -1,33 +1,88 @@
 package fleacircus.com.learningproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import fleacircus.com.learningproject.Adapters.CourseAdapter;
+import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.Helpers.MenuHelper;
+import fleacircus.com.learningproject.Helpers.RecyclerHelper;
+import fleacircus.com.learningproject.Listeners.OnGetDataListener;
+import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FoundUserActivity extends AppCompatActivity {
 
-//    private void setupViewPager() {
-//        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new FoundUserFragment());
-//
-//        /*
-//         * The {@link ViewPager} that will host the section contents.
-//         */
-//        CustomViewPager viewPager = findViewById(R.id.container);
-//
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        viewPager.setAdapter(adapter);
-//    }
+    /**
+     * Method accesses the courses collection of the currently
+     * logged in user and populates our recycler view with each
+     * course. They are defined as documents, each with a number
+     * of fields.
+     */
+    private void setCourses(String uid) {
+        //noinspection ConstantConditions
+        String[] collection = new String[]{"users", uid, "courses"};
+
+        CustomDatabaseUtils.read(collection, new OnGetDataListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(Object object, boolean isQuery) {
+                try {
+                    if (isQuery) {
+                        List<CustomCourse> mDataset = new ArrayList<>();
+
+                        /*
+                         * The above list is populated by a QueryDocumentSnapshot
+                         * which retrieves all documents within a collection. Each
+                         * document/object is converted into a CustomCourse class
+                         * and added.
+                         */
+                        for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
+                            CustomCourse c = q.toObject(CustomCourse.class);
+                            mDataset.add(c);
+                        }
+
+                        /*
+                         * The {@link RecyclerHelper#setRecyclerView(Context, View, RecyclerView.Adapter)}
+                         * method will apply the provided data set to the given adapter which
+                         * is then presented using our recycler view. This method is and will be
+                         * used frequently, thus it has been placed within a helper class.
+                         */
+                        //noinspection ConstantConditions
+                        RecyclerView courses = findViewById(R.id.courses);
+                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset));
+                    } else
+                        Log.e("OnSuccess", object + " must be a query.");
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailed(FirebaseFirestoreException databaseError) {
+                Log.e("FirebaseFirestoreEx", databaseError.toString());
+            }
+        });
+    }
 
     private void setSelectedUser() {
         //noinspection ConstantConditions
@@ -54,6 +109,8 @@ public class FoundUserActivity extends AppCompatActivity {
             ImageView image = findViewById(R.id.image_profile);
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
         }
+
+        setCourses(customUser.getUid());
     }
 
     @Override
@@ -63,7 +120,6 @@ public class FoundUserActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
 
         setSelectedUser();
-//        setupViewPager();
     }
 
     @Override
@@ -78,31 +134,4 @@ public class FoundUserActivity extends AppCompatActivity {
         MenuHelper.onOptionsItemSelected(this, item);
         return super.onOptionsItemSelected(item);
     }
-//
-//    /**
-//     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-//     * one of the sections/tabs/pages.
-//     */
-//    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-//        private final List<Fragment> fragmentList = new ArrayList<>();
-//
-//        SectionsPagerAdapter(FragmentManager fm) {
-//            super(fm);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public Fragment getItem(int position) {
-//            return fragmentList.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return fragmentList.size();
-//        }
-//
-//        void addFragment(Fragment fragment) {
-//            fragmentList.add(fragment);
-//        }
-//    }
 }
