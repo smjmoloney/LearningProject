@@ -131,6 +131,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new LearnedFragment());
+        adapter.addFragment(new CreatedFragment());
+
+        /*
+         * The {@link ViewPager} that will host the section contents.
+         */
         CustomViewPager viewPager = findViewById(R.id.container);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -260,8 +266,6 @@ public class HomeActivity extends AppCompatActivity {
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            addFragment(new LearnedFragment());
-            addFragment(new CreatedFragment());
         }
 
         @NonNull

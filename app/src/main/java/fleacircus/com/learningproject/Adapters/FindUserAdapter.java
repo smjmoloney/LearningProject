@@ -18,7 +18,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.ButterKnife;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.FoundUserActivity;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
@@ -28,12 +27,10 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
 
     private List<CustomUser> users;
-    private Context context;
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -101,9 +98,8 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        return new Holder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.item_find, parent, false));
+        Context context = parent.getContext();
+        return new Holder(LayoutInflater.from(context).inflate(R.layout.item_find, parent, false));
     }
 
     @Override
@@ -122,6 +118,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         TextView l = view.findViewById(R.id.location);
         l.setText(location);
 
+        Context context = holder.itemView.getContext();
         String college = context.getString(R.string.answer_college);
         String student = context.getString(R.string.answer_student);
         boolean cMatch = StringUtils.hasMatch(user.getCollegeSchool(), college);
