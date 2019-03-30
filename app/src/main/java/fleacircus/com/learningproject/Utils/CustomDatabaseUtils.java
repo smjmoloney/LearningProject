@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +27,9 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
 import fleacircus.com.learningproject.UserCreationActivity;
 
-public class CustomDatabaseUtils {    public static void addOrUpdateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
+public class CustomDatabaseUtils {
+
+    public static void addOrUpdateObject(String collection, String document, Object o, final ProgressDialog progressDialog) {
     FirebaseFirestore.getInstance()
             .collection(collection)
             .document(document)

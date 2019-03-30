@@ -57,6 +57,7 @@
         <activity android:name=".Flashcard_create_New" />
         <activity android:name=".Flashcard_create_NameDialogBox" />
         <activity android:name=".Flashcard_introActivity" />
+        <activity android:name=".Flashcard_library"/>
         <activity android:name=".Flashcard_ListView" />
         <activity android:name=".Flashcard_mainActivity"/>
 
