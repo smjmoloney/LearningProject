@@ -59,7 +59,9 @@
         <activity android:name=".Flashcard_introActivity" />
         <activity android:name=".Flashcard_library"/>
         <activity android:name=".Flashcard_ListView" />
+        <activity android:name=".Flashcard_ListView_College" />
         <activity android:name=".Flashcard_mainActivity"/>
+        <activity android:name=".Flashcard_mainActivity_college"/>
 
         <meta-data
             android:name="preloaded_fonts"

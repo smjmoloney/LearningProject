@@ -3,24 +3,19 @@ package fleacircus.com.learningproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-import fleacircus.com.learningproject.Utils.MenuUtils;
 
 public class Quiz_introActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_flashcard_introactivity);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setTitle(R.string.title_course);
 
         ConstraintLayout create = findViewById(R.id.create_layout);
         create.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right));
@@ -41,16 +36,27 @@ public class Quiz_introActivity extends AppCompatActivity {
         });
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuUtils.onCreateOptionsMenu(this, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.quiz_menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        MenuUtils.onOptionsItemSelected(this, item);
-        return super.onOptionsItemSelected(item);
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.exit_quiz:
+                ExitQuiz();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void ExitQuiz() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
 

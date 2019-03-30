@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import fleacircus.com.learningproject.Flashcard_create_Cards;
 import fleacircus.com.learningproject.Flashcard_mainActivity;
+import fleacircus.com.learningproject.Flashcard_mainActivity_college;
 import fleacircus.com.learningproject.R;
 
 
@@ -39,6 +40,8 @@ public class Flashcard_CardFrontFragment extends Fragment {
 
 
         Button btnFront;
+
+        // if parent activity is FLASHCARD CREATE CARDS
         if(getActivity() instanceof Flashcard_create_Cards) {
 
             View view = inflater.inflate(R.layout.flashcard_card_front, container, false);
@@ -74,6 +77,51 @@ public class Flashcard_CardFrontFragment extends Fragment {
             return view;
         }
 
+        // if parent activity is FLASHCARD MAIN_ACTIVITY COLLEGE
+        if(getActivity() instanceof Flashcard_mainActivity_college) {
+
+            View view = inflater.inflate(R.layout.flashcard_card_front_main, container, false);
+
+            cardFrontTxt = view.findViewById(R.id.card_front_text_main);
+
+            // get data passed from Flashcard_mainActivity
+            String getArgument = getArguments().getString(FRONT_DATA);
+            cardFrontTxt.setText(getArgument);
+
+            // button to flip flashcard to reverse side of card
+            btnFront = view.findViewById(R.id.buttonFrontMain);
+            btnFront.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    // call method from parent Activity
+                    ((Flashcard_mainActivity_college) getActivity()).flipToReverseSideCard();
+                }
+            });
+
+            // use Floating Action Button to go to next Flashcard
+            FloatingActionButton next = view.findViewById(R.id.nextFlashcardBtn);
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // call method from parent Activity
+                    ((Flashcard_mainActivity_college)getActivity()).generateNextFlashcards();
+                }
+            });
+
+            // use Floating Action Button to go to previous Flashcard
+            FloatingActionButton prev = view.findViewById(R.id.beforeFlashcardBtn);
+            prev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // call method from parent Activity
+                    ((Flashcard_mainActivity_college)getActivity()).generatePrevFlashcards();
+                }
+            });
+
+            return view;
+        }
+
+        // if parent activity is FLASHCARD MAIN_ACTIVITY
         View view = inflater.inflate(R.layout.flashcard_card_front_main, container, false);
 
         cardFrontTxt = view.findViewById(R.id.card_front_text_main);

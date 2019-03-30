@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import fleacircus.com.learningproject.Flashcard_create_Cards;
 import fleacircus.com.learningproject.Flashcard_mainActivity;
+import fleacircus.com.learningproject.Flashcard_mainActivity_college;
 import fleacircus.com.learningproject.R;
 
 /**
@@ -36,6 +37,8 @@ public class Flashcard_CardBackFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Button btnBack;
+
+        // if the parent activity is FLASHCARD CREATE CARDS
         if(getActivity() instanceof Flashcard_create_Cards) {
 
             View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
@@ -59,6 +62,30 @@ public class Flashcard_CardBackFragment extends Fragment {
             return view;
         }
 
+        // if parent activity is FLASHCARD MAIN_ACTIVITY COLLEGE
+        if(getActivity() instanceof Flashcard_mainActivity_college) {
+
+            View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
+
+            cardBackTxt = view.findViewById(R.id.card_back_text);
+
+            // get data passed from Flashcard_mainActivity
+            String getArgument = getArguments().getString(BACK_DATA);
+            cardBackTxt.setText(getArgument);
+
+            // button to flip flashcard to front side of card
+            btnBack = view.findViewById(R.id.buttonBack);
+            btnBack.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    ((Flashcard_mainActivity_college)getActivity()).flipToFrontSideCard();
+                }
+
+            });
+            return view;
+        }
+
+        // if parent activity is FLASHCARD MAIN_ACTIVITY
             View view = inflater.inflate(R.layout.flashcard_card_back, container, false);
 
             cardBackTxt = view.findViewById(R.id.card_back_text);

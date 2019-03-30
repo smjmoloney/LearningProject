@@ -22,7 +22,7 @@ public class Flashcard_library extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Flashcard_library.this, Flashcard_create_New.class));
+                startActivity(new Intent(Flashcard_library.this, Flashcard_ListView_College.class));
             }
         });
 

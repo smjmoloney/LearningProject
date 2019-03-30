@@ -3,7 +3,6 @@ package fleacircus.com.learningproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +16,6 @@ public class Flashcard_introActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_flashcard_introactivity);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setTitle(R.string.title_course);
 
         ConstraintLayout create = findViewById(R.id.create_layout);
         create.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right));

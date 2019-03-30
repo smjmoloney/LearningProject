@@ -103,8 +103,7 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
 
         if(cardCount<=count) {
 
-            // points towards first question
-            // retrieve questions from the user's Quizzes and Quiz Name
+            // retrieve flashcards from user's library
             DocumentReference docRef = db.collection("FlashcardSets").document(uid)
                     .collection(flashcardName + "_" + uid).document(flashcardName);
             docRef.get()
@@ -132,8 +131,7 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
 
         if(cardCount!=0) {
 
-            // points towards first question
-            // retrieve questions from the user's Quizzes and Quiz Name
+            // retrieve flashcards from user's library
             DocumentReference docRef = db.collection("FlashcardSets").document(uid)
                     .collection(flashcardName + "_" + uid).document(flashcardName);
             docRef.get()
