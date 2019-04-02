@@ -42,7 +42,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
     }
 
     private void onClick(Context context, CustomCourse customCourse) {
-        CustomDatabaseUtils.copyDocument(customCourse, new String[]{"users", uid, "courses"});
+        String creatorID = customCourse.getCreatorID();
+        String courseID = customCourse.getCourseID();
+        String[] from =  new String[]{"users", creatorID, "courses", courseID};
+        String[] to =  new String[]{"users", uid, "courses"};
+
+        CustomDatabaseUtils.copyCourse(from, to);
         Toast.makeText(context, R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
     }
 
@@ -56,11 +61,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomCourse course = courses.get(position);
+
         View view = holder.itemView;
         if (hasClick)
             view.setOnClickListener(v -> onClick(view.getContext(), course));
 
-        String name = StringUtils.capitliseEach(course.getName());
+        String name = StringUtils.capitaliseEach(course.getName());
         String description = course.getDescription();
 
         TextView n = view.findViewById(R.id.course);
@@ -68,12 +74,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         n.setText(name);
         d.setText(description);
 
-        boolean uidMatch = StringUtils.hasMatch(course.getUserID(), uid);
+        boolean uidMatch = StringUtils.hasMatch(course.getCreatorID(), uid);
         if (uidMatch)
             return;
 
-        String creator = course.getUserID() + " - " + course.getEmail();
-
+        String creator = course.getCreatorID();
         TextView c = view.findViewById(R.id.creator);
         c.setText(creator);
 

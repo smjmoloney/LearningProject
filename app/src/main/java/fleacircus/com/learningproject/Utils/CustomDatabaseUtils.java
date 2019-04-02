@@ -1,14 +1,19 @@
 package fleacircus.com.learningproject.Utils;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.List;
+
+import fleacircus.com.learningproject.Classes.CustomCourse;
+import fleacircus.com.learningproject.Classes.CustomDocument;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 
@@ -49,6 +54,74 @@ public class CustomDatabaseUtils {
                         listener.onFailed(null);
                     }
                 });
+    }
+
+    public static void copyCourse(String[] from, String[] to) {
+        final DocumentReference originalDocument = (DocumentReference) retrieveCollectionOrDocument(from);
+        final CollectionReference destinationCollection = (CollectionReference) retrieveCollectionOrDocument(to);
+        originalDocument.addSnapshotListener((documentSnapshot, e) -> {
+            if (documentSnapshot == null)
+                return;
+
+            CustomCourse customDocument = documentSnapshot.toObject(CustomCourse.class);
+            if (customDocument == null)
+                return;
+
+            DocumentReference duplicateDocument = destinationCollection.document(documentSnapshot.getId());
+            duplicateDocument.set(customDocument);
+
+            copyChildCollections(originalDocument, duplicateDocument, documentSnapshot);
+        });
+    }
+
+    private static void copyChildCollections(DocumentReference originalDocument,
+                                      DocumentReference duplicateDocument,
+                                      DocumentSnapshot documentSnapshot) {
+        final CustomDocument customDocument = documentSnapshot.toObject(CustomDocument.class);
+        if (customDocument == null)
+            return;
+
+        List<String> children = customDocument.getChildren();
+        for (String child : children) {
+            final CollectionReference originalCollection = originalDocument.collection(child);
+            final CollectionReference collectionReference = duplicateDocument.collection(child);
+
+            originalCollection.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    if (task.getResult() == null)
+                        return;
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        DocumentReference originalDocument1 = originalCollection.document(document.getId());
+                        DocumentReference documentReference = collectionReference.document(document.getId());
+                        copyDocument(originalDocument1, documentReference, customDocument.getClassType());
+                    }
+                }
+            });
+        }
+    }
+
+    private static void copyDocument(final DocumentReference originalDocument,
+                              final DocumentReference documentReference,
+                              final String classType) {
+        Log.e("CLASS", classType);
+        originalDocument.addSnapshotListener((documentSnapshot, e) -> {
+            if (documentSnapshot == null)
+                return;
+
+            try {
+                Object customDocument = documentSnapshot.toObject(Class.forName(
+                        "fleacircus.com.learningproject." + classType));
+                if (customDocument == null)
+                    return;
+
+                documentReference.set(customDocument);
+
+                copyChildCollections(originalDocument, documentReference, documentSnapshot);
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 
     public static void loginUser(String email,
@@ -111,24 +184,18 @@ public class CustomDatabaseUtils {
         }
     }
 
-    public static void copyDocument(Object object, String[] to) {
-        if (to.length < 1) {
-            Log.e("OnSuccess", "No path given (to).");
-            return;
-        }
-
+    private static Object retrieveCollectionOrDocument(String[] location) {
         FirebaseFirestore instance = FirebaseFirestore.getInstance();
 
-        CollectionReference collectionReference = instance.collection(to[0]);
+        CollectionReference collectionReference = instance.collection(location[0]);
         DocumentReference documentReference = null;
-
-        for (int i = 1; i < to.length; i++) {
+        for (int i = 1; i < location.length; i++) {
             if (i % 2 == 0)
-                collectionReference = documentReference.collection(to[i]);
+                collectionReference = documentReference.collection(location[i]);
             else
-                documentReference = collectionReference.document(to[i]);
+                documentReference = collectionReference.document(location[i]);
         }
 
-        collectionReference.add(object);
+        return (location.length % 2) - 1 == 0 ? collectionReference : documentReference;
     }
 }

@@ -84,6 +84,7 @@ public class CustomUser implements Serializable {
         getInstance().setLocation(ourInstance.location);
         getInstance().setCollegeSchool(ourInstance.collegeSchool);
         getInstance().setTeacherStudent(ourInstance.teacherStudent);
+        getInstance().setUid(ourInstance.uid);
         getInstance().setImageID(ourInstance.imageID);
     }
 }

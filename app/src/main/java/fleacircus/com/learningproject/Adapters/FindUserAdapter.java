@@ -109,8 +109,8 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         View view = holder.itemView;
         view.setOnClickListener(v -> onClick(user, view));
 
-        String name = StringUtils.capitliseEach(user.getName());
-        String location = StringUtils.capitliseEach(user.getLocation());
+        String name = StringUtils.capitaliseEach(user.getName());
+        String location = StringUtils.capitaliseEach(user.getLocation());
 
         TextView n = view.findViewById(R.id.name);
         n.setText(name);
@@ -124,7 +124,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         boolean cMatch = StringUtils.hasMatch(user.getCollegeSchool(), college);
         boolean sMatch = StringUtils.hasMatch(user.getTeacherStudent(), student);
         if (cMatch && sMatch) {
-            String course = StringUtils.capitliseEach(user.getCourse());
+            String course = StringUtils.capitaliseEach(user.getCourse());
 
             TextView c = view.findViewById(R.id.course);
             c.setText(course);

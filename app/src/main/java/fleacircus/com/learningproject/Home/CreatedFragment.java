@@ -60,7 +60,7 @@ public class CreatedFragment extends Fragment {
                          */
                         for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
                             CustomCourse c = q.toObject(CustomCourse.class);
-                            if (StringUtils.hasMatch(c.getEmail(), auth.getCurrentUser().getEmail()))
+                            if (StringUtils.hasMatch(c.getCreatorID(), uid))
                                 mDataset.add(c);
                         }
 
