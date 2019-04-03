@@ -60,7 +60,7 @@ public class CreatedFragment extends Fragment {
                          */
                         for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
                             CustomCourse c = q.toObject(CustomCourse.class);
-                            if (StringUtils.hasMatch(c.getEmail(), auth.getCurrentUser().getEmail()))
+                            if (StringUtils.hasMatch(c.getCreatorID(), uid))
                                 mDataset.add(c);
                         }
 
@@ -74,7 +74,7 @@ public class CreatedFragment extends Fragment {
                          */
                         //noinspection ConstantConditions
                         RecyclerView created = view.findViewById(R.id.courses);
-                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset));
+                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset, false));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {

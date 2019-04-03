@@ -131,6 +131,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new LearnedFragment());
+        adapter.addFragment(new CreatedFragment());
+
+        /*
+         * The {@link ViewPager} that will host the section contents.
+         */
         CustomViewPager viewPager = findViewById(R.id.container);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -187,6 +193,20 @@ public class HomeActivity extends AppCompatActivity {
                         int imageID = customUser.getImageID();
                         if (imageID != 0)
                             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
+
+                        boolean update = false;
+                        if (customUser.getUid() == null) {
+                            customUser.setUid(auth.getUid());
+                            update = true;
+                        }
+
+                        if (customUser.getEmail() == null) {
+                            customUser.setEmail(auth.getCurrentUser().getEmail());
+                            update = true;
+                        }
+
+                        if (update)
+                            CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
                     } else {
                         Log.e("OnSuccess", object + " must not be a query.");
                     }
@@ -255,13 +275,11 @@ public class HomeActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> fragmentList = new ArrayList<>();
 
+        private final List<Fragment> fragmentList = new ArrayList<>();
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            addFragment(new LearnedFragment());
-            addFragment(new CreatedFragment());
         }
 
         @NonNull

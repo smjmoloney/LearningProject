@@ -18,7 +18,7 @@ public class StringUtils {
         return null;
     }
 
-    public static String capitliseEach(String temp) {
+    public static String capitaliseEach(String temp) {
         temp = toLowerCase(temp);
         String[] words = temp.split(" ");
 

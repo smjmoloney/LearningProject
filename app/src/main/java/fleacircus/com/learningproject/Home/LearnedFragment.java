@@ -27,6 +27,7 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class LearnedFragment extends Fragment {
+
     /**
      * Method accesses the courses collection of the currently
      * logged in user and populates our recycler view with each
@@ -60,10 +61,9 @@ public class LearnedFragment extends Fragment {
                          */
                         for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
                             CustomCourse c = q.toObject(CustomCourse.class);
-                            if (!StringUtils.hasMatch(c.getEmail(), auth.getCurrentUser().getEmail()))
+                            if (!StringUtils.hasMatch(c.getCreatorID(), uid))
                                 mDataset.add(c);
                         }
-
 
                         HomeActivity homeActivity = (HomeActivity) getActivity();
                         /*
@@ -74,7 +74,7 @@ public class LearnedFragment extends Fragment {
                          */
                         //noinspection ConstantConditions
                         RecyclerView learned = view.findViewById(R.id.courses);
-                        RecyclerHelper.setRecyclerView(homeActivity, learned, new CourseAdapter(mDataset));
+                        RecyclerHelper.setRecyclerView(homeActivity, learned, new CourseAdapter(mDataset, false));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
