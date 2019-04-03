@@ -12,7 +12,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
 
-import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.Classes.CustomDocument;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
@@ -56,55 +55,33 @@ public class CustomDatabaseUtils {
                 });
     }
 
-    public static void copyCourse(String[] from, String[] to) {
+    public static void copyDocument(String[] from, String[] to, String classTypeInCollection) {
         final DocumentReference originalDocument = (DocumentReference) retrieveCollectionOrDocument(from);
         final CollectionReference destinationCollection = (CollectionReference) retrieveCollectionOrDocument(to);
         originalDocument.addSnapshotListener((documentSnapshot, e) -> {
             if (documentSnapshot == null)
                 return;
 
-            CustomCourse customDocument = documentSnapshot.toObject(CustomCourse.class);
-            if (customDocument == null)
-                return;
+            try {
+                Object customDocument = documentSnapshot.toObject(Class.forName(
+                        "fleacircus.com.learningproject." + classTypeInCollection));
 
-            DocumentReference duplicateDocument = destinationCollection.document(documentSnapshot.getId());
-            duplicateDocument.set(customDocument);
+                if (customDocument == null)
+                    return;
 
-            copyChildCollections(originalDocument, duplicateDocument, documentSnapshot);
+                DocumentReference duplicateDocument = destinationCollection.document(documentSnapshot.getId());
+                duplicateDocument.set(customDocument);
+
+                copyChildCollections(originalDocument, duplicateDocument, documentSnapshot);
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
         });
     }
 
-    private static void copyChildCollections(DocumentReference originalDocument,
-                                      DocumentReference duplicateDocument,
-                                      DocumentSnapshot documentSnapshot) {
-        final CustomDocument customDocument = documentSnapshot.toObject(CustomDocument.class);
-        if (customDocument == null)
-            return;
-
-        List<String> children = customDocument.getChildren();
-        for (String child : children) {
-            final CollectionReference originalCollection = originalDocument.collection(child);
-            final CollectionReference collectionReference = duplicateDocument.collection(child);
-
-            originalCollection.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    if (task.getResult() == null)
-                        return;
-
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        DocumentReference originalDocument1 = originalCollection.document(document.getId());
-                        DocumentReference documentReference = collectionReference.document(document.getId());
-                        copyDocument(originalDocument1, documentReference, customDocument.getClassType());
-                    }
-                }
-            });
-        }
-    }
-
     private static void copyDocument(final DocumentReference originalDocument,
-                              final DocumentReference documentReference,
-                              final String classType) {
-        Log.e("CLASS", classType);
+                                     final DocumentReference documentReference,
+                                     final String classType) {
         originalDocument.addSnapshotListener((documentSnapshot, e) -> {
             if (documentSnapshot == null)
                 return;
@@ -122,6 +99,33 @@ public class CustomDatabaseUtils {
                 e1.printStackTrace();
             }
         });
+    }
+
+    private static void copyChildCollections(DocumentReference originalDocument,
+                                             DocumentReference duplicateDocument,
+                                             DocumentSnapshot documentSnapshot) {
+        final CustomDocument customDocument = documentSnapshot.toObject(CustomDocument.class);
+        if (customDocument == null)
+            return;
+
+        List<String> children = customDocument.getChildren();
+        for (String child : children) {
+            final CollectionReference originalCollection = originalDocument.collection(child);
+            final CollectionReference collectionReference = duplicateDocument.collection(child);
+
+            originalCollection.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    if (task.getResult() == null)
+                        return;
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        DocumentReference originalDocument1 = originalCollection.document(document.getId());
+                        DocumentReference documentReference = collectionReference.document(document.getId());
+                        copyDocument(originalDocument1, documentReference, customDocument.getClassTypeInCollection());
+                    }
+                }
+            });
+        }
     }
 
     public static void loginUser(String email,

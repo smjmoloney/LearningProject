@@ -4,6 +4,10 @@ public class CustomCourse extends CustomDocument {
 
     private String name, description, creatorID, courseID;
 
+    public CustomCourse() {
+        setClassTypeInCollection("Classes.CustomTopic");
+    }
+
     public String getName() {
         return name;
     }

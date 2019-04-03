@@ -4,6 +4,10 @@ public class CustomTopic extends CustomDocument {
 
     private String title;
 
+    public CustomTopic() {
+//        setClassTypeInCollection();
+    }
+
     public String getTitle() {
         return title;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 public class CustomDocument {
 
     private List<String> children = new ArrayList<>();
-    private String classType;
+    private String classTypeInCollection;
 
     public List<String> getChildren() {
         return children;
@@ -20,11 +20,11 @@ public class CustomDocument {
         children.add(child);
     }
 
-    public String getClassType() {
-        return classType;
+    public String getClassTypeInCollection() {
+        return classTypeInCollection;
     }
 
-    public void setClassType(String classType) {
-        this.classType = classType;
+    public void setClassTypeInCollection(String classTypeInCollection) {
+        this.classTypeInCollection = classTypeInCollection;
     }
 }

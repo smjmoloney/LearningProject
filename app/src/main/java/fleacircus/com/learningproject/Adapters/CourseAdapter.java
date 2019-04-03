@@ -47,7 +47,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         String[] from =  new String[]{"users", creatorID, "courses", courseID};
         String[] to =  new String[]{"users", uid, "courses"};
 
-        CustomDatabaseUtils.copyCourse(from, to);
+        CustomDatabaseUtils.copyDocument(from, to, "Classes.CustomCourse");
         Toast.makeText(context, R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
     }
 
