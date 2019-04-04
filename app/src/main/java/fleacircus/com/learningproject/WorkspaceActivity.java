@@ -11,10 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
@@ -23,12 +21,12 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.MenuUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 
-public class HomeActivity extends AppCompatActivity {
+public class WorkspaceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_activity);
+        setContentView(R.layout.workspace_activity);
 
         checkIfLoggedInAndHasSetupAccount();
 
@@ -64,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (FirebaseAuth.getInstance().getCurrentUser() == null)
-                    startActivity(new Intent(HomeActivity.this, IntroActivity.class));
+                    startActivity(new Intent(WorkspaceActivity.this, IntroActivity.class));
                 else
                     applyCurrentUserOrSetup();
             }
@@ -89,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
 
                     if (CustomUser.getInstance().getName() == null)
-                        startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
+                        startActivity(new Intent(WorkspaceActivity.this, UserCreationActivity.class));
                 } else
                     Log.e("OnSuccess", "Must not be a query.");
             }
@@ -121,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // start new activity to access Flashcards - create and learn
     public void FlashCardAction() {
-        Toast.makeText(HomeActivity.this, "You selected Flashcard", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WorkspaceActivity.this, "You selected Flashcard", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Flashcard_introActivity.class);
         startActivity(intent);
     }
@@ -129,14 +127,14 @@ public class HomeActivity extends AppCompatActivity {
 
     // start new activity to access Quiz - create and learn
     public void QuizAction() {
-        Toast.makeText(HomeActivity.this, "You selected Quiz", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WorkspaceActivity.this, "You selected Quiz", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Quiz_introActivity.class);
         startActivity(intent);
     }
 
     // start new activity to access user Profile
     public void ProfileAction() {
-        Toast.makeText(HomeActivity.this, "You selected Profile", Toast.LENGTH_SHORT).show();
+        Toast.makeText(WorkspaceActivity.this, "You selected Profile", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }

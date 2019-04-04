@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -148,7 +147,7 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
 
     private void exitFlashcard() {
         // return to Home Activity screen upon exiting Flashcard set up
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 

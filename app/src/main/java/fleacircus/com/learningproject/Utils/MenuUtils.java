@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 import fleacircus.com.learningproject.FindActivity;
-import fleacircus.com.learningproject.HomeActivity;
+import fleacircus.com.learningproject.WorkspaceActivity;
 import fleacircus.com.learningproject.ProfileActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreation.CustomUser;
@@ -33,7 +33,7 @@ public class MenuUtils {
                 context.startActivity(new Intent(context, FindActivity.class));
                 break;
             case R.id.action_workspace:
-                context.startActivity(new Intent(context, HomeActivity.class));
+                context.startActivity(new Intent(context, WorkspaceActivity.class));
                 break;
             case R.id.action_profile:
                 context.startActivity(new Intent(context, ProfileActivity.class));

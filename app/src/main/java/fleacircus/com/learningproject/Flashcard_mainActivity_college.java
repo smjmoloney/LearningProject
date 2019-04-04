@@ -92,7 +92,7 @@ public class Flashcard_mainActivity_college extends AppCompatActivity implements
 
     private void exitFlashcard() {
         // return to Home Activity screen upon exiting Flashcard set up
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 

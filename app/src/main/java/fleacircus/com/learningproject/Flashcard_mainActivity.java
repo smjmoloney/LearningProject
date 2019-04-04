@@ -16,12 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import fleacircus.com.learningproject.Flashcard.Flashcard_CardBackFragment;
 import fleacircus.com.learningproject.Flashcard.Flashcard_CardFrontFragment;
-import fleacircus.com.learningproject.Listeners.OnGetDataListener;
-import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 
 public class Flashcard_mainActivity extends AppCompatActivity implements Flashcard_CardBackFragment.FragmentBackListener, Flashcard_CardFrontFragment.FragmentFrontListener {
 
@@ -93,7 +90,7 @@ public class Flashcard_mainActivity extends AppCompatActivity implements Flashca
 
     private void exitFlashcard() {
         // return to Home Activity screen upon exiting Flashcard set up
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 

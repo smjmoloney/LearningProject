@@ -13,9 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
-import fleacircus.com.learningproject.HomeActivity;
+import fleacircus.com.learningproject.WorkspaceActivity;
 import fleacircus.com.learningproject.R;
-import fleacircus.com.learningproject.UserCreationActivity;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
@@ -59,7 +58,7 @@ public class UserCreationNameFragment extends Fragment {
                         CustomUser.getInstance(), ProgressDialogHelper.createProgressDialog(
                                 getActivity(), getString(R.string.setup_update_result)));
 
-                startActivity(new Intent(getActivity(), HomeActivity.class));
+                startActivity(new Intent(getActivity(), WorkspaceActivity.class));
             }
         });
     }

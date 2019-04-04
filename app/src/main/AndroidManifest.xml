@@ -36,7 +36,7 @@
             android:name=".ProfileActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".WorkspaceActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".UserCreationActivity"

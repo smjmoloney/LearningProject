@@ -105,7 +105,7 @@ public class Quiz_Listview_College extends AppCompatActivity {
     }
 
     private void ExitQuiz() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 }

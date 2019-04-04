@@ -8,10 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 public class Quiz_resultActivity extends AppCompatActivity {
 
     @Override
@@ -56,7 +52,7 @@ public class Quiz_resultActivity extends AppCompatActivity {
 
     // activity to exit Quiz to Home page
     private void ExitQuiz() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 }

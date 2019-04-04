@@ -86,7 +86,7 @@ public class Quiz_mainActivity extends AppCompatActivity {
     }
 
     private void ExitQuiz() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
     }
 

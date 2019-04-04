@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 
 import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
-import fleacircus.com.learningproject.HomeActivity;
+import fleacircus.com.learningproject.WorkspaceActivity;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
@@ -101,7 +94,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 CustomUser.updateInstance(new CustomUser());
-                getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), WorkspaceActivity.class));
             }
 
             @Override
