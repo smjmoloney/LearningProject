@@ -15,7 +15,7 @@ public class Flashcard_library extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.flashcard_library);
+        setContentView(R.layout.quiz_flashcard_library);
 
         ConstraintLayout create = findViewById(R.id.college_library_layout);
         create.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_right));

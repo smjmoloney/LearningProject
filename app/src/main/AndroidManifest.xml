@@ -47,8 +47,11 @@
         <activity android:name=".Quiz_create_NewQuestions" />
         <activity android:name=".Quiz_create_NameDialogBox" />
         <activity android:name=".Quiz_introActivity" />
+        <activity android:name=".Quiz_library" />
         <activity android:name=".Quiz_ListView" />
+        <activity android:name=".Quiz_Listview_College" />
         <activity android:name=".Quiz_mainActivity" />
+        <activity android:name=".Quiz_mainActivity_college" />
         <activity android:name=".Quiz_resultActivity" />
 
         <activity android:name=".FindActivity"/>

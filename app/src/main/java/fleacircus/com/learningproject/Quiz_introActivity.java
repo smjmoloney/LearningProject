@@ -31,7 +31,7 @@ public class Quiz_introActivity extends AppCompatActivity {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Quiz_introActivity.this, Quiz_ListView.class));
+                startActivity(new Intent(Quiz_introActivity.this, Quiz_library.class));
             }
         });
     }
