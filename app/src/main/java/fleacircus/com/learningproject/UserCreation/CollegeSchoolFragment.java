@@ -1,14 +1,14 @@
 package fleacircus.com.learningproject.UserCreation;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,11 +22,7 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CollegeSchoolFragment extends Fragment {
 
-    @BindView(R.id.question_text)
-    TextView question;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.college_layout)
+    @OnClick(R.id.constrainLayoutCollege)
     void collegeClick() {
         CustomUser.getInstance().setCollegeSchool(getString(R.string.answer_college));
 
@@ -35,8 +31,7 @@ public class CollegeSchoolFragment extends Fragment {
         FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.school_layout)
+    @OnClick(R.id.constrainLayoutSchool)
     void schoolLayout() {
         CustomUser customUser = CustomUser.getInstance();
         customUser.setCollegeSchool(getString(R.string.answer_school));
@@ -67,8 +62,8 @@ public class CollegeSchoolFragment extends Fragment {
         if (!match)
             return view;
 
-        String teacher = getString(R.string.question_school_teacher);
-        question.setText(teacher);
+        TextView question = view.findViewById(R.id.textViewQuestion);
+        question.setText(getString(R.string.question_school_teacher));
 
         return view;
     }

@@ -1,6 +1,5 @@
 package fleacircus.com.learningproject.UserCreation;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +29,13 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class CourseFragment extends Fragment {
 
-    @BindView(R.id.spinner)
+    @BindView(R.id.spinnerCourse)
     Spinner spinner;
 
     public CourseFragment() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.button_submit)
+    @OnClick(R.id.buttonSubmit)
     void courseClick() {
         CustomUser.getInstance().setCourse(spinner.getSelectedItem().toString());
 
