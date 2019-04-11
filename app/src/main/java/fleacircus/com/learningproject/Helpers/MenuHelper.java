@@ -50,8 +50,8 @@ public class MenuHelper {
 
     public static void onCreateOptionsMenuSearch(Menu menu, MenuItem menuItem, Activity activity) {
         View content = activity.findViewById(android.R.id.content);
-        View cover = activity.findViewById(R.id.cover);
-        RecyclerView find = activity.findViewById(R.id.find);
+        View cover = activity.findViewById(R.id.overlayAlpha);
+        RecyclerView find = activity.findViewById(R.id.recyclerViewFind);
 
         long duration = (long) activity.getResources().getInteger(R.integer.duration_default);
         float alpha = (float) activity.getResources().getInteger(R.integer.alpha_transparent_default) / 100;
@@ -115,7 +115,6 @@ public class MenuHelper {
             }
         });
 
-        ((View) find.getParent()).bringToFront();
         find.setAdapter(new FindUserAdapter(null));
     }
 
