@@ -18,6 +18,13 @@ public class StringUtils {
         return null;
     }
 
+    public static String capitalise(String temp) {
+        temp = toLowerCase(temp);
+        temp = temp.substring(0, 1).toUpperCase();
+
+        return temp;
+    }
+
     public static String capitaliseEach(String temp) {
         temp = toLowerCase(temp);
         String[] words = temp.split(" ");
