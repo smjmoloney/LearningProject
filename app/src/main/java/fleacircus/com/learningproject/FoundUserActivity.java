@@ -68,7 +68,7 @@ public class FoundUserActivity extends AppCompatActivity {
                          * used frequently, thus it has been placed within a helper class.
                          */
                         //noinspection ConstantConditions
-                        RecyclerView courses = findViewById(R.id.courses);
+                        RecyclerView courses = findViewById(R.id.viewPagerCourses);
                         RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset, true));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
@@ -90,8 +90,8 @@ public class FoundUserActivity extends AppCompatActivity {
 
         String n = StringUtils.toUpperCase(customUser.getName());
         String l = StringUtils.toUpperCase(customUser.getLocation());
-        TextView name = findViewById(R.id.name);
-        TextView location = findViewById(R.id.location);
+        TextView name = findViewById(R.id.textViewName);
+        TextView location = findViewById(R.id.textViewLocation);
         name.setText(n);
         location.setText(l);
 
@@ -99,14 +99,14 @@ public class FoundUserActivity extends AppCompatActivity {
         if (!StringUtils.hasMatch(t, getString(R.string.answer_teacher))) {
             String c = customUser.getCollegeSchool();
             if (StringUtils.hasMatch(c, getString(R.string.answer_college))) {
-                TextView course = findViewById(R.id.course);
+                TextView course = findViewById(R.id.textViewCourse);
                 course.setText(StringUtils.toUpperCase(customUser.getCourse()));
             }
         }
 
         int imageID = customUser.getImageID();
         if (imageID != 0) {
-            ImageView image = findViewById(R.id.image_profile);
+            ImageView image = findViewById(R.id.imageViewProfile);
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
         }
 
