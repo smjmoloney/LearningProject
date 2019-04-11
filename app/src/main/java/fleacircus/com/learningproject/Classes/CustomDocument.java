@@ -7,6 +7,7 @@ public class CustomDocument {
 
     private List<String> children = new ArrayList<>();
     private String classTypeInCollection;
+    private int currentScore;
 
     public List<String> getChildren() {
         return children;
@@ -26,5 +27,13 @@ public class CustomDocument {
 
     public void setClassTypeInCollection(String classTypeInCollection) {
         this.classTypeInCollection = classTypeInCollection;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 }
