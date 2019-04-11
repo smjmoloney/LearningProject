@@ -7,23 +7,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,10 +27,13 @@ import butterknife.OnItemClick;
 import fleacircus.com.learningproject.Adapters.GridImageAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.Classes.CustomViewPager;
+import fleacircus.com.learningproject.Classes.SectionsPagerAdapter;
+import fleacircus.com.learningproject.Helpers.FragmentHelper;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.Helpers.MenuHelper;
-import fleacircus.com.learningproject.Home.CreatedFragment;
-import fleacircus.com.learningproject.Home.LearnedFragment;
+import fleacircus.com.learningproject.Home.CreateFragment;
+import fleacircus.com.learningproject.Home.LearnFragment;
+import fleacircus.com.learningproject.Interpolators.CustomBounceInterpolator;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
@@ -43,45 +42,43 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class HomeActivity extends AppCompatActivity {
 
-    @BindView(R.id.image_profile)
-    ImageView image;
-    @BindView(R.id.grid)
-    GridView grid;
-    @BindView(R.id.cover)
-    View cover;
+    @BindView(R.id.imageViewProfile)
+    ImageView imageViewProfile;
+    @BindView(R.id.gridViewImages)
+    GridView gridViewImages;
+    @BindView(R.id.viewPagerCourses)
+    CustomViewPager viewPager;
+    @BindView(R.id.overlayAlpha)
+    View overlayAlpha;
+
+    int swapValue = 1;
+
+    float alpha = 0;
+    long duration = 0;
 
     /*
      * Temporary method allowing us to test various animations as
      * they relate to user profile details; including images, text
      * views, and recycler items.
      */
-    @OnClick(R.id.image_profile)
-    void imageClick() {
-//        //noinspection ConstantConditions
-//        Parcelable recyclerViewState = courses.getLayoutManager().onSaveInstanceState();
+    @OnClick(R.id.imageViewProfile)
+    void imageViewProfile() {
+        Animation animationPop = CustomAnimationUtils.loadAnimation(this, R.anim.animation_pop);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayoutProfile);
+        for (int i = 0; i < constraintLayout.getChildCount(); i++)
+            constraintLayout.getChildAt(i).startAnimation(animationPop);
+
+        /*
+         * Animate all other items currently on screen
+         */
+//        Animation imagePop = CustomAnimationUtils.loadAnimation(this, R.anim.animation_pop);
+//        image.startAnimation(imagePop);
 //
-//        /*
-//         * Animate items within our recycler view
-//         */
-//        Context context = courses.getContext();
-//        LayoutAnimationController controller = CustomAnimationUtils.loadLayoutAnimation(context, R.anim.layout_up);
-//
-//        courses.setLayoutAnimation(controller);
-//        courses.scheduleLayoutAnimation();
-//
-//        if (recyclerViewState != null)
-//            courses.getLayoutManager().onRestoreInstanceState(recyclerViewState);
-//
-//        /*
-//         * Animate all other items currently on screen
-//         */
-//        Animation right = CustomAnimationUtils.loadAnimation(this, R.anim.animation_slide_right);
-//        right.setDuration(animationDuration);
-//
-//        image.startAnimation(right);
-//        fab.startAnimation(right);
-//
-//        Animation left = CustomAnimationUtils.loadAnimation(this, R.anim.animation_slide_left);
+//        Animation fabPop = CustomAnimationUtils.loadAnimation(this, R.anim.animation_pop_delayed);
+//        fab_image_swap.startAnimation(fabPop);
+
+//        Animation left = CustomAnimationUtils.loadAnimation(this, R.anim.pop);
 //        left.setDuration(animationDuration);
 //
 //        name.startAnimation(left);
@@ -89,69 +86,78 @@ public class HomeActivity extends AppCompatActivity {
 //        course.startAnimation(left);
     }
 
-    @OnClick(R.id.fab)
-    void fabClick() {
-        long duration = (long) getResources().getInteger(R.integer.duration_default);
-        float alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
+    @OnClick(R.id.fabProfile)
+    void fabProfile() {
+        CustomBounceInterpolator interpolator = new CustomBounceInterpolator(0.2, 10);
+        FloatingActionButton fabProfile = findViewById(R.id.fabProfile);
 
-        View content = findViewById(android.R.id.content);
+        Animation fabPress = CustomAnimationUtils.loadAnimation(this, R.anim.animation_pop);
+        fabPress.setInterpolator(interpolator);
+        fabProfile.startAnimation(fabPress);
+
         CustomAnimationUtils.circleAnimation(
-                content,
-                grid,
+                findViewById(android.R.id.content),
+                gridViewImages,
                 duration,
                 false);
 
-        CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2);
-        grid.setVisibility(View.VISIBLE);
+        CustomAnimationUtils.alphaAnimation(overlayAlpha, 0, alpha, duration / 2);
+        gridViewImages.setVisibility(View.VISIBLE);
     }
 
-    @OnItemClick(R.id.grid)
-    void itemClick(int position) {
-        long duration = (long) getResources().getInteger(R.integer.duration_default);
-        float alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
-
-        View content = findViewById(android.R.id.content);
+    @OnItemClick(R.id.gridViewImages)
+    void gridViewImage(int position) {
         Animator anim = CustomAnimationUtils.circleAnimation(
-                content,
-                grid,
+                findViewById(android.R.id.content),
+                gridViewImages,
                 duration,
                 true);
 
-        CustomAnimationUtils.visibilityListener(anim, grid, false);
-        CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2);
+        CustomAnimationUtils.visibilityListener(anim, gridViewImages, false);
+        CustomAnimationUtils.alphaAnimation(overlayAlpha, alpha, 0, duration * 2);
+        CustomUser.getInstance().setImageID(position);
+        CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
 
-        CustomUser customUser = CustomUser.getInstance();
-        customUser.setImageID(position);
+        int drawable = (int) gridViewImages.getAdapter().getItem(position);
+        imageViewProfile.setImageResource(drawable);
+    }
 
-        CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
+    @OnClick(R.id.fabViewSwap)
+    void fabViewSwap() {
+        CustomBounceInterpolator interpolator = new CustomBounceInterpolator(0.2, 10);
+        FloatingActionButton fabViewSwap = findViewById(R.id.fabViewSwap);
 
-        int drawable = (int) grid.getAdapter().getItem(position);
-        image.setImageResource(drawable);
+        Animation fabPress = CustomAnimationUtils.loadAnimation(this, R.anim.animation_pop);
+        fabPress.setInterpolator(interpolator);
+        fabViewSwap.startAnimation(fabPress);
+
+        FragmentHelper.progressFragment(viewPager, swapValue);
+        swapValue = -swapValue;
+    }
+
+    private void setupGridAdapter() {
+        GridImageAdapter gridImageAdapter = new GridImageAdapter(getApplicationContext());
+        gridViewImages.setAdapter(gridImageAdapter);
     }
 
     private void setupViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LearnedFragment());
-        adapter.addFragment(new CreatedFragment());
+        adapter.addFragment(new LearnFragment());
+        adapter.addFragment(new CreateFragment());
 
         /*
          * The {@link ViewPager} that will host the section contents.
          */
-        CustomViewPager viewPager = findViewById(R.id.container);
-
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         viewPager.setAdapter(adapter);
     }
 
     private void setCurrentUser() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser == null)
+            return;
 
-        //noinspection ConstantConditions
-        String uid = auth.getCurrentUser().getUid();
-        String[] document = new String[]{"users", uid};
-
+        String[] document = new String[]{"users", firebaseUser.getUid()};
         CustomDatabaseUtils.read(document, new OnGetDataListener() {
             @Override
             public void onStart() {
@@ -161,54 +167,61 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object object, boolean isQuery) {
                 try {
-                    if (!isQuery) {
-                        CustomUser customUser = ((DocumentSnapshot) object).toObject(CustomUser.class);
-                        if (customUser == null) {
-                            FirebaseAuth.getInstance().signOut();
-                            return;
-                        }
-
-                        CustomUser.updateInstance(customUser);
-                        if (customUser.getName() == null) {
-                            startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
-                            return;
-                        }
-
-                        String n = StringUtils.toUpperCase(customUser.getName());
-                        String l = StringUtils.toUpperCase(customUser.getLocation());
-                        TextView name = findViewById(R.id.name);
-                        TextView location = findViewById(R.id.location);
-                        name.setText(n);
-                        location.setText(l);
-
-                        String t = customUser.getTeacherStudent();
-                        if (!StringUtils.hasMatch(t, getString(R.string.answer_teacher))) {
-                            String c = customUser.getCollegeSchool();
-                            if (StringUtils.hasMatch(c, getString(R.string.answer_college))) {
-                                TextView course = findViewById(R.id.course);
-                                course.setText(StringUtils.toUpperCase(customUser.getCourse()));
-                            }
-                        }
-
-                        int imageID = customUser.getImageID();
-                        if (imageID != 0)
-                            image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
-
-                        boolean update = false;
-                        if (customUser.getUid() == null) {
-                            customUser.setUid(auth.getUid());
-                            update = true;
-                        }
-
-                        if (customUser.getEmail() == null) {
-                            customUser.setEmail(auth.getCurrentUser().getEmail());
-                            update = true;
-                        }
-
-                        if (update)
-                            CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
-                    } else {
+                    if (isQuery) {
                         Log.e("OnSuccess", object + " must not be a query.");
+                        return;
+                    }
+
+                    CustomUser customUser = ((DocumentSnapshot) object).toObject(CustomUser.class);
+                    if (customUser == null) {
+                        FirebaseAuth.getInstance().signOut();
+                        return;
+                    }
+
+                    CustomUser.updateInstance(customUser);
+                    if (customUser.getName() == null) {
+                        startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
+                        return;
+                    }
+
+                    String name = StringUtils.toUpperCase(customUser.getName());
+                    TextView textViewName = findViewById(R.id.textViewName);
+                    textViewName.setText(name);
+
+                    String location = StringUtils.capitaliseEach(customUser.getLocation());
+                    TextView textViewLocationCourse = findViewById(R.id.textViewLocationCourse);
+
+                    String status = customUser.getTeacherStudent();
+                    String answer = getString(R.string.answer_teacher);
+                    boolean isStudent = !StringUtils.hasMatch(status, answer);
+                    if (!isStudent) {
+                        textViewLocationCourse.setText(getString(R.string.home_teacher, location));
+                    } else {
+                        String educationStatus = customUser.getCollegeSchool();
+                        String educationAnswer = getString(R.string.answer_college);
+                        boolean isCollegeStudent = StringUtils.hasMatch(educationStatus, educationAnswer);
+                        if (!isCollegeStudent) {
+                            textViewLocationCourse.setText(getString(R.string.home_student, location));
+                        } else {
+                            String course = StringUtils.capitaliseEach(customUser.getCourse());
+                            String concat = getString(R.string.home_student, location) + getString(R.string.home_course, course);
+                            textViewLocationCourse.setText(concat);
+                        }
+                    }
+
+                    int imageID = customUser.getImageID();
+                    if (imageID != 0)
+                        imageViewProfile.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
+
+                    boolean update = false;
+                    if (customUser.getUid() == null || customUser.getEmail() == null) {
+                        customUser.setUid(auth.getUid());
+                        customUser.setEmail(auth.getCurrentUser().getEmail());
+                        update = true;
+                    }
+
+                    if (update) {
+                        CustomDatabaseUtils.addOrUpdateUserDocument(customUser);
                     }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -225,31 +238,17 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.addAuthStateListener(firebaseAuth -> {
-            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                return;
-            }
+        ButterKnife.bind(HomeActivity.this, findViewById(android.R.id.content));
 
-            setContentView(R.layout.activity_home);
-            setSupportActionBar(findViewById(R.id.toolbar));
+        alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
+        duration = (long) getResources().getInteger(R.integer.duration_default);
 
-            View content = findViewById(android.R.id.content);
-            ButterKnife.bind(HomeActivity.this, content);
-
-            setupViewPager();
-            cover.bringToFront();
-
-            View parent = (View) grid.getParent();
-            parent.bringToFront();
-
-            GridImageAdapter gridImageAdapter = new GridImageAdapter(getApplicationContext());
-            grid.setAdapter(gridImageAdapter);
-
-            setCurrentUser();
-        });
+        setupGridAdapter();
+        setupViewPager();
+        setCurrentUser();
     }
 
     @Override
@@ -268,33 +267,5 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         MenuHelper.onOptionsItemSelected(this, item);
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> fragmentList = new ArrayList<>();
-
-        SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        void addFragment(Fragment fragment) {
-            fragmentList.add(fragment);
-        }
     }
 }
