@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@color/blue_off_white"
+    android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +20,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.75" >
+            android:layout_weight="1.75">
 
             <ImageView
-                android:id="@+id/image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
@@ -38,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/splash_login"
-                android:contentDescription="TODO" />
+                tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +46,7 @@
             android:background="@color/blue_dark">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/editTextViewEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -67,7 +65,7 @@
                 tools:ignore="Autofill" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/editTextViewPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -82,11 +80,11 @@
                 android:textColorHint="@color/white_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email"
+                app:layout_constraintTop_toBottomOf="@+id/editTextViewEmail"
                 tools:ignore="Autofill" />
 
             <TextView
-                android:id="@+id/message_confirm"
+                android:id="@+id/textViewConfirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -99,10 +97,10 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextViewPassword" />
 
             <Button
-                android:id="@+id/button_submit"
+                android:id="@+id/buttonSubmit"
                 style="@android:style/Widget.Holo.Light.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,10 +111,10 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message_confirm" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewConfirm" />
 
             <TextView
-                android:id="@+id/prompt_sign"
+                android:id="@+id/textViewPromptSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -127,7 +125,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_submit"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSubmit"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

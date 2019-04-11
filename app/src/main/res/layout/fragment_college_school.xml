@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_off_white"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:mrl_rippleAlpha="0.1"
@@ -22,13 +21,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/question_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/question_text"
+                android:id="@+id/textViewQuestion"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
@@ -60,7 +58,7 @@
             app:mrl_rippleOverlay="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/college_layout"
+                android:id="@+id/constrainLayoutCollege"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -69,7 +67,7 @@
                 android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/college_image"
+                    android:id="@+id/imageViewCollege"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="32dp"
@@ -80,13 +78,13 @@
                     android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/college_text"
+                    app:layout_constraintStart_toEndOf="@+id/itemViewCollege"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/creation_college"
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/college_text"
+                    android:id="@+id/itemViewCollege"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -113,7 +111,7 @@
             app:mrl_rippleOverlay="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/school_layout"
+                android:id="@+id/constrainLayoutSchool"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -122,7 +120,7 @@
                 android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/school_image"
+                    android:id="@+id/imageViewSchool"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="32dp"
@@ -132,14 +130,14 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/school_text"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewSchool"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/creation_school"
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/school_text"
+                    android:id="@+id/textViewSchool"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"

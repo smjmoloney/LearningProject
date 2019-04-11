@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/findParent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/overlayAlpha"
+        tools:layout_editor_absoluteX="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFind"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/blue_off_white"
+            android:visibility="invisible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayoutProfile">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </io.codetail.widget.RevealFrameLayout>
+
+    <!--<io.codetail.widget.RevealFrameLayout-->
+        <!--android:id="@+id/gridParent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/overlayAlpha"-->
+        <!--tools:layout_editor_absoluteX="8dp">-->
+
+        <!--<GridView-->
+            <!--android:id="@+id/gridViewImages"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/blue_dark"-->
+            <!--android:clipToPadding="false"-->
+            <!--android:paddingTop="32dp"-->
+            <!--android:paddingBottom="32dp"-->
+            <!--android:verticalSpacing="32dp"-->
+            <!--android:visibility="invisible"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/recyclerViewCourses" />-->
+    <!--</io.codetail.widget.RevealFrameLayout>-->
+
+    <View
+        android:id="@+id/overlayAlpha"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="1.5"
+        android:clipChildren="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="64dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/constraint_profile"
+            android:clipChildren="false"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.631"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewLocationCourse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textIsSelectable="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile_00"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:tint="@color/blue_dark"
+            app:backgroundTint="@color/orange"
+            app:fabSize="mini"
+            app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/fab_image_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<com.google.android.material.tabs.TabLayout-->
+        <!--android:id="@+id/courseTypeSelector"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/blue_light"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/constraintLayoutProfile"-->
+        <!--app:tabTextColor="@color/blue_dark"-->
+        <!--tools:layout_editor_absoluteX="0dp">-->
+
+        <!--<com.google.android.material.tabs.TabItem-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/courses_learned" />-->
+
+        <!--<com.google.android.material.tabs.TabItem-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/courses_created" />-->
+
+    <!--</com.google.android.material.tabs.TabLayout>-->
+
+    <!--<fleacircus.com.learningproject.Classes.CustomViewPager-->
+        <!--android:id="@+id/viewPagerCourses"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/courseTypeSelector"-->
+        <!--tools:layout_editor_absoluteX="8dp">-->
+
+    <!--</fleacircus.com.learningproject.Classes.CustomViewPager>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

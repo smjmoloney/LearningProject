@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@color/blue_off_white"
+    android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +20,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.75" >
+            android:layout_weight="1.75">
 
             <ImageView
-                android:id="@+id/image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
@@ -48,7 +46,7 @@
             android:background="@color/blue_dark">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/editTextViewEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -67,7 +65,7 @@
                 tools:ignore="Autofill" />
 
             <TextView
-                android:id="@+id/message_email"
+                android:id="@+id/textViewEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -81,10 +79,10 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextViewEmail" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/editTextViewPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -99,11 +97,11 @@
                 android:textColorHint="@color/white_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message_email"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
                 tools:ignore="Autofill" />
 
             <TextView
-                android:id="@+id/message_password"
+                android:id="@+id/textViewPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -117,10 +115,10 @@
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextViewPassword" />
 
             <EditText
-                android:id="@+id/password_confirm"
+                android:id="@+id/editTextViewConfirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -136,11 +134,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message_password"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPassword"
                 tools:ignore="Autofill" />
 
             <TextView
-                android:id="@+id/message_confirm"
+                android:id="@+id/textViewConfirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -154,10 +152,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_confirm" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextViewConfirm" />
 
             <Button
-                android:id="@+id/button_submit"
+                android:id="@+id/buttonSubmit"
                 style="@android:style/Widget.Holo.Light.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,11 +165,12 @@
                 android:text="@string/submit_button"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message_confirm" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewConfirm" />
 
             <TextView
-                android:id="@+id/prompt_login"
+                android:id="@+id/textViewPromptLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -182,10 +181,210 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_submit"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSubmit"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </com.balysv.materialripple.MaterialRippleLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/blue_off_white"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:mrl_rippleAlpha="0.1"-->
+    <!--app:mrl_rippleDuration="350"-->
+    <!--app:mrl_rippleFadeDuration="75"-->
+    <!--app:mrl_rippleOverlay="true">-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1.75">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_marginStart="32dp"-->
+                <!--android:layout_marginLeft="32dp"-->
+                <!--android:layout_marginTop="32dp"-->
+                <!--android:layout_marginEnd="32dp"-->
+                <!--android:layout_marginRight="32dp"-->
+                <!--android:layout_marginBottom="32dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:srcCompat="@drawable/splash_sign"-->
+                <!--tools:ignore="ContentDescription" />-->
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/blue_dark"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editTextViewEmail"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginTop="32dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/placeholder_email"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--android:text="TEST"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textColorHint="@color/white_hint"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--tools:ignore="Autofill" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textViewEmail"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:gravity="end"-->
+                <!--android:text="TEST"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/orange"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="italic"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/editTextViewEmail" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editTextViewPassword"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/placeholder_password"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:text="TEST"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textColorHint="@color/white_hint"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/textViewEmail"-->
+                <!--tools:ignore="Autofill" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textViewPassword"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:gravity="end"-->
+                <!--android:text="TEST"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/orange"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="italic"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/editTextViewPassword" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editTextViewConfirm"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/placeholder_confirm_password"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:text="TEST"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textColorHint="@color/white_hint"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.0"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/textViewPassword"-->
+                <!--tools:ignore="Autofill" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textViewConfirm"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:gravity="end"-->
+                <!--android:text="TEST"-->
+                <!--android:textColor="@color/orange"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="italic"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="1.0"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/editTextViewConfirm" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/buttonSubmit"-->
+                <!--style="@android:style/Widget.Holo.Light.Button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginEnd="16dp"-->
+                <!--android:text="TEST"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.0"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/textViewConfirm" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textViewPromptSign"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:paddingBottom="8dp"-->
+                <!--android:text="@string/prompt_login"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/buttonSubmit"-->
+                <!--app:layout_constraintVertical_bias="0.0" />-->
+
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--</LinearLayout>-->
+<!--</com.balysv.materialripple.MaterialRippleLayout>-->

@@ -13,7 +13,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/blue_off_white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +20,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/question_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/question_text"
+                android:id="@+id/textViewQuestion"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
@@ -50,14 +48,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/college_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/blue_dark">
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinnerLocation"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,16 +62,17 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:popupBackground="@color/blue_off_white"
                 android:spinnerMode="dialog"
-                app:layout_constraintBottom_toTopOf="@+id/button_submit"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSubmit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <Button
-                android:id="@+id/button_submit"
+                android:id="@+id/buttonSubmit"
                 style="@android:style/Widget.Holo.Light.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

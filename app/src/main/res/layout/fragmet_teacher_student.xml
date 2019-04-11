@@ -15,7 +15,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/blue_off_white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +24,11 @@
         tools:layout_conversion_absoluteWidth="411dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/question_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/question_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -56,7 +53,7 @@
             app:mrl_rippleOverlay="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/student_layout"
+                android:id="@+id/constraintLayoutStudent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/blue_accent"
@@ -64,7 +61,7 @@
                 android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/student_image"
+                    android:id="@+id/imageViewStudent"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="32dp"
@@ -75,13 +72,13 @@
                     android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/student_text"
+                    app:layout_constraintStart_toEndOf="@+id/textViewStudent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/creation_student"
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/student_text"
+                    android:id="@+id/textViewStudent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -109,7 +106,7 @@
             app:mrl_rippleOverlay="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/teacher_layout"
+                android:id="@+id/constraintLayoutTeacher"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/blue_dark"
@@ -117,7 +114,7 @@
                 android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/teacher_image"
+                    android:id="@+id/imageViewTeacher"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="32dp"
@@ -127,14 +124,14 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/teacher_text"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewTeacher"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/creation_teacher"
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/teacher_text"
+                    android:id="@+id/textViewTeacher"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"

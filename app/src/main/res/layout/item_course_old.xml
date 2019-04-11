@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    app:mrl_rippleAlpha="0.1"
+    app:mrl_rippleDuration="350"
+    app:mrl_rippleFadeDuration="75"
+    app:mrl_rippleOverlay="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constrainLayout"
+        android:id="@+id/constraintLayoutCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/brown_off_white">

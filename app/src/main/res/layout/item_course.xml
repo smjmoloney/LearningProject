@@ -10,13 +10,13 @@
     app:mrl_rippleOverlay="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/brown_off_white">
 
         <TextView
-            android:id="@+id/course"
+            android:id="@+id/textViewCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -40,10 +40,10 @@
             android:textColor="@color/brown_off_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/course" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewCourse" />
 
         <TextView
-            android:id="@+id/creator"
+            android:id="@+id/textViewCreator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
             android:padding="16dp"
             android:textColor="@color/brown_off_black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.balysv.materialripple.MaterialRippleLayout>

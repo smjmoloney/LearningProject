@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blue_off_white"
     android:gravity="start">
 
     <ImageView
-        android:id="@+id/image_profile"
+        android:id="@+id/imageViewProfile"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -24,7 +23,7 @@
         tools:ignore="ContentDescription,UnusedAttribute" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/textViewName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,11 +33,11 @@
         android:layout_marginRight="16dp"
         android:textColor="@color/blue_off_black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_profile"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/textViewLocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -48,11 +47,11 @@
         android:textColor="@color/blue_off_black"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <TextView
-        android:id="@+id/course"
+        android:id="@+id/textViewCourse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -63,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

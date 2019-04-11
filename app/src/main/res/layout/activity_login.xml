@@ -6,7 +6,7 @@
     tools:context=".LoginActivity">
 
     <fleacircus.com.learningproject.Classes.CustomViewPager
-        android:id="@+id/container"
+        android:id="@+id/viewPagerLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
