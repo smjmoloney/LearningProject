@@ -41,8 +41,12 @@
     <string name="message_name">Name must be at least 3 characters.</string>
 
     <!-- Home Strings -->
-    <string name="courses_learned">LEARNED</string>
-    <string name="courses_created">CREATED</string>
+    <string name="home_student">Currently attends the %1$s</string>
+    <string name="home_teacher">Teaches at the %1$s</string>
+    <string name="home_course">, studying %1$s</string>
+
+    <string name="courses_learned">LEARN</string>
+    <string name="course_created">CREATE</string>
 
     <!-- Toast Messages -->
     <string name="courses_message_addition">A course has been added to your library.</string>
