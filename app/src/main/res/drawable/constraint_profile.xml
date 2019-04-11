@@ -7,5 +7,5 @@
         android:right="@dimen/rounded_edges"
         android:top="@dimen/rounded_edges" />
     <corners android:radius="@dimen/rounded_edges" />
-    <solid android:color="@color/blue_dark" />
+    <solid android:color="@color/blue_off_black" />
 </shape>
