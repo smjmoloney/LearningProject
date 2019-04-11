@@ -69,8 +69,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         String name = StringUtils.capitaliseEach(course.getName());
         String description = course.getDescription();
 
-        TextView n = view.findViewById(R.id.course);
-        TextView d = view.findViewById(R.id.description);
+        TextView n = view.findViewById(R.id.textViewCourse);
+        TextView d = view.findViewById(R.id.textViewDescription);
         n.setText(name);
         d.setText(description);
 
@@ -79,10 +79,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
             return;
 
         String creator = course.getCreatorID();
-        TextView c = view.findViewById(R.id.creator);
+        TextView c = view.findViewById(R.id.textViewCreator);
         c.setText(creator);
 
-        ConstraintLayout constraintLayout = view.findViewById(R.id.constraint);
+        ConstraintLayout constraintLayout = view.findViewById(R.id.constraintLayout);
         ColorUtils.setBackgroundColor(constraintLayout, R.color.blue_off_white);
 
         int bob = view.getResources().getColor(R.color.blue_off_black);

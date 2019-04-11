@@ -83,14 +83,14 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         Intent intent = new Intent(activity, FoundUserActivity.class);
         intent.putExtra("user", user);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             activity.startActivity(intent);
             return;
         }
 
-        ImageView image = view.findViewById(R.id.image_profile);
+        ImageView image = view.findViewById(R.id.imageViewProfile);
         ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(activity, image, "image_profile");
+                makeSceneTransitionAnimation(activity, image, "imageViewProfile");
 
         activity.startActivity(intent, options.toBundle());
     }
@@ -105,6 +105,11 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = users.get(position);
+        if (user == null)
+            return;
+
+        if (user.getName() == null)
+            return;
 
         View view = holder.itemView;
         view.setOnClickListener(v -> onClick(user, view));
@@ -112,10 +117,10 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         String name = StringUtils.capitaliseEach(user.getName());
         String location = StringUtils.capitaliseEach(user.getLocation());
 
-        TextView n = view.findViewById(R.id.name);
+        TextView n = view.findViewById(R.id.textViewName);
         n.setText(name);
 
-        TextView l = view.findViewById(R.id.location);
+        TextView l = view.findViewById(R.id.textViewLocation);
         l.setText(location);
 
         Context context = holder.itemView.getContext();
@@ -126,13 +131,13 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         if (cMatch && sMatch) {
             String course = StringUtils.capitaliseEach(user.getCourse());
 
-            TextView c = view.findViewById(R.id.course);
+            TextView c = view.findViewById(R.id.textViewCourse);
             c.setText(course);
         }
 
         int imageID = user.getImageID();
         if (imageID != 0) {
-            ImageView image = view.findViewById(R.id.image_profile);
+            ImageView image = view.findViewById(R.id.imageViewProfile);
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
         }
     }
