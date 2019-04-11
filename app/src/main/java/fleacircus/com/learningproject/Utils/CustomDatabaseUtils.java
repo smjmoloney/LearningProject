@@ -47,8 +47,7 @@ public class CustomDatabaseUtils {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         addOrUpdateUserDocument(CustomUser.getInstance());
-
-                        listener.onStart();
+                        listener.onSuccess(null, false);
                     } else {
                         listener.onFailed(null);
                     }
