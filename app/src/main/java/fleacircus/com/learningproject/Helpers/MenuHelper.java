@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import fleacircus.com.learningproject.Adapters.FindUserAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
 
@@ -123,6 +125,8 @@ public class MenuHelper {
             case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
                 CustomUser.updateInstance(new CustomUser());
+
+                activity.startActivity(new Intent(activity, LoginActivity.class));
                 break;
         }
     }
