@@ -21,6 +21,7 @@ public class StringUtils {
     public static String capitalise(String temp) {
         temp = toLowerCase(temp);
         temp = temp.substring(0, 1).toUpperCase();
+
         return temp;
     }
 
