@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -27,13 +29,18 @@ public class SplashActivity extends AppCompatActivity {
 
     private void alpha() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-        CustomAnimationUtils.alphaAnimation(constraintLayout, 1, 0, (long) (duration * .35));
+        CustomAnimationUtils.alphaAnimation(constraintLayout, 1, 0, (long) (duration * .35), true);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(false)
+                .build();
+        FirebaseFirestore.getInstance().setFirestoreSettings(settings);
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
         CustomAnimationUtils.progressBarAnimation(progressBar, 0, 100, duration);
