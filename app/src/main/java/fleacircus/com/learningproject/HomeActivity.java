@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
                 duration,
                 false);
 
-        CustomAnimationUtils.alphaAnimation(overlayAlpha, 0, alpha, duration / 2);
+        CustomAnimationUtils.alphaAnimation(overlayAlpha, 0, alpha, duration / 2, true);
         gridViewImages.setVisibility(View.VISIBLE);
     }
 
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                 true);
 
         CustomAnimationUtils.visibilityListener(anim, gridViewImages, false);
-        CustomAnimationUtils.alphaAnimation(overlayAlpha, alpha, 0, duration * 2);
+        CustomAnimationUtils.alphaAnimation(overlayAlpha, alpha, 0, duration * 2, true);
         CustomUser.getInstance().setImageID(position);
         CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
 
@@ -148,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
         /*
          * The {@link ViewPager} that will host the section contents.
          */
+        viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
     }
 
@@ -241,7 +242,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         setSupportActionBar(findViewById(R.id.toolbar));
 
-        ButterKnife.bind(HomeActivity.this, findViewById(android.R.id.content));
+        ButterKnife.bind(this, findViewById(android.R.id.content));
 
         alpha = (float) getResources().getInteger(R.integer.alpha_transparent_default) / 100;
         duration = (long) getResources().getInteger(R.integer.duration_default);
