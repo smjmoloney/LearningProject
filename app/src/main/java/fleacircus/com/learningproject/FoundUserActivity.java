@@ -6,7 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -16,6 +19,8 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import fleacircus.com.learningproject.Adapters.CourseAdapter;
 import fleacircus.com.learningproject.Classes.CustomCourse;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -28,15 +33,35 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FoundUserActivity extends AppCompatActivity {
 
+    String foundUid;
+
+    @OnClick(R.id.buttonSubmit)
+    void sendDocument() {
+        if (foundUid.isEmpty())
+            return;
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null)
+            return;
+
+        String uid = user.getUid();
+        String[] from =  new String[]{"users", foundUid, "courses", "poayKZr0qQwwOWudgrTz"};
+        String[] to =  new String[]{"users", uid, "courses"};
+
+        CustomDatabaseUtils.copyDocument(from, to, "Classes.CustomCourse");
+        Toast.makeText(this, R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Method accesses the courses collection of the currently
      * logged in user and populates our recycler view with each
      * course. They are defined as documents, each with a number
      * of fields.
      */
-    private void setCourses(String uid) {
+    private void setCourses() {
         //noinspection ConstantConditions
-        String[] collection = new String[]{"users", uid, "courses"};
+        String[] collection = new String[]{"users", foundUid, "courses"};
 
         CustomDatabaseUtils.read(collection, new OnGetDataListener() {
             @Override
@@ -69,7 +94,7 @@ public class FoundUserActivity extends AppCompatActivity {
                          */
                         //noinspection ConstantConditions
                         RecyclerView courses = findViewById(R.id.viewPagerCourses);
-                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset, true));
+                        RecyclerHelper.setRecyclerView(getApplicationContext(), courses, new CourseAdapter(mDataset, foundUid));
                     } else
                         Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
@@ -87,6 +112,7 @@ public class FoundUserActivity extends AppCompatActivity {
     private void setSelectedUser() {
         //noinspection ConstantConditions
         CustomUser customUser = (CustomUser) getIntent().getSerializableExtra("user");
+        foundUid = customUser.getUid();
 
         String n = StringUtils.toUpperCase(customUser.getName());
         String l = StringUtils.toUpperCase(customUser.getLocation());
@@ -110,7 +136,7 @@ public class FoundUserActivity extends AppCompatActivity {
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
         }
 
-        setCourses(customUser.getUid());
+        setCourses();
     }
 
     @Override
@@ -118,6 +144,8 @@ public class FoundUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_user);
         setSupportActionBar(findViewById(R.id.toolbar));
+
+        ButterKnife.bind(this, findViewById(android.R.id.content));
 
         setSelectedUser();
     }
