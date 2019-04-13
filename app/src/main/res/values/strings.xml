@@ -55,4 +55,8 @@
     <string name="location">LOCATION</string>
     <string name="course">COURSE</string>
     <string name="users_find">Search for users…</string>
+
+    <!-- Course Strings -->
+    <string name="course_delete">DELETE</string>
+    <string name="course_cancel">CANCEL</string>
 </resources>
