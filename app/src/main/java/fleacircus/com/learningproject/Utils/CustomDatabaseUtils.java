@@ -101,6 +101,11 @@ public class CustomDatabaseUtils {
         });
     }
 
+    public static void deleteDocument(String[] document) {
+        DocumentReference originalDocument = (DocumentReference) retrieveCollectionOrDocument(document);
+        originalDocument.delete().addOnSuccessListener(aVoid -> Log.e("SUCCESS", "SUCCESS"));
+    }
+
     private static void copyChildCollections(DocumentReference originalDocument,
                                              DocumentReference duplicateDocument,
                                              DocumentSnapshot documentSnapshot) {
