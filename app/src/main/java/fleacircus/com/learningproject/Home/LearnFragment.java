@@ -98,7 +98,7 @@ public class LearnFragment extends Fragment {
                          */
                         //noinspection ConstantConditions
                         RecyclerView learned = view.findViewById(R.id.recyclerViewCourses);
-                        RecyclerHelper.setRecyclerView(homeActivity, learned, new CourseAdapter(mDataset, false));
+                        RecyclerHelper.setRecyclerView(homeActivity, learned, new CourseAdapter(mDataset));
 
                         entryAnimation(view);
                     } else

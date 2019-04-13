@@ -99,7 +99,7 @@ public class CreateFragment extends Fragment {
                          */
                         //noinspection ConstantConditions
                         RecyclerView created = view.findViewById(R.id.recyclerViewCourses);
-                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset, false));
+                        RecyclerHelper.setRecyclerView(homeActivity, created, new CourseAdapter(mDataset));
 
                         entryAnimation(view);
                     } else
