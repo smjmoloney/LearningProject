@@ -69,7 +69,7 @@ public class MenuHelper {
                         false);
 
                 find.setVisibility(View.VISIBLE);
-                CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2);
+                CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2, true);
 
                 SearchView searchView = (SearchView) menuItem.getActionView();
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -111,7 +111,7 @@ public class MenuHelper {
                     }
                 });
 
-                CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2);
+                CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2, true);
 
                 return true;
             }
