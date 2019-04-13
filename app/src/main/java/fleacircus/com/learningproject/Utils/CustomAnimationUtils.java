@@ -80,9 +80,34 @@ public class CustomAnimationUtils extends AnimationUtils {
         );
     }
 
-    public static void alphaAnimation(View view, float start, float end, long duration) {
+    public static void alphaAnimation(View view, float start, float end, long duration, boolean hasVisibiltyListener) {
         view.setAlpha(start);
-        view.animate().alpha(end).setDuration(duration);
+
+        if (!hasVisibiltyListener) {
+            view.animate().alpha(end).setDuration(duration);
+        } else {
+            view.animate().alpha(end).setDuration(duration).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    view.setVisibility((end > start) ? View.VISIBLE : View.INVISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
     }
 
     public static void progressBarAnimation(ProgressBar view, int start, int end, long duration) {
