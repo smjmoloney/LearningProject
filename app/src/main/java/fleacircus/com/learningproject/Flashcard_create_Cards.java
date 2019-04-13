@@ -121,7 +121,7 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
         // get the User ID
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // save the quiz to user's main collection_userID with Quiz Name
+        // save the flashcard to user's main collection_userID with Flashcard Name
         db.collection("FlashcardSets").document(uid)
                 .collection(flashcardName+"_"+uid).document(flashcardName)
                 .set(newFlashcard)
@@ -130,7 +130,7 @@ public class Flashcard_create_Cards extends AppCompatActivity implements Flashca
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(Flashcard_create_Cards.this, "Flashcard saved & added to Set", Toast.LENGTH_SHORT).show();
 
-                        // update the question count
+                        // update the flashcard count
                         db.collection("FlashcardSets").document(uid)
                                 .collection(flashcardName+"_"+uid).document(uid)
                                 .update("count",count);

@@ -2,7 +2,6 @@ package fleacircus.com.learningproject;
 
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -24,16 +23,6 @@ public class Quiz_create_NameDialogBox extends AppCompatDialogFragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String quizName;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            QuizNameDialogListener listener = (QuizNameDialogListener) context;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -90,8 +79,4 @@ public class Quiz_create_NameDialogBox extends AppCompatDialogFragment {
 
         return builder.create();
     }
-
-    public interface QuizNameDialogListener {
-       // empty
-   }
 }

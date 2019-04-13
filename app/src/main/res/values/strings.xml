@@ -1,12 +1,17 @@
 <resources>
     <!-- Menu -->
-    <string name="app_name">FlashLearning</string>
+    <string name="app_name">FlashLearn</string>
     <string name="action_profile">Profile</string>
     <string name="action_find">Find</string>
     <string name="action_logout">Logout</string>
 
     <!-- Item Slider -->
     <string name="slide_delete">DELETE</string>
+
+    <string name="course_create">CREATE</string>
+    <string name="course_learn">LEARN</string>
+    <string name="title_course">Courses</string>
+    <string name="profile">Profile</string>
 
     <!--
     Implementing OnboardingUtils
@@ -64,6 +69,10 @@
     <string name="exit_quiz">Exit Quiz</string>
     <string name="create_quiz">Create Quiz</string>
     <string name="quiz_library">Quiz Library</string>
+    <string name="welcome_to_your_quiz_directory">Welcome to Your Quiz Directory</string>
+    <string name="view_college_quiz_library">View College Quiz Library</string>
+    <string name="view_user_quiz_library">View User Quiz Library</string>
+    <string name="create_a_new_quiz">Create a new Quiz</string>
     <!--
     Strings for flashcard
     -->
@@ -74,6 +83,11 @@
     <string name="create_new_flashcard">create new Flashcard</string>
     <string name="flashcard_library">Flashcard Library</string>
     <string name="flip">Flip</string>
+    <string name="view_college_library">View College Flashcard Library</string>
+    <string name="view_own_flashcard_library">View Own Flashcard Library</string>
+    <string name="create_a_new_flashcard">Create a new Flashcard</string>
+    <string name="welcome_to_your_flashcards_directory">Welcome to your Flashcard Directory</string>
+
     <!--
     Strings for user homepage / workspace
     -->
@@ -84,17 +98,16 @@
     Strings for intro page
     -->
     <string name="flashlearning">FlashLearning</string>
-    <!--
-    Strings for quiz or flashcard learning / creation
-    -->
-    <string name="course_create">CREATE</string>
-    <string name="course_learn">LEARN</string>
-    <string name="title_course">Courses</string>
-    <string name="profile">Profile</string>
     <string name="enter">Enter</string>
-    <string name="flashcard_library_text">Which library would you like to view?</string>
-    <string name="user_s_library">User\'s Library</string>
-    <string name="college_library">College Library</string>
+    <!--
+    Strings for quiz or flashcard learning
+    -->
+    <string name="save_to_personal_library">Save to Personal Library</string>
+    <string name="create">create</string>
+
+
+
+
 
 
 </resources>

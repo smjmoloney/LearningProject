@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1">
+    android:background="@drawable/background2">
 
     <LinearLayout
         android:id="@+id/layout_create"
@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/create"
             android:padding="2dp"
-            android:src="@drawable/ic_create" />
+            android:src="@drawable/ic_create_orange" />
 
         <TextView
             android:id="@+id/layout_create_text"
@@ -103,7 +103,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/create"
             android:padding="2dp"
-            android:src="@drawable/ic_library_books" />
+            android:src="@drawable/ic_school" />
 
         <TextView
             android:id="@+id/layout_college_library_text"

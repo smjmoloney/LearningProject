@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,8 +22,6 @@ import fleacircus.com.learningproject.UserCreation.CustomUser;
 
 public class Flashcard_mainActivity_college extends AppCompatActivity implements Flashcard_CardBackFragment.FragmentBackListener, Flashcard_CardFrontFragment.FragmentFrontListener {
 
-    // get the User ID
-    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     // Firebase connection
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String collegeLocation = CustomUser.getInstance().getLocation();
@@ -74,7 +71,7 @@ public class Flashcard_mainActivity_college extends AppCompatActivity implements
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.flashcard_menu, menu);
+        inflater.inflate(R.menu.flashcard_menu_save_to_library, menu);
         return true;
     }
 
@@ -85,6 +82,10 @@ public class Flashcard_mainActivity_college extends AppCompatActivity implements
             case R.id.exit_flashcard:
                 exitFlashcard();
                 return true;
+
+            case R.id.save_flashcard_to_personal_library:
+                    openFlashcardSaveDialogAction();
+                    return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -94,6 +95,16 @@ public class Flashcard_mainActivity_college extends AppCompatActivity implements
         // return to Home Activity screen upon exiting Flashcard set up
         Intent intent = new Intent(this, WorkspaceActivity.class);
         startActivity(intent);
+    }
+
+    private void openFlashcardSaveDialogAction() {
+        // start new activity when button clicked
+        Bundle args = new Bundle();
+        args.putString("flashcard_Name", String.valueOf(flashcardName));
+        args.putString("college_location", String.valueOf(collegeLocation));
+        Flashcard_save_to_library dialog = new Flashcard_save_to_library();
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     public void generateNextFlashcards() {
@@ -111,6 +122,8 @@ public class Flashcard_mainActivity_college extends AppCompatActivity implements
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                             DocumentSnapshot snapshot = task.getResult();
+
+
 
                             if (snapshot.exists()) {
                                 front = snapshot.getString("Card_Front_" + cardCount);

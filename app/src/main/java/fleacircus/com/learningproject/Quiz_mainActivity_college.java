@@ -37,8 +37,6 @@ public class Quiz_mainActivity_college extends AppCompatActivity {
     private int total, questionNo, questionCount, correct, incorrect;
     private String quizName;
 
-    // get the User ID
-    private String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String collegeLocation = CustomUser.getInstance().getLocation();
 
@@ -70,7 +68,7 @@ public class Quiz_mainActivity_college extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.quiz_menu, menu);
+        inflater.inflate(R.menu.quiz_menu_save_to_library, menu);
         return true;
     }
 
@@ -81,9 +79,22 @@ public class Quiz_mainActivity_college extends AppCompatActivity {
             case R.id.exit_quiz:
                 ExitQuiz();
                 return true;
+            case R.id.save_quiz_to_personal_library:
+                openQuizSaveDialogAction();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openQuizSaveDialogAction() {
+        // start new activity when button clicked
+        Bundle args = new Bundle();
+        args.putString("quiz_Name", String.valueOf(quizName));
+        args.putString("college_location", String.valueOf(collegeLocation));
+        Quiz_save_to_library dialog = new Quiz_save_to_library();
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     private void ExitQuiz() {

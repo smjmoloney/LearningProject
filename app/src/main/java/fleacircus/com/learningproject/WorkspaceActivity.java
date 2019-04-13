@@ -120,7 +120,7 @@ public class WorkspaceActivity extends AppCompatActivity {
     // start new activity to access Flashcards - create and learn
     public void FlashCardAction() {
         Toast.makeText(WorkspaceActivity.this, "You selected Flashcard", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Flashcard_introActivity.class);
+        Intent intent = new Intent(this, Flashcard_directory.class);
         startActivity(intent);
     }
 
@@ -128,7 +128,7 @@ public class WorkspaceActivity extends AppCompatActivity {
     // start new activity to access Quiz - create and learn
     public void QuizAction() {
         Toast.makeText(WorkspaceActivity.this, "You selected Quiz", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Quiz_introActivity.class);
+        Intent intent = new Intent(this, Quiz_directory.class);
         startActivity(intent);
     }
 

@@ -1,7 +1,6 @@
 package fleacircus.com.learningproject;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -23,18 +22,6 @@ public class Flashcard_create_NameDialogBox extends AppCompatDialogFragment {
     private EditText newFCName;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String flashcardName;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            FlashcardNameDialogListener listener = (FlashcardNameDialogListener) context;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -65,12 +52,12 @@ public class Flashcard_create_NameDialogBox extends AppCompatDialogFragment {
                         // include a basic zero count for number of questions
                         Map<String, Object> card = new HashMap<>();
                         card.put("count", 0);
-                        // save the quiz to user's main collection_userID using Quiz Name
+                        // save the flashcard to user's main collection_userID using Flashcard Name
                         db.collection("FlashcardSets").document(uid)
                                 .collection(flashcardName+"_"+uid).document(flashcardName)
                                 .set(card);
 
-                        // add the Quiz to the user's QuizListing using Quiz Name
+                        // add the Flashcard to the user's FlashcardListing using Flashcard Name
                         Map<String, Object> flashcardList = new HashMap<>();
                         flashcardList.put("name", flashcardName);
                         db.collection("FlashcardList").document(uid)
@@ -88,9 +75,5 @@ public class Flashcard_create_NameDialogBox extends AppCompatDialogFragment {
         newFCName = view.findViewById(R.id.newFlashCardName);
 
         return builder.create();
-    }
-
-    public interface FlashcardNameDialogListener {
-        void applyName(String quizName);
     }
 }

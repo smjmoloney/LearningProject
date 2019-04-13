@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flashcardImageTxt"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/education6" />
+        app:srcCompat="@drawable/learning" />
 
     <TextView
         android:id="@+id/flashcardImageTxt"

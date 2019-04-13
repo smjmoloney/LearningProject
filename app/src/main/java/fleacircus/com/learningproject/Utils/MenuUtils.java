@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import fleacircus.com.learningproject.FindActivity;
 import fleacircus.com.learningproject.WorkspaceActivity;
 import fleacircus.com.learningproject.ProfileActivity;
 import fleacircus.com.learningproject.R;
@@ -28,9 +27,6 @@ public class MenuUtils {
             case R.id.action_icon_logout:
                 FirebaseAuth.getInstance().signOut();
                 CustomUser.updateInstance(new CustomUser());
-                break;
-            case R.id.action_find:
-                context.startActivity(new Intent(context, FindActivity.class));
                 break;
             case R.id.action_workspace:
                 context.startActivity(new Intent(context, WorkspaceActivity.class));

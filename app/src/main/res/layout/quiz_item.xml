@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/quizListIcon"
-            android:src="@drawable/ic_school"
+            android:src="@drawable/ic_question_answer_orange"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp" />
