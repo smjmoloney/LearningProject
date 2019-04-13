@@ -1,5 +1,6 @@
 package fleacircus.com.learningproject.Login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class LoginFragment extends Fragment {
 
@@ -49,6 +51,8 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        Activity activity = getActivity();
+
         String dialog = getString(R.string.dialog_confirm);
         ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(getActivity(), dialog);
 
@@ -70,7 +74,9 @@ public class LoginFragment extends Fragment {
                 CustomUser.updateInstance(new CustomUser());
                 progressDialog.dismiss();
 
-                startActivity(new Intent(getActivity(), HomeActivity.class));
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                if (activity != null)
+                    NavigationUtils.startActivity(activity, intent);
             }
 
             @Override

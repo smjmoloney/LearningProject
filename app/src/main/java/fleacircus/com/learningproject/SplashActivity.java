@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -23,8 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         if (auth.getCurrentUser() == null)
             intent = new Intent(this, LoginActivity.class);
 
-        startActivity(intent);
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        NavigationUtils.startActivity(this, intent);
     }
 
     private void alpha() {

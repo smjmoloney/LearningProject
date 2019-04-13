@@ -1,6 +1,7 @@
 package fleacircus.com.learningproject.Login;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.UserCreationActivity;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class SignFragment extends Fragment {
 
@@ -72,6 +74,8 @@ public class SignFragment extends Fragment {
             final ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(
                     getActivity(), getString(R.string.dialog_confirm_sign));
 
+            Activity activity = getActivity();
+
             Intent intent = new Intent(getActivity(), UserCreationActivity.class);
             CustomDatabaseUtils.addUser(email, password, new OnGetDataListener() {
                 @Override
@@ -82,7 +86,9 @@ public class SignFragment extends Fragment {
                 @Override
                 public void onSuccess(Object object, boolean isQuery) {
                     progressDialog.dismiss();
-                    startActivity(intent);
+
+                    if (activity != null)
+                        NavigationUtils.startActivity(activity, intent);
                 }
 
                 @SuppressLint("SetTextI18n")

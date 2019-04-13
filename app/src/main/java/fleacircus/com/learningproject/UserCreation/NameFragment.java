@@ -1,5 +1,6 @@
 package fleacircus.com.learningproject.UserCreation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.FragmentUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class NameFragment extends Fragment {
 
@@ -51,7 +53,12 @@ public class NameFragment extends Fragment {
         CustomUser.getInstance().setName(n);
 
         CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());
-        startActivity(new Intent(getActivity(), HomeActivity.class));
+
+        Activity activity = getActivity();
+
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        if (activity != null)
+            NavigationUtils.startActivity(activity, intent);
     }
 
     @Override
