@@ -2,20 +2,18 @@ package fleacircus.com.learningproject.Login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -31,18 +29,15 @@ import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class LoginFragment extends Fragment {
 
-    @BindView(R.id.message_confirm)
-    TextView messageConfirm;
-
-    @OnClick(R.id.button_submit)
+    @OnClick(R.id.buttonSubmit)
     void validateLogin() {
         LoginActivity loginActivity = (LoginActivity) getActivity();
         //noinspection ConstantConditions
         CustomViewPager viewPager = loginActivity.getViewPager();
 
-        TextView email = viewPager.findViewById(R.id.email);
-        TextView password = viewPager.findViewById(R.id.password);
-        TextView messageConfirm = viewPager.findViewById(R.id.message_confirm);
+        EditText email = viewPager.findViewById(R.id.editTextViewEmail);
+        EditText password = viewPager.findViewById(R.id.editTextViewPassword);
+        TextView messageConfirm = viewPager.findViewById(R.id.textViewConfirm);
 
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
@@ -86,8 +81,7 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @OnClick(R.id.prompt_sign)
+    @OnClick(R.id.textViewPromptSign)
     void promptClick() {
         LoginActivity loginActivity = (LoginActivity) getActivity();
         //noinspection ConstantConditions

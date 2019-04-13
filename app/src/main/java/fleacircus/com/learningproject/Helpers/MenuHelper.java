@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import fleacircus.com.learningproject.Adapters.FindUserAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
 
@@ -50,8 +52,8 @@ public class MenuHelper {
 
     public static void onCreateOptionsMenuSearch(Menu menu, MenuItem menuItem, Activity activity) {
         View content = activity.findViewById(android.R.id.content);
-        View cover = activity.findViewById(R.id.cover);
-        RecyclerView find = activity.findViewById(R.id.find);
+        View cover = activity.findViewById(R.id.overlayAlpha);
+        RecyclerView find = activity.findViewById(R.id.recyclerViewFind);
 
         long duration = (long) activity.getResources().getInteger(R.integer.duration_default);
         float alpha = (float) activity.getResources().getInteger(R.integer.alpha_transparent_default) / 100;
@@ -67,7 +69,7 @@ public class MenuHelper {
                         false);
 
                 find.setVisibility(View.VISIBLE);
-                CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2);
+                CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2, true);
 
                 SearchView searchView = (SearchView) menuItem.getActionView();
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -109,13 +111,12 @@ public class MenuHelper {
                     }
                 });
 
-                CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2);
+                CustomAnimationUtils.alphaAnimation(cover, alpha, 0, duration * 2, true);
 
                 return true;
             }
         });
 
-        ((View) find.getParent()).bringToFront();
         find.setAdapter(new FindUserAdapter(null));
     }
 
@@ -124,6 +125,8 @@ public class MenuHelper {
             case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
                 CustomUser.updateInstance(new CustomUser());
+
+                activity.startActivity(new Intent(activity, LoginActivity.class));
                 break;
         }
     }

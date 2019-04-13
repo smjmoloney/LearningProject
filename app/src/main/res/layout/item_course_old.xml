@@ -10,7 +10,7 @@
     app:mrl_rippleOverlay="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayoutCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/brown_off_white">

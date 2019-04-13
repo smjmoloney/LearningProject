@@ -24,15 +24,15 @@ import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class NameFragment extends Fragment {
 
-    @BindView(R.id.name)
+    @BindView(R.id.editTextViewName)
     EditText name;
-    @BindView(R.id.message_name)
+    @BindView(R.id.textViewName)
     TextView messageName;
 
     public NameFragment() {
     }
 
-    @OnClick(R.id.button_submit)
+    @OnClick(R.id.buttonSubmit)
     void nameClick() {
         boolean length = InputValidationUtils.validateLength(name.getText().toString(), 3);
         if (length) {
@@ -43,9 +43,11 @@ public class NameFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         //noinspection ConstantConditions
         String e = auth.getCurrentUser().getEmail();
+        String u = auth.getUid();
         String n = name.getText().toString();
 
         CustomUser.getInstance().setEmail(e);
+        CustomUser.getInstance().setUid(u);
         CustomUser.getInstance().setName(n);
 
         CustomDatabaseUtils.addOrUpdateUserDocument(CustomUser.getInstance());

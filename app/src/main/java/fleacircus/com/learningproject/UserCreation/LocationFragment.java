@@ -31,15 +31,13 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class LocationFragment extends Fragment {
 
-    @BindView(R.id.question_text)
-    TextView question;
-    @BindView(R.id.spinner)
+    @BindView(R.id.spinnerLocation)
     Spinner spinner;
 
     public LocationFragment() {
     }
 
-    @OnClick(R.id.button_submit)
+    @OnClick(R.id.buttonSubmit)
     void locationClick() {
         CustomUser.getInstance().setLocation(spinner.getSelectedItem().toString());
 
@@ -59,12 +57,15 @@ public class LocationFragment extends Fragment {
         FragmentHelper.progressFragment(userCreationActivity.getViewPager(), process);
     }
 
-    private void populateSpinner() {
+    private void populateSpinner(View view) {
         if (CustomUser.getInstance().getTeacherStudent() == null)
             return;
 
         int questionLocation = R.string.question_location;
         int questionLocationTeacher = R.string.question_location_teacher;
+
+
+        TextView question = view.findViewById(R.id.textViewQuestion);
 
         String education = CustomUser.getInstance().getCollegeSchool();
         String status = CustomUser.getInstance().getTeacherStudent();
@@ -130,7 +131,7 @@ public class LocationFragment extends Fragment {
             return view;
 
         ButterKnife.bind(this, view);
-        populateSpinner();
+        populateSpinner(view);
 
         return view;
     }

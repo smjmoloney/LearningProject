@@ -1,6 +1,8 @@
 package fleacircus.com.learningproject.Login;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,48 +23,47 @@ import fleacircus.com.learningproject.Helpers.ProgressDialogHelper;
 import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.UserCreationActivity;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 
 public class SignFragment extends Fragment {
 
-    @BindView(R.id.email)
+    @BindView(R.id.editTextViewEmail)
     EditText email;
-    @BindView(R.id.password)
+    @BindView(R.id.editTextViewPassword)
     EditText password;
-    @BindView(R.id.password_confirm)
+    @BindView(R.id.editTextViewConfirm)
     EditText confirm;
-    @BindView(R.id.message_email)
+    @BindView(R.id.textViewEmail)
     TextView messageEmail;
-    @BindView(R.id.message_password)
+    @BindView(R.id.textViewPassword)
     TextView messagePassword;
-    @BindView(R.id.message_confirm)
+    @BindView(R.id.textViewConfirm)
     TextView messagePasswordConfirm;
 
     public SignFragment() {
     }
 
-    @OnClick(R.id.button_submit)
+    @OnClick(R.id.buttonSubmit)
     void signClick() {
-        String e = email.getText().toString();
-        String p = password.getText().toString();
-        String c = confirm.getText().toString();
         messageEmail.setText("");
         messagePassword.setText("");
         messagePasswordConfirm.setText("");
 
         boolean sign = true;
-        if (!InputValidationUtils.validateEmail(e)) {
+        if (!InputValidationUtils.validateEmail(email.getText().toString())) {
             sign = false;
             messageEmail.setText(R.string.message_email);
         }
 
-        if (!InputValidationUtils.validatePassword(p)) {
+        if (!InputValidationUtils.validatePassword(password.getText().toString())) {
             sign = false;
             messagePassword.setText(R.string.message_password);
         }
 
-        if (!InputValidationUtils.validateMatch(p, c)) {
+        if (!InputValidationUtils.validateMatch(
+                password.getText().toString(), confirm.getText().toString())) {
             sign = false;
             messagePasswordConfirm.setText(R.string.message_confirm_password);
         }
@@ -71,6 +72,7 @@ public class SignFragment extends Fragment {
             final ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(
                     getActivity(), getString(R.string.dialog_confirm_sign));
 
+            Intent intent = new Intent(getActivity(), UserCreationActivity.class);
             CustomDatabaseUtils.addUser(email, password, new OnGetDataListener() {
                 @Override
                 public void onStart() {
@@ -80,11 +82,13 @@ public class SignFragment extends Fragment {
                 @Override
                 public void onSuccess(Object object, boolean isQuery) {
                     progressDialog.dismiss();
+                    startActivity(intent);
                 }
 
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onFailed(FirebaseFirestoreException databaseError) {
-                    messageEmail.setText(R.string.message_email_usage);
+                    messageEmail.setText("Failed to add user.");
                     progressDialog.dismiss();
 
                     Log.e("FirebaseFirestoreEx", "Failed to add user.");
@@ -93,7 +97,7 @@ public class SignFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.prompt_login)
+    @OnClick(R.id.textViewPromptLogin)
     void promptClick() {
         LoginActivity loginActivity = (LoginActivity) getActivity();
         //noinspection ConstantConditions

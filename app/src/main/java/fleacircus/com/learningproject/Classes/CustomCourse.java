@@ -1,12 +1,11 @@
 package fleacircus.com.learningproject.Classes;
 
-public class CustomCourse {
-    private static final CustomCourse ourInstance = new CustomCourse();
+public class CustomCourse extends CustomDocument {
 
-    private String name, description, email, id, userID;
+    private String name, description, creatorID, courseID;
 
-    public static CustomCourse getInstance() {
-        return ourInstance;
+    public CustomCourse() {
+        setClassTypeInCollection("Classes.CustomTopic");
     }
 
     public String getName() {
@@ -25,27 +24,19 @@ public class CustomCourse {
         this.description = description;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCreatorID() {
+        return creatorID;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCreatorID(String creatorID) {
+        this.creatorID = creatorID;
     }
 
-    public String getId() {
-        return id;
+    public String getCourseID() {
+        return courseID;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
 }

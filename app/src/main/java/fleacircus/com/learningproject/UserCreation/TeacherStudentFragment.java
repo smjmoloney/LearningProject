@@ -19,7 +19,7 @@ public class TeacherStudentFragment extends Fragment {
     public TeacherStudentFragment() {
     }
 
-    @OnClick(R.id.student_layout)
+    @OnClick(R.id.constraintLayoutStudent)
     void studentClick() {
         CustomUser.getInstance().setTeacherStudent(getString(R.string.answer_student));
 
@@ -28,7 +28,7 @@ public class TeacherStudentFragment extends Fragment {
         FragmentHelper.progressFragment(userCreationActivity.getViewPager(), 1);
     }
 
-    @OnClick(R.id.teacher_layout)
+    @OnClick(R.id.constraintLayoutTeacher)
     void teacherClick() {
         CustomUser.getInstance().setTeacherStudent(getString(R.string.answer_teacher));
 

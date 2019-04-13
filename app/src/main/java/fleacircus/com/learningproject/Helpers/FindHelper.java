@@ -46,6 +46,9 @@ class FindHelper {
                                 continue;
 
                             CustomUser u = q.toObject(CustomUser.class);
+                            if (u.getName() == null)
+                                continue;
+
                             mDataset.add(u);
                         }
 

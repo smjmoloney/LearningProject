@@ -2,8 +2,10 @@ package fleacircus.com.learningproject.Utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 
 import io.codetail.animation.ViewAnimationUtils;
 
@@ -78,9 +80,41 @@ public class CustomAnimationUtils extends AnimationUtils {
         );
     }
 
-    public static void alphaAnimation(View view, float start, float end, long duration) {
+    public static void alphaAnimation(View view, float start, float end, long duration, boolean hasVisibiltyListener) {
         view.setAlpha(start);
-        view.animate().alpha(end).setDuration(duration);
+
+        if (!hasVisibiltyListener) {
+            view.animate().alpha(end).setDuration(duration);
+        } else {
+            view.animate().alpha(end).setDuration(duration).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    view.setVisibility((end > start) ? View.VISIBLE : View.INVISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+    }
+
+    public static void progressBarAnimation(ProgressBar view, int start, int end, long duration) {
+        ValueAnimator anim = ValueAnimator.ofInt(start, end);
+        anim.setDuration(duration);
+        anim.addUpdateListener(animation -> view.setProgress((int) animation.getAnimatedValue()));
+        anim.start();
     }
 
     public static void visibilityListener(Animator animator, View view, boolean isVisibleOnEnd) {

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.LearnedFragment">
+    tools:context=".Home.CreateFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/courses"
+        android:id="@+id/recyclerViewCourses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/blue_off_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

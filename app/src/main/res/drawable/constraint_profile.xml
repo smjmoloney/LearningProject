@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbarSecondary">
+    <padding
+        android:bottom="@dimen/rounded_edges"
+        android:left="@dimen/rounded_edges"
+        android:right="@dimen/rounded_edges"
+        android:top="@dimen/rounded_edges" />
+    <corners android:radius="@dimen/rounded_edges" />
+    <solid android:color="@color/blue_off_black" />
+</shape>

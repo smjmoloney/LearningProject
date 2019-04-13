@@ -1,14 +1,12 @@
 package fleacircus.com.learningproject.Adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
-import fleacircus.com.learningproject.R;
 
 public class GridImageAdapter extends BaseAdapter {
 

@@ -18,7 +18,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.ButterKnife;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.FoundUserActivity;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
@@ -28,12 +27,10 @@ import fleacircus.com.learningproject.Utils.StringUtils;
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
 
     private List<CustomUser> users;
-    private Context context;
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -86,14 +83,14 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         Intent intent = new Intent(activity, FoundUserActivity.class);
         intent.putExtra("user", user);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             activity.startActivity(intent);
             return;
         }
 
-        ImageView image = view.findViewById(R.id.image_profile);
+        ImageView image = view.findViewById(R.id.imageViewProfile);
         ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(activity, image, "image_profile");
+                makeSceneTransitionAnimation(activity, image, "imageViewProfile");
 
         activity.startActivity(intent, options.toBundle());
     }
@@ -101,41 +98,46 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        return new Holder(LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.item_find, parent, false));
+        Context context = parent.getContext();
+        return new Holder(LayoutInflater.from(context).inflate(R.layout.item_find, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = users.get(position);
+        if (user == null)
+            return;
+
+        if (user.getName() == null)
+            return;
 
         View view = holder.itemView;
         view.setOnClickListener(v -> onClick(user, view));
 
-        String name = StringUtils.capitliseEach(user.getName());
-        String location = StringUtils.capitliseEach(user.getLocation());
+        String name = StringUtils.capitaliseEach(user.getName());
+        String location = StringUtils.capitaliseEach(user.getLocation());
 
-        TextView n = view.findViewById(R.id.name);
+        TextView n = view.findViewById(R.id.textViewName);
         n.setText(name);
 
-        TextView l = view.findViewById(R.id.location);
+        TextView l = view.findViewById(R.id.textViewLocation);
         l.setText(location);
 
+        Context context = holder.itemView.getContext();
         String college = context.getString(R.string.answer_college);
         String student = context.getString(R.string.answer_student);
         boolean cMatch = StringUtils.hasMatch(user.getCollegeSchool(), college);
         boolean sMatch = StringUtils.hasMatch(user.getTeacherStudent(), student);
         if (cMatch && sMatch) {
-            String course = StringUtils.capitliseEach(user.getCourse());
+            String course = StringUtils.capitaliseEach(user.getCourse());
 
-            TextView c = view.findViewById(R.id.course);
+            TextView c = view.findViewById(R.id.textViewCourse);
             c.setText(course);
         }
 
         int imageID = user.getImageID();
         if (imageID != 0) {
-            ImageView image = view.findViewById(R.id.image_profile);
+            ImageView image = view.findViewById(R.id.imageViewProfile);
             image.setImageResource(GridImageAdapterHelper.getDrawable(imageID));
         }
     }
