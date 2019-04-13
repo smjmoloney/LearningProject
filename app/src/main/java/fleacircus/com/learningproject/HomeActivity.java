@@ -1,6 +1,7 @@
 package fleacircus.com.learningproject;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -158,6 +159,8 @@ public class HomeActivity extends AppCompatActivity {
         if (firebaseUser == null)
             return;
 
+        Activity activity = this;
+
         String[] document = new String[]{"users", firebaseUser.getUid()};
         CustomDatabaseUtils.read(document, new OnGetDataListener() {
             @Override
@@ -181,7 +184,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     CustomUser.updateInstance(customUser);
                     if (customUser.getName() == null) {
-                        startActivity(new Intent(HomeActivity.this, UserCreationActivity.class));
+                        Intent intent = new Intent(HomeActivity.this, UserCreationActivity.class);
+                        NavigationUtils.startActivity(activity, intent);
                         return;
                     }
 

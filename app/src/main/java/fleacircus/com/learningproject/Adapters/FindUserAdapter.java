@@ -22,6 +22,7 @@ import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.FoundUserActivity;
 import fleacircus.com.learningproject.Helpers.GridImageAdapterHelper;
 import fleacircus.com.learningproject.R;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder> implements Filterable {
@@ -84,7 +85,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         intent.putExtra("user", user);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            activity.startActivity(intent);
+            NavigationUtils.startActivity(activity, intent);
             return;
         }
 
