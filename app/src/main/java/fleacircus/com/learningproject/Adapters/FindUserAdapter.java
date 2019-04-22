@@ -71,8 +71,7 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
             boolean email = item.getEmail() != null && item.getEmail().contains(constraint);
             boolean location = item.getLocation() != null && item.getLocation().contains(constraint);
 
-            if (name || course || email || location)
-                results.add(item);
+            if (name || course || email || location) results.add(item);
         }
 
         return results;
@@ -80,7 +79,6 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
 
     private void onClick(CustomUser user, View view) {
         Activity activity = (Activity) view.getContext();
-
         Intent intent = new Intent(activity, FoundUserActivity.class);
         intent.putExtra("user", user);
 
@@ -106,22 +104,17 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         CustomUser user = users.get(position);
-        if (user == null)
-            return;
-
-        if (user.getName() == null)
-            return;
+        if (user == null) return;
+        if (user.getName() == null) return;
 
         View view = holder.itemView;
         view.setOnClickListener(v -> onClick(user, view));
 
         String name = StringUtils.capitaliseEach(user.getName());
         String location = StringUtils.capitaliseEach(user.getLocation());
-
         TextView n = view.findViewById(R.id.textViewName);
-        n.setText(name);
-
         TextView l = view.findViewById(R.id.textViewLocation);
+        n.setText(name);
         l.setText(location);
 
         Context context = holder.itemView.getContext();
@@ -131,7 +124,6 @@ public class FindUserAdapter extends RecyclerView.Adapter<FindUserAdapter.Holder
         boolean sMatch = StringUtils.hasMatch(user.getTeacherStudent(), student);
         if (cMatch && sMatch) {
             String course = StringUtils.capitaliseEach(user.getCourse());
-
             TextView c = view.findViewById(R.id.textViewCourse);
             c.setText(course);
         }
