@@ -1,33 +1,42 @@
 package fleacircus.com.learningproject.Adapters;
 
-import android.util.Log;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import fleacircus.com.learningproject.Classes.CustomCourse;
+import fleacircus.com.learningproject.Classes.CustomUser;
+import fleacircus.com.learningproject.FlashCardReviewActivity;
 import fleacircus.com.learningproject.Interpolators.CustomBounceInterpolator;
+import fleacircus.com.learningproject.QuizReviewActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
+import fleacircus.com.learningproject.Utils.NavigationUtils;
 import fleacircus.com.learningproject.Utils.StringUtils;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
-    private List<CustomCourse> courses;
+    private List<DocumentSnapshot> courses;
     private String uid, foundUid = "";
 
     static class Holder extends RecyclerView.ViewHolder {
@@ -36,24 +45,249 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         }
     }
 
-    public CourseAdapter(List<CustomCourse> courses) {
+    public CourseAdapter(List<DocumentSnapshot> courses) {
         this.courses = courses;
-
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null)
             this.uid = user.getUid();
     }
 
-    public CourseAdapter(List<CustomCourse> courses, String foundUid) {
+    public CourseAdapter(List<DocumentSnapshot> courses, String foundUid) {
         this.courses = courses;
-
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null)
             this.uid = user.getUid();
 
         this.foundUid = foundUid;
+    }
+
+    private void courseClickListeners(View view, int position) {
+        if (!foundUid.isEmpty()) {
+            view.setOnLongClickListener(v -> {
+                if (foundUid.equals(CustomUser.getInstance().getLocation()))
+                    copyCourse(view, courses.get(position));
+                else
+                    sendCourse(view, courses.get(position));
+
+                return true;
+            });
+        } else {
+            view.setOnLongClickListener(v -> {
+                editCourse(view, courses.get(position));
+                return true;
+            });
+
+            view.setOnClickListener(v -> {
+                String type = courses.get(position).getString("type");
+                String path = courses.get(position).getReference().getPath();
+                if (type == null)
+                    return;
+
+                Activity activity = (Activity) view.getContext();
+                Intent intent = new Intent(activity,
+                        (type.equals("flashcard")) ? FlashCardReviewActivity.class : QuizReviewActivity.class);
+                intent.putExtra("DocumentSnapshot", path);
+
+                NavigationUtils.startActivity(activity, intent);
+            });
+        }
+    }
+
+    private void copyCourse(View view, DocumentSnapshot documentSnapshot) {
+        String type = documentSnapshot.getString("type");
+        if (type != null) {
+            String[] documentFrom;
+            String[] documentTo;
+            String[] listFrom;
+            String[] listTo;
+
+            String courseID = documentSnapshot.getId();
+            if (type.equals("flashcard")) {
+                documentFrom = new String[]{"flashcard_sets", foundUid, courseID + "_" + foundUid, courseID};
+                documentTo = new String[]{"flashcard_sets", uid, courseID + "_" + uid};
+                listFrom = new String[]{"flashcard_list", foundUid, "flashcard_list" + "_" + foundUid, courseID};
+                listTo = new String[]{"flashcard_list", uid, "flashcard_list" + "_" + uid};
+            } else {
+                documentFrom = new String[]{"quizzes", foundUid, courseID + "_" + foundUid, courseID};
+                documentTo = new String[]{"quizzes", uid, courseID + "_" + uid};
+                listFrom = new String[]{"quiz_list", foundUid, "quiz_list" + "_" + foundUid, courseID};
+                listTo = new String[]{"quiz_list", uid, "quiz_list" + "_" + uid};
+            }
+
+            CustomDatabaseUtils.copyDocument(documentFrom, documentTo);
+            CustomDatabaseUtils.copyDocument(listFrom, listTo);
+            Toast.makeText(view.getContext(), R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sendCourse(View view, DocumentSnapshot documentSnapshot) {
+        String type = documentSnapshot.getString("type");
+        if (type != null) {
+            String[] documentFrom;
+            String[] documentTo;
+            String[] listFrom;
+            String[] listTo;
+
+            String courseID = documentSnapshot.getId();
+            if (type.equals("flashcard")) {
+                documentFrom = new String[]{"flashcard_sets", uid, courseID + "_" + uid, courseID};
+                documentTo = new String[]{"flashcard_sets", foundUid, courseID + "_" + foundUid};
+                listFrom = new String[]{"flashcard_list", uid, "flashcard_list" + "_" + uid, courseID};
+                listTo = new String[]{"flashcard_list", foundUid, "flashcard_list" + "_" + foundUid};
+            } else {
+                documentFrom = new String[]{"quizzes", uid, courseID + "_" + uid, courseID};
+                documentTo = new String[]{"quizzes", foundUid, courseID + "_" + foundUid};
+                listFrom = new String[]{"quiz_list", uid, "quiz_list" + "_" + uid, courseID};
+                listTo = new String[]{"quiz_list", foundUid, "quiz_list" + "_" + foundUid};
+            }
+
+            CustomDatabaseUtils.copyDocument(documentFrom, documentTo);
+            CustomDatabaseUtils.copyDocument(listFrom, listTo);
+            Toast.makeText(view.getContext(), R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void editCourse(View view, DocumentSnapshot documentSnapshot) {
+        ConstraintLayout constraintLayoutDelete = ((View) view.getParent()).findViewById(R.id.constraintLayoutDelete);
+        ConstraintLayout constraintLayoutCancel = ((View) view.getParent()).findViewById(R.id.constraintLayoutCancel);
+        ConstraintLayout constraintLayoutSend = ((View) view.getParent()).findViewById(R.id.constraintLayoutSend);
+        if (constraintLayoutDelete.getVisibility() == View.VISIBLE
+                || constraintLayoutDelete.getVisibility() == View.VISIBLE
+                || constraintLayoutSend.getVisibility() == View.VISIBLE)
+            return;
+
+        editCourseOnClickListeners(view, documentSnapshot,
+                constraintLayoutDelete, constraintLayoutCancel, constraintLayoutSend);
+
+        List<View> views = new ArrayList<>();
+        views.add(constraintLayoutDelete);
+        views.add(constraintLayoutCancel);
+
+        String c = documentSnapshot.getString("creatorID");
+        if (c != null) {
+            if (c.equals(uid)) {
+                String status = CustomUser.getInstance().getTeacherStudent();
+                if (status.equals(StringUtils.toLowerCase(view.getResources().getString(R.string.answer_teacher))))
+                    views.add(constraintLayoutSend);
+            }
+        }
+
+        long duration = view.getResources().getInteger(R.integer.duration_default);
+        editCourseAnimate(views, duration, (long) (duration * .75), true);
+    }
+
+    private void editCourseOnClickListeners(View view,
+                                            DocumentSnapshot documentSnapshot,
+                                            ConstraintLayout constraintLayoutDelete,
+                                            ConstraintLayout constraintLayoutCancel,
+                                            ConstraintLayout constraintLayoutSend) {
+        View.OnClickListener onClickListenerDelete = v -> {
+            String type = documentSnapshot.getString("type");
+            if (type != null) {
+                String[] delete;
+                String[] deleteList;
+
+                String courseID = documentSnapshot.getId();
+                if (type.equals("flashcard")) {
+                    delete = new String[]{"flashcard_sets", uid, courseID + "_" + uid, courseID};
+                    deleteList = new String[]{"flashcard_list", uid, "flashcard_list" + "_" + uid, courseID};
+                } else {
+                    delete = new String[]{"quiz_list", uid, "quiz_list" + "_" + uid, courseID};
+                    deleteList = new String[]{"quiz_list", uid, "quiz_list" + "_" + uid, courseID};
+                }
+
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            CustomDatabaseUtils.deleteDocument(delete);
+                            CustomDatabaseUtils.deleteDocument(deleteList);
+                            Toast.makeText(view.getContext(),
+                                    R.string.courses_message_delete,
+                                    Toast.LENGTH_SHORT).show();
+
+                            courses.remove(documentSnapshot);
+                            notifyDataSetChanged();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        };
+
+        View.OnClickListener onClickListenerCancel = v -> {
+            List<View> views = new ArrayList<>();
+            views.add(constraintLayoutDelete);
+            views.add(constraintLayoutCancel);
+
+            String c = documentSnapshot.getString("creatorID");
+            if (c != null) {
+                if (c.equals(uid)) {
+                    String status = CustomUser.getInstance().getTeacherStudent();
+                    if (status.equals(StringUtils.toLowerCase(view.getResources().getString(R.string.answer_teacher))))
+                        views.add(constraintLayoutSend);
+                }
+            }
+
+            long duration = view.getResources().getInteger(R.integer.duration_default);
+            editCourseAnimate(views, duration, (long) (duration * .75), false);
+        };
+
+        View.OnClickListener onClickListenerSend = v -> {
+            String type = documentSnapshot.getString("type");
+            if (type != null) {
+                String[] documentFrom;
+                String[] documentTo;
+                String[] listFrom;
+                String[] listTo;
+
+                String courseID = documentSnapshot.getId();
+                String location = CustomUser.getInstance().getLocation();
+                if (type.equals("flashcard")) {
+                    documentFrom = new String[]{"flashcard_sets", uid, courseID + "_" + uid, courseID};
+                    documentTo = new String[]{"flashcard_sets", location, courseID + "_" + location};
+                    listFrom = new String[]{"flashcard_list", uid, "flashcard_list" + "_" + uid, courseID};
+                    listTo = new String[]{"flashcard_list", location, "flashcard_list" + "_" + location};
+                } else {
+                    documentFrom = new String[]{"quizzes", uid, courseID + "_" + uid, courseID};
+                    documentTo = new String[]{"quizzes", location, courseID + "_" + location};
+                    listFrom = new String[]{"quiz_list", uid, "quiz_list" + "_" + uid, courseID};
+                    listTo = new String[]{"quiz_list", location, "quiz_list" + "_" + location};
+                }
+
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            CustomDatabaseUtils.copyDocument(documentFrom, documentTo);
+                            CustomDatabaseUtils.copyDocument(listFrom, listTo);
+                            Toast.makeText(view.getContext(),
+                                    R.string.courses_message_delete,
+                                    Toast.LENGTH_SHORT).show();
+
+                            notifyDataSetChanged();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        };
+
+        constraintLayoutDelete.setOnClickListener(onClickListenerDelete);
+        constraintLayoutCancel.setOnClickListener(onClickListenerCancel);
+        constraintLayoutSend.setOnClickListener(onClickListenerSend);
     }
 
     private void editCourseAnimate(List<View> views, long duration, long delay, boolean isEntry) {
@@ -89,61 +323,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         }
     }
 
-    private void editCourseOnClickListeners(View view,
-                                            CustomCourse customCourse,
-                                            ConstraintLayout constraintLayoutDelete,
-                                            ConstraintLayout constraintLayoutCancel) {
-        View.OnClickListener onClickListenerDelete = v -> {
-            String courseID = customCourse.getCourseID();
-            String[] courseDelete = new String[]{"users", uid, "courses", courseID};
-
-            CustomDatabaseUtils.deleteDocument(courseDelete);
-            Toast.makeText(view.getContext(), R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
-
-            notifyDataSetChanged();
-        };
-
-        View.OnClickListener onClickListenerCancel = v -> {
-            long duration = view.getResources().getInteger(R.integer.duration_default);
-            List<View> views = new ArrayList<>();
-            views.add(constraintLayoutDelete);
-            views.add(constraintLayoutCancel);
-            editCourseAnimate(views, duration, (long) (duration * .75), false);
-        };
-
-        constraintLayoutDelete.setOnClickListener(onClickListenerDelete);
-        constraintLayoutCancel.setOnClickListener(onClickListenerCancel);
-
-        Log.e("TEST", "TEST");
-    }
-
-    private void editCourse(View view, CustomCourse customCourse) {
-        ConstraintLayout constraintLayoutDelete = ((View) view.getParent()).findViewById(R.id.constraintLayoutDelete);
-        ConstraintLayout constraintLayoutCancel = ((View) view.getParent()).findViewById(R.id.constraintLayoutCancel);
-
-        if (constraintLayoutDelete.getVisibility() == View.VISIBLE
-                || constraintLayoutDelete.getVisibility() == View.VISIBLE)
-            return;
-
-        editCourseOnClickListeners(view, customCourse, constraintLayoutDelete, constraintLayoutCancel);
-
-        long duration = view.getResources().getInteger(R.integer.duration_default);
-
-        List<View> views = new ArrayList<>();
-        views.add(constraintLayoutDelete);
-        views.add(constraintLayoutCancel);
-        editCourseAnimate(views, duration, (long) (duration * .75), true);
-    }
-
-    private void copyCourse(View view, CustomCourse customCourse) {
-        String courseID = customCourse.getCourseID();
-        String[] from = new String[]{"users", foundUid, "courses", courseID};
-        String[] to = new String[]{"users", uid, "courses"};
-
-        CustomDatabaseUtils.copyDocument(from, to, "Classes.CustomCourse");
-        Toast.makeText(view.getContext(), R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
-    }
-
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -153,59 +332,45 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        CustomCourse course = courses.get(position);
-
         View view = holder.itemView.findViewById(R.id.materialRippleLayout);
-        if (!foundUid.equals("")) {
-            view.setOnLongClickListener(v -> {
-                copyCourse(view, course);
-                return false;
-            });
-        } else {
-            view.setOnLongClickListener(v -> {
-                editCourse(view, course);
-                return false;
-            });
-        }
+        courseClickListeners(view, position);
+
+        String courseCreator = courses.get(position).getString("creatorID");
 
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
-        progressBar.setProgress(course.getCurrentScore());
+        if (courses.get(position).getLong("currentScore") != null) {
+            //noinspection ConstantConditions
+            int cs = courses.get(position).getLong("currentScore").intValue();
+            if (cs == 0)
+                progressBar.setVisibility(View.INVISIBLE);
+            else
+                progressBar.setProgress(cs);
 
-        String courseName = StringUtils.toUpperCase(course.getName());
-        String courseCreator = course.getCreatorID();
+            if (courseCreator != null) {
+                if (courseCreator.equals(uid)) {
+                    progressBar.getProgressDrawable().setColorFilter(
+                            view.getResources().getColor(R.color.orange_accent), PorterDuff.Mode.SRC_ATOP);
 
+                    ImageView image = view.findViewById(R.id.imageViewCircle);
+                    image.setColorFilter(view.getResources().getColor(R.color.orange_light), PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+        }
+
+        String courseName = StringUtils.toUpperCase(courses.get(position).getString("name"));
         TextView textViewCourseName = view.findViewById(R.id.textViewCourseName);
         TextView textViewCreator = view.findViewById(R.id.textViewCourseCreator);
-        textViewCourseName.setText(courseName);
-        textViewCreator.setText(courseCreator);
-
-//        String name = StringUtils.capitaliseEach(course.getName());
-//        String description = course.getDescription();
-//
-//        TextView n = view.findViewById(R.id.textViewCourse);
-//        TextView d = view.findViewById(R.id.textViewDescription);
-//        n.setText(name);
-//        d.setText(description);
-//
-//        boolean uidMatch = StringUtils.hasMatch(course.getCreatorID(), uid);
-//        if (uidMatch)
-//            return;
-//
-//        String creator = course.getCreatorID();
-//        TextView c = view.findViewById(R.id.textViewCreator);
-//        c.setText(creator);
-//
-//        ConstraintLayout constraintLayout = view.findViewById(R.id.constraintLayout);
-//        ColorUtils.setBackgroundColor(constraintLayout, R.color.blue_off_white);
-//
-//        int bob = view.getResources().getColor(R.color.blue_off_black);
-//        n.setTextColor(bob);
-//        d.setTextColor(bob);
-//        c.setTextColor(bob);
+        if (courseName != null && courseCreator != null) {
+            textViewCourseName.setText(courseName);
+            if (courseCreator.equals(uid))
+                textViewCreator.setText(view.getResources().getString(R.string.home_created_by, "YOU"));
+            else
+                textViewCreator.setText(view.getResources().getString(R.string.home_created_by, courseCreator));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return courses.size();
+        return (courses != null) ? courses.size() : 0;
     }
 }

@@ -8,11 +8,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import androidx.viewpager.widget.ViewPager;
 
-public class CustomViewPager extends ViewPager {
+public class CustomViewPagerMeasure extends ViewPager {
 
     private boolean enabled;
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
+    public CustomViewPagerMeasure(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.enabled = true;
     }
