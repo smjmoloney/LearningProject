@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <include
         android:id="@+id/toolbar"
@@ -14,29 +14,23 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
+            android:id="@+id/linearLayoutProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayoutProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_weight="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginRight="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -44,6 +38,8 @@
                     android:layout_marginTop="64dp"
                     android:layout_weight="1.5"
                     android:background="@drawable/constraint_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -121,7 +117,7 @@
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabProfile"
+                    android:id="@+id/fabProfileImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="72dp"
@@ -139,20 +135,17 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <fleacircus.com.learningproject.Classes.CustomViewPager
+            <fleacircus.com.learningproject.Classes.CustomViewPagerMeasure
                 android:id="@+id/viewPagerCourses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutProfile"
-                tools:layout_editor_absoluteX="0dp">
+                android:layout_marginTop="32dp">
 
-            </fleacircus.com.learningproject.Classes.CustomViewPager>
+            </fleacircus.com.learningproject.Classes.CustomViewPagerMeasure>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight=".5"
+                android:layout_height="60dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPagerCourses"
@@ -161,95 +154,49 @@
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
+    <include
+        android:id="@+id/itemSwap"
+        layout="@layout/item_swap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabViewSwap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rotation="-10"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@drawable/fab_image_swap"
-            android:tint="@color/blue_dark"
-            app:backgroundTint="@color/orange"
-            app:fabSize="mini"
-            app:maxImageSize="48dp"
-            app:useCompatPadding="true"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="457dp" />
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <fleacircus.com.learningproject.Classes.CustomViewPager
-            android:id="@+id/viewPagerCourseLibrarySelector"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.75"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="0dp">
-
-        </fleacircus.com.learningproject.Classes.CustomViewPager>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/overlayAlpha"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:alpha="0"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/find" />
-
-    <io.codetail.widget.RevealFrameLayout
-        android:id="@+id/gridParent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <GridView
-            android:id="@+id/gridViewImages"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/blue_dark"
-            android:clipToPadding="false"
-            android:paddingTop="32dp"
-            android:paddingBottom="32dp"
-            android:verticalSpacing="32dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewCourses" />
-
-    </io.codetail.widget.RevealFrameLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <include
-        android:id="@+id/find"
-        layout="@layout/item_find_main"
-        android:layout_width="0dp"
+        android:id="@+id/linearLayoutSelector"
+        layout="@layout/item_selector"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gridParent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <include
+        android:id="@+id/itemAlpha"
+        layout="@layout/item_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+    <include
+        android:id="@+id/itemGrid"
+        layout="@layout/item_grid_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+    <include
+        android:id="@+id/itemFindMain"
+        layout="@layout/item_find_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
