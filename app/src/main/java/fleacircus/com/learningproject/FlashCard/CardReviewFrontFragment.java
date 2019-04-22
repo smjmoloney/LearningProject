@@ -16,9 +16,9 @@ import fleacircus.com.learningproject.R;
 /**
  * A fragment representing the back of the card.
  */
-public class CardReviewBackFragment extends Fragment {
+public class CardReviewFrontFragment extends Fragment {
 
-    private static final String BACK_DATA = "back_data";
+    private static final String FRONT_DATA = "front_data";
 
     private void generate(int direction) {
         if (getActivity() != null) {
@@ -27,13 +27,13 @@ public class CardReviewBackFragment extends Fragment {
         }
     }
 
-    private void setBackData(View view) {
+    private void setFrontData(View view) {
         if (getArguments() != null) {
-            View v = view.findViewById(R.id.textViewBack);
-            TextView cardBackText = (TextView) v;
+            View v = view.findViewById(R.id.textViewFront);
+            TextView cardFrontText = (TextView) v;
 
-            String data = getArguments().getString(BACK_DATA);
-            if (data != null) cardBackText.setText(data);
+            String data = getArguments().getString(FRONT_DATA);
+            if (data != null) cardFrontText.setText(data);
         }
     }
 
@@ -42,12 +42,12 @@ public class CardReviewBackFragment extends Fragment {
         if (getActivity() != null) {
             Bundle bundle = getArguments();
             if (bundle != null) {
-                TextView textView = getActivity().findViewById(R.id.textViewBack);
-                textView.setText(bundle.getString(BACK_DATA));
+                TextView textView = getActivity().findViewById(R.id.textViewFront);
+                textView.setText(bundle.getString(FRONT_DATA));
             }
 
             FlashCardReviewActivity reviewActivity = (FlashCardReviewActivity) getActivity();
-            reviewActivity.flipCard(true);
+            reviewActivity.flipCard(false);
         }
     }
 
@@ -61,20 +61,20 @@ public class CardReviewBackFragment extends Fragment {
         generate(1);
     }
 
-    public static CardReviewBackFragment newInstance(String text) {
-        CardReviewBackFragment cardBackFragment = new CardReviewBackFragment();
+    public static CardReviewFrontFragment newInstance(String text) {
+        CardReviewFrontFragment cardFrontFragment = new CardReviewFrontFragment();
         Bundle args = new Bundle();
-        args.putString(BACK_DATA, text);
-        cardBackFragment.setArguments(args);
-        return cardBackFragment;
+        args.putString(FRONT_DATA, text);
+        cardFrontFragment.setArguments(args);
+        return cardFrontFragment;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_flashcard_review_back, container, false);
+        View view = inflater.inflate(R.layout.fragment_flashcard_review_front, container, false);
         if (getActivity() != null) ButterKnife.bind(this, getActivity());
 
-        setBackData(view);
+        setFrontData(view);
         return view;
     }
 }
