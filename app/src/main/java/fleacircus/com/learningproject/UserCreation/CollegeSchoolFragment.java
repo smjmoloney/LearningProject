@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -51,16 +48,14 @@ public class CollegeSchoolFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_college_school, container, false);
 
         CustomUser customUser = CustomUser.getInstance();
-        if (customUser.getTeacherStudent() == null)
-            return view;
+        if (customUser.getTeacherStudent() == null) return view;
 
         ButterKnife.bind(this, view);
 
         String status = CustomUser.getInstance().getTeacherStudent();
         String answer = getString(R.string.answer_teacher);
         boolean match = StringUtils.hasMatch(status, answer);
-        if (!match)
-            return view;
+        if (!match) return view;
 
         TextView question = view.findViewById(R.id.textViewQuestion);
         question.setText(getString(R.string.question_school_teacher));

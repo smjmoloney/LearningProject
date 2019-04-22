@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    <GridView
+        android:id="@+id/gridViewProfileImages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_dark"
+        android:clipToPadding="false"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:verticalSpacing="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewCoursesCreate" />
+
+</io.codetail.widget.RevealFrameLayout>

@@ -6,9 +6,11 @@
 
     <color name="light_grey">#e8e8e8</color>
     <color name="white_hint">#9fa7b5</color>
+    <color name="black_hint">#5a5d63</color>
 
     <color name="blue_off_white">#F2F5FF</color>
     <color name="blue_light">#d9dbe0</color>
+    <color name="blue_light_secondary">#c2c7d3</color>
     <color name="blue_accent">#526a93</color>
     <color name="blue_dark">#2c394f</color>
     <color name="blue_off_black">#232933</color>
@@ -19,5 +21,7 @@
     <color name="brown_off_black">#332923</color>
 
     <color name="orange">#FFC000</color>
+    <color name="orange_accent">#ffca2b</color>
+    <color name="orange_light">#fff4d3</color>
     <color name="green">#007300</color>
 </resources>

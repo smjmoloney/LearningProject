@@ -11,7 +11,7 @@
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/blue_off_white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -20,6 +20,12 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/blue_off_black</item>
+        <item name="colorControlActivated">@color/blue_off_black</item>
+        <item name="colorControlHighlight">@color/blue_off_black</item>
+    </style>
 
     <!-- Animations -->
     <style name="DialogAnimation">

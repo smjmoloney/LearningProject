@@ -3,6 +3,9 @@
     <integer name="duration_default">500</integer>
     <integer name="alpha_transparent_default">75</integer>
 
+    <integer name="duration_card_flip">300</integer>
+    <integer name="duration_card_flip_half">150</integer>
+
     <integer name="max_score_default">5000</integer>
     <integer name="progress_circular_radius">4</integer>
 </resources>

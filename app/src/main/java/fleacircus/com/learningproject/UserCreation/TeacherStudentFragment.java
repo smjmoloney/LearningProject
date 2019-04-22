@@ -44,7 +44,7 @@ public class TeacherStudentFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmet_teacher_student, container, false);
+        View view = inflater.inflate(R.layout.fragment_teacher_student, container, false);
         ButterKnife.bind(this, view);
 
         return view;

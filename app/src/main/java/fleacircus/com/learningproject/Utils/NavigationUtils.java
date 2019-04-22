@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.viewpager.widget.ViewPager;
 
 public class NavigationUtils {
     /**
      * Minimise the application when the back
      * button is pressed.
+     *
      * @param context The current context of the application.
      */
     public static void onBackPressed(Context context) {
@@ -18,10 +18,6 @@ public class NavigationUtils {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-    }
-
-    public static void disableDragging(ViewPager viewPager) {
-        viewPager.beginFakeDrag();
     }
 
     public static void startActivity(Activity activity, Intent intent) {

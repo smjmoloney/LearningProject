@@ -43,6 +43,8 @@ public class CustomAnimationUtils extends AnimationUtils {
                                            View revealedView,
                                            long animationDuration,
                                            boolean isVisibleOnEnd) {
+        revealedView.setVisibility(View.VISIBLE);
+
         int start = 0, end = 0;
         int radius = Math.max(content.getWidth(), content.getHeight());
 
@@ -81,6 +83,7 @@ public class CustomAnimationUtils extends AnimationUtils {
     }
 
     public static void alphaAnimation(View view, float start, float end, long duration, boolean hasVisibiltyListener) {
+        view.setVisibility(View.VISIBLE);
         view.setAlpha(start);
 
         if (!hasVisibiltyListener) {

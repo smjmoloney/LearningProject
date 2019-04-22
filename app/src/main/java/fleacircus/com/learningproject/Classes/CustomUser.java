@@ -48,7 +48,9 @@ public class CustomUser implements Serializable {
         this.course = StringUtils.toLowerCase(course);
     }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = StringUtils.toLowerCase(email);

@@ -2,11 +2,11 @@ package fleacircus.com.learningproject.Classes;
 
 public class CustomCourse extends CustomDocument {
 
-    private String name, description, creatorID, courseID;
+    private String name, description, type, creatorID, courseID, datetime;
 
-    public CustomCourse() {
-        setClassTypeInCollection("Classes.CustomTopic");
-    }
+//    CustomCourse() {
+//        setClassTypeInCollection("Classes.CustomTopic");
+//    }
 
     public String getName() {
         return name;
@@ -24,6 +24,14 @@ public class CustomCourse extends CustomDocument {
         this.description = description;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getCreatorID() {
         return creatorID;
     }
@@ -38,5 +46,13 @@ public class CustomCourse extends CustomDocument {
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 }

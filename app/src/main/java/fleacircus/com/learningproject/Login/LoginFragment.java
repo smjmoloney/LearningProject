@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -26,6 +26,7 @@ import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.LoginActivity;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
+import fleacircus.com.learningproject.Utils.FirebaseUtils;
 import fleacircus.com.learningproject.Utils.InputValidationUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 
@@ -64,19 +65,13 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onSuccess(Object object, boolean isQuery) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                //noinspection ConstantConditions
-                String uid = auth.getCurrentUser().getUid();
-
-                if (uid.isEmpty())
-                    return;
+                if (FirebaseUtils.getUid().isEmpty()) return;
 
                 CustomUser.updateInstance(new CustomUser());
                 progressDialog.dismiss();
 
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
-                if (activity != null)
-                    NavigationUtils.startActivity(activity, intent);
+                if (activity != null) NavigationUtils.startActivity(activity, intent);
             }
 
             @Override

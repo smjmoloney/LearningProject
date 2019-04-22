@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">LearningProject</string>
     <string name="action_logout">Logout</string>
 
@@ -44,12 +44,18 @@
     <string name="home_student">Currently attends the %1$s</string>
     <string name="home_teacher">Teaches at the %1$s</string>
     <string name="home_course">, studying %1$s</string>
+    <string name="home_created_by">Created by: %1$s</string>
 
-    <string name="courses_learned">LEARN</string>
-    <string name="course_created">CREATE</string>
+    <string name="courses_library_college">COLLEGE LIBRARY</string>
+    <string name="courses_library_user">YOUR LIBRARY</string>
+    <string name="courses_type_flashcard">FLASHCARDS</string>
+    <string name="courses_type_quiz">QUIZZES</string>
 
     <!-- Toast Messages -->
-    <string name="courses_message_addition">A course has been added to your library.</string>
+    <string name="courses_message_addition">Course has been added to your library.</string>
+    <string name="courses_message_send">Course has been sent to your college.</string>
+    <string name="courses_message_send_user">Course has been sent to this user.</string>
+    <string name="courses_message_delete">Course has been deleted from your library.</string>
 
     <!-- SEARCH & FILTER -->
     <string name="location">LOCATION</string>
@@ -58,5 +64,23 @@
 
     <!-- Course Strings -->
     <string name="course_delete">DELETE</string>
-    <string name="course_cancel">CANCEL</string>
+    <string name="course_cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="course_send">SEND</string>
+    <string name="course_library">SWITCH LIBRARY</string>
+
+    <!-- FlashCard Strings -->
+    <string name="flashcard_set_title">FLASHCARD SET</string>
+    <string name="flashcard_set_title_placeholder">Title</string>
+    <string name="flashcard_hint_placeholder">Hint</string>
+    <string name="flashcard_description_placeholder">Description</string>
+
+    <!-- Quiz Strings -->
+    <string name="quiz_title">QUIZ TITLE</string>
+    <string name="quiz_title_placeholder">Title</string>
+    <string name="quiz_question_placeholder">Question</string>
+    <string name="quiz_option_placeholder">Option</string>
+    <string name="quiz_result_total">TOTAL QUESTIONS: %1$s</string>
+    <string name="quiz_result_correct">CORRECT ANSWERS: %1$s</string>
+    <string name="quiz_result_incorrect">INCORRECT ANSWERS: %1$s</string>
+    <string name="quiz_answer_choose">Answer not chosen. Try holding a text field.</string>
 </resources>

@@ -26,10 +26,8 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class NameFragment extends Fragment {
 
-    @BindView(R.id.editTextViewName)
-    EditText name;
-    @BindView(R.id.textViewName)
-    TextView messageName;
+    @BindView(R.id.editTextViewName) EditText name;
+    @BindView(R.id.textViewName) TextView messageName;
 
     public NameFragment() {
     }
@@ -57,8 +55,7 @@ public class NameFragment extends Fragment {
         Activity activity = getActivity();
 
         Intent intent = new Intent(getActivity(), HomeActivity.class);
-        if (activity != null)
-            NavigationUtils.startActivity(activity, intent);
+        if (activity != null) NavigationUtils.startActivity(activity, intent);
     }
 
     @Override

@@ -19,8 +19,7 @@ import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 
 class FindHelper {
     static void findUsers(String text, RecyclerView find, Activity activity) {
-        if (text.length() < 1)
-            return;
+        if (text.length() < 1) return;
 
         String[] collection = new String[]{"users"};
         CustomDatabaseUtils.read(collection, new OnGetDataListener() {
@@ -42,12 +41,10 @@ class FindHelper {
                          * and added.
                          */
                         for (QueryDocumentSnapshot q : (QuerySnapshot) object) {
-                            if (q.getId().equals(FirebaseAuth.getInstance().getUid()))
-                                continue;
+                            if (q.getId().equals(FirebaseAuth.getInstance().getUid())) continue;
 
                             CustomUser u = q.toObject(CustomUser.class);
-                            if (u.getName() == null)
-                                continue;
+                            if (u.getName() == null) continue;
 
                             mDataset.add(u);
                         }
@@ -62,8 +59,7 @@ class FindHelper {
                         ((FindUserAdapter) adapter).getFilter().filter(text);
 
                         RecyclerHelper.setRecyclerView(activity, find, adapter);
-                    } else
-                        Log.e("OnSuccess", object + " must be a query.");
+                    } else Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

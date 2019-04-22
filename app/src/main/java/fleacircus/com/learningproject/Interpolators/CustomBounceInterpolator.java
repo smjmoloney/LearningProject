@@ -10,7 +10,6 @@ public class CustomBounceInterpolator implements android.view.animation.Interpol
     }
 
     public float getInterpolation(float time) {
-        return (float) (-1 * Math.pow(Math.E, -time/ mAmplitude) *
-                Math.cos(mFrequency * time) + 1);
+        return (float) (-1 * Math.pow(Math.E, -time / mAmplitude) * Math.cos(mFrequency * time) + 1);
     }
 }
