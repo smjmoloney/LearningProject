@@ -4,8 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import fleacircus.com.learningproject.Classes.CustomViewPager;
-import fleacircus.com.learningproject.Classes.SectionsPagerAdapter;
+import fleacircus.com.learningproject.Adapters.SectionsPagerAdapter;
 import fleacircus.com.learningproject.Login.LoginFragment;
 import fleacircus.com.learningproject.Login.SignFragment;
 import fleacircus.com.learningproject.Utils.NavigationUtils;

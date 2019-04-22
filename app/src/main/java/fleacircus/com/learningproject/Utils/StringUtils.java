@@ -5,15 +5,13 @@ package fleacircus.com.learningproject.Utils;
  */
 public class StringUtils {
     public static String toLowerCase(String temp) {
-        if (temp != null)
-            return temp.toLowerCase();
+        if (temp != null) return temp.toLowerCase();
 
         return null;
     }
 
     public static String toUpperCase(String temp) {
-        if (temp != null)
-            return temp.toUpperCase();
+        if (temp != null) return temp.toUpperCase();
 
         return null;
     }
@@ -33,8 +31,7 @@ public class StringUtils {
         for (int i = 0; i < words.length; i++) {
             words[i] = words[i].substring(0, 1).toUpperCase() + words[i].substring(1).toLowerCase();
 
-            if (i > 0)
-                result.append(" ");
+            if (i > 0) result.append(" ");
 
             result.append(words[i]);
         }

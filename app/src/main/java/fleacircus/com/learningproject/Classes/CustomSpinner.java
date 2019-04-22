@@ -90,16 +90,12 @@ public class CustomSpinner extends androidx.appcompat.widget.AppCompatTextView i
 
     void setEntries(List<String> values) {
         mEntries = values.toArray(new CharSequence[0]);
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.CustomDialogTheme)
-                .setTitle(mPrompt)
-                .setItems(mEntries, (dialog, which) -> {
-                    mSelection = which;
-                    setText(mEntries[mSelection]);
-                    setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_text));
-                    if (mListener != null)
-                        mListener.onItemSelected(which);
-                })
-                .create();
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.CustomDialogTheme).setTitle(mPrompt).setItems(mEntries, (dialog, which) -> {
+            mSelection = which;
+            setText(mEntries[mSelection]);
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_text));
+            if (mListener != null) mListener.onItemSelected(which);
+        }).create();
 
         if (alertDialog.getWindow() != null) {
             alertDialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
@@ -112,8 +108,7 @@ public class CustomSpinner extends androidx.appcompat.widget.AppCompatTextView i
     @Override
     public void onClick(View v) {
         String value = CustomUser.getInstance().getCollegeSchool();
-        if (mPrompt.equals(getResources().getString(R.string.course)))
-            value = "courses";
+        if (mPrompt.equals(getResources().getString(R.string.course))) value = "courses";
 
         CustomDatabaseUtils.read(new String[]{"user_creation", value}, new OnGetDataListener() {
             @Override
@@ -126,32 +121,26 @@ public class CustomSpinner extends androidx.appcompat.widget.AppCompatTextView i
                 try {
                     if (!isQuery) {
                         DocumentSnapshot documentSnapshot = (DocumentSnapshot) object;
-                        if (!documentSnapshot.exists())
-                            return;
+                        if (!documentSnapshot.exists()) return;
 
                         List<String> values = new ArrayList<>();
                         if (mPrompt.equals(getResources().getString(R.string.course))) {
                             String loc = CustomUser.getInstance().getLocation();
                             Object names = documentSnapshot.get(loc);
-                            if (!(names instanceof ArrayList))
-                                return;
+                            if (!(names instanceof ArrayList)) return;
 
                             for (Object obj : (ArrayList) names)
-                                if (obj instanceof String)
-                                    values.add((String) obj);
+                                if (obj instanceof String) values.add((String) obj);
                         } else {
                             Object names = documentSnapshot.get("names");
-                            if (!(names instanceof ArrayList))
-                                return;
+                            if (!(names instanceof ArrayList)) return;
 
                             for (Object obj : (ArrayList) names)
-                                if (obj instanceof String)
-                                    values.add((String) obj);
+                                if (obj instanceof String) values.add((String) obj);
                         }
 
                         setEntries(values);
-                    } else
-                        Log.e("OnSuccess", object + " must be a query.");
+                    } else Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

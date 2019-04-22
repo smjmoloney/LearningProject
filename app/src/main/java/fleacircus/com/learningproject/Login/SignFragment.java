@@ -31,18 +31,12 @@ import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class SignFragment extends Fragment {
 
-    @BindView(R.id.editTextViewEmail)
-    EditText email;
-    @BindView(R.id.editTextViewPassword)
-    EditText password;
-    @BindView(R.id.editTextViewConfirm)
-    EditText confirm;
-    @BindView(R.id.textViewEmail)
-    TextView messageEmail;
-    @BindView(R.id.textViewPassword)
-    TextView messagePassword;
-    @BindView(R.id.textViewConfirm)
-    TextView messagePasswordConfirm;
+    @BindView(R.id.editTextViewEmail) EditText email;
+    @BindView(R.id.editTextViewPassword) EditText password;
+    @BindView(R.id.editTextViewConfirm) EditText confirm;
+    @BindView(R.id.textViewEmail) TextView messageEmail;
+    @BindView(R.id.textViewPassword) TextView messagePassword;
+    @BindView(R.id.textViewConfirm) TextView messagePasswordConfirm;
 
     public SignFragment() {
     }
@@ -64,15 +58,13 @@ public class SignFragment extends Fragment {
             messagePassword.setText(R.string.message_password);
         }
 
-        if (!InputValidationUtils.validateMatch(
-                password.getText().toString(), confirm.getText().toString())) {
+        if (!InputValidationUtils.validateMatch(password.getText().toString(), confirm.getText().toString())) {
             sign = false;
             messagePasswordConfirm.setText(R.string.message_confirm_password);
         }
 
         if (sign) {
-            final ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(
-                    getActivity(), getString(R.string.dialog_confirm_sign));
+            final ProgressDialog progressDialog = ProgressDialogHelper.createProgressDialog(getActivity(), getString(R.string.dialog_confirm_sign));
 
             Activity activity = getActivity();
 
@@ -86,9 +78,7 @@ public class SignFragment extends Fragment {
                 @Override
                 public void onSuccess(Object object, boolean isQuery) {
                     progressDialog.dismiss();
-
-                    if (activity != null)
-                        NavigationUtils.startActivity(activity, intent);
+                    if (activity != null) NavigationUtils.startActivity(activity, intent);
                 }
 
                 @SuppressLint("SetTextI18n")

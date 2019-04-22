@@ -8,21 +8,16 @@ import java.util.regex.Pattern;
  * Validates user input.
  */
 public class InputValidationUtils {
-    private static final Pattern PASSWORD_PATTERN =
-            Pattern.compile("^" +
-                    ".{8,}" +
-                    "$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + ".{8,}" + "$");
 
     public static boolean validateEmail(String emailText) {
-        if (emailText.isEmpty())
-            return false;
+        if (emailText.isEmpty()) return false;
 
         return Patterns.EMAIL_ADDRESS.matcher(emailText).matches();
     }
 
     public static boolean validatePassword(String passwordText) {
-        if (passwordText.isEmpty())
-            return false;
+        if (passwordText.isEmpty()) return false;
 
         return PASSWORD_PATTERN.matcher(passwordText).matches();
     }

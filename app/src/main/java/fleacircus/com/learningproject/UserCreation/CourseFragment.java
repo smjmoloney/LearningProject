@@ -29,8 +29,7 @@ import fleacircus.com.learningproject.Utils.FragmentUtils;
 
 public class CourseFragment extends Fragment {
 
-    @BindView(R.id.spinnerCourse)
-    Spinner spinner;
+    @BindView(R.id.spinnerCourse) Spinner spinner;
 
     public CourseFragment() {
     }
@@ -56,27 +55,20 @@ public class CourseFragment extends Fragment {
                 try {
                     if (!isQuery) {
                         DocumentSnapshot documentSnapshot = (DocumentSnapshot) object;
-                        if (!documentSnapshot.exists())
-                            return;
+                        if (!documentSnapshot.exists()) return;
 
                         String location = CustomUser.getInstance().getLocation();
                         Object names = documentSnapshot.get(location);
-                        if (!(names instanceof ArrayList))
-                            return;
+                        if (!(names instanceof ArrayList)) return;
 
                         List<String> courses = new ArrayList<>();
                         for (Object o : (ArrayList) names)
-                            if (o instanceof String)
-                                courses.add((String) o);
+                            if (o instanceof String) courses.add((String) o);
 
                         //noinspection ConstantConditions
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                getActivity(),
-                                R.layout.item_spinner,
-                                courses);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner, courses);
                         spinner.setAdapter(adapter);
-                    } else
-                        Log.e("OnSuccess", object + " must be a query.");
+                    } else Log.e("OnSuccess", object + " must be a query.");
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -97,8 +89,7 @@ public class CourseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course, container, false);
-        if (CustomUser.getInstance().getLocation() == null)
-            return view;
+        if (CustomUser.getInstance().getLocation() == null) return view;
 
         ButterKnife.bind(this, view);
         selectCourse();

@@ -5,31 +5,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import fleacircus.com.learningproject.Utils.CustomAnimationUtils;
+import fleacircus.com.learningproject.Utils.FirebaseUtils;
 import fleacircus.com.learningproject.Utils.NavigationUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
     long duration = 2000;
 
-    private void splash() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null)
-            intent = new Intent(this, LoginActivity.class);
-
-        NavigationUtils.startActivity(this, intent);
-    }
-
     private void alpha() {
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
         CustomAnimationUtils.alphaAnimation(constraintLayout, 1, 0, (long) (duration * .35), true);
+    }
+
+    private void splash() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        if (FirebaseUtils.getCurrentUser() == null) intent = new Intent(this, LoginActivity.class);
+
+        NavigationUtils.startActivity(this, intent);
     }
 
     @Override
@@ -37,9 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(false)
-                .build();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         FirebaseFirestore.getInstance().setFirestoreSettings(settings);
 
         ProgressBar progressBar = findViewById(R.id.progressBar);

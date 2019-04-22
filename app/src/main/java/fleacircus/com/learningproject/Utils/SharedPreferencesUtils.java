@@ -14,9 +14,10 @@ public class SharedPreferencesUtils {
 
     /**
      * Reading a returning a boolean value.
-     * @param ctx The current application context.
-     * @param settingName The preference currently saved to
-     *                    to the device.
+     *
+     * @param ctx          The current application context.
+     * @param settingName  The preference currently saved to
+     *                     to the device.
      * @param currentValue The value we will like to compare it against.
      * @return Return the value that has been found.
      */
@@ -27,10 +28,11 @@ public class SharedPreferencesUtils {
 
     /**
      * Saving a boolean value to the device.
-     * @param ctx The current application context.
+     *
+     * @param ctx         The current application context.
      * @param settingName The preference we will save to
      *                    to the device.
-     * @param newValue How we will like to save our preference.
+     * @param newValue    How we will like to save our preference.
      */
     public static void saveBoolean(Context ctx, String settingName, boolean newValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
@@ -41,10 +43,11 @@ public class SharedPreferencesUtils {
 
     /**
      * Saving a string value to the device.
-     * @param ctx The current application context.
+     *
+     * @param ctx         The current application context.
      * @param settingName The preference we will save to
      *                    to the device.
-     * @param newValue How we will like to save our preference.
+     * @param newValue    How we will like to save our preference.
      */
     public static void saveString(Context ctx, String settingName, String newValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);

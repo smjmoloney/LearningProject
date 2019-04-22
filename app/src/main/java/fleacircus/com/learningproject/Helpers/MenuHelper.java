@@ -10,11 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import fleacircus.com.learningproject.Adapters.FindUserAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.LoginActivity;
@@ -34,8 +35,7 @@ public class MenuHelper {
         SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
 
         SearchView searchView = null;
-        if (searchItem != null)
-            searchView = (SearchView) searchItem.getActionView();
+        if (searchItem != null) searchView = (SearchView) searchItem.getActionView();
 
         if (searchView != null) {
             searchView.setQueryHint(activity.getString(R.string.users_find));
@@ -46,13 +46,12 @@ public class MenuHelper {
     public static void onCreateOptionsMenu(AppCompatActivity activity, Menu menu, boolean hasSearch) {
         activity.getMenuInflater().inflate(R.menu.menu, menu);
 
-        if (hasSearch)
-            onCreateSearchMenu(activity, menu);
+        if (hasSearch) onCreateSearchMenu(activity, menu);
     }
 
     public static void onCreateOptionsMenuSearch(Menu menu, MenuItem menuItem, Activity activity) {
         View content = activity.findViewById(android.R.id.content);
-        View cover = activity.findViewById(R.id.overlayAlpha);
+        View cover = activity.findViewById(R.id.itemAlpha);
         RecyclerView find = activity.findViewById(R.id.recyclerViewFind);
 
         long duration = (long) activity.getResources().getInteger(R.integer.duration_default);
@@ -62,11 +61,7 @@ public class MenuHelper {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
                 MenuHelper.toggleMenuVisibility(menu, false);
-                CustomAnimationUtils.circleAnimation(
-                        content,
-                        find,
-                        duration,
-                        false);
+                CustomAnimationUtils.circleAnimation(content, find, duration, false);
 
                 find.setVisibility(View.VISIBLE);
                 CustomAnimationUtils.alphaAnimation(cover, 0, alpha, duration / 2, true);
@@ -97,11 +92,7 @@ public class MenuHelper {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 activity.invalidateOptionsMenu();
-                Animator anim = CustomAnimationUtils.circleAnimation(
-                        content,
-                        find,
-                        duration,
-                        true);
+                Animator anim = CustomAnimationUtils.circleAnimation(content, find, duration, true);
 
                 anim.addListener(new AnimatorListenerAdapter() {
                     @Override
