@@ -4,8 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import fleacircus.com.learningproject.Adapters.SectionsPagerAdapter;
 import fleacircus.com.learningproject.Classes.CustomViewPager;
-import fleacircus.com.learningproject.Classes.SectionsPagerAdapter;
 import fleacircus.com.learningproject.UserCreation.CollegeSchoolFragment;
 import fleacircus.com.learningproject.UserCreation.CourseFragment;
 import fleacircus.com.learningproject.UserCreation.LocationFragment;
@@ -39,7 +40,7 @@ public class UserCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creation);
+        setContentView(R.layout.activity_user_creation);
 
         setupViewPager();
     }
