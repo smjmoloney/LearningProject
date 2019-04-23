@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">LearningProject</string>
+    <string name="app_name">FlashLearn</string>
     <string name="action_logout">Logout</string>
 
     <!-- Form Strings -->
