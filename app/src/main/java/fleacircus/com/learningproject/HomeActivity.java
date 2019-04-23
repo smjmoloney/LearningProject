@@ -58,6 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     boolean isFlashCard;
     boolean isCollegeLibrary;
 
+    public CustomViewPagerMeasure getViewPagerCourses() {
+        return viewPagerCourses;
+    }
+
     private Bundle applyCourseBundle(boolean isCreate) {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isFlashCard", isFlashCard);
@@ -84,13 +88,13 @@ public class HomeActivity extends AppCompatActivity {
     private void applyCoursesViewPager() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         if (isFlashCard) {
+            adapter.addFragment(setupViewPagerFlashCard(true));
             if (!isCollegeLibrary)
                 adapter.addFragment(setupViewPagerFlashCard(false));
-            adapter.addFragment(setupViewPagerFlashCard(true));
         } else {
+            adapter.addFragment(setupViewPagerQuiz(true));
             if (!isCollegeLibrary)
                 adapter.addFragment(setupViewPagerQuiz(false));
-            adapter.addFragment(setupViewPagerQuiz(true));
         }
 
         viewPagerCourses.setPagingEnabled(false);
