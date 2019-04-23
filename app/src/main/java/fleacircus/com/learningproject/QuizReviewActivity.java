@@ -85,8 +85,8 @@ public class QuizReviewActivity extends AppCompatActivity {
         if (quizAnswer.equals(buttonClicked.getText().toString())) {
             Toast.makeText(this, "You Are Correct", Toast.LENGTH_SHORT).show();
             answerCorrect += 1;
-            buttonClicked.setBackgroundColor(getResources().getColor(R.color.orange));
-            buttonClicked.setTextColor(getResources().getColor(R.color.blue_off_black));
+            buttonClicked.setBackgroundColor(getResources().getColor(R.color.green));
+            buttonClicked.setTextColor(getResources().getColor(R.color.blue_off_white));
         } else {
             Toast.makeText(this, "You Are Incorrect", Toast.LENGTH_SHORT).show();
             answerIncorrect += 1;
@@ -94,8 +94,8 @@ public class QuizReviewActivity extends AppCompatActivity {
 
             for (Button b : buttons) {
                 if (b.getText().toString().equals(quizAnswer)) {
-                    b.setBackgroundColor(getResources().getColor(R.color.orange));
-                    b.setTextColor(getResources().getColor(R.color.blue_off_black));
+                    b.setBackgroundColor(getResources().getColor(R.color.green));
+                    b.setTextColor(getResources().getColor(R.color.blue_off_white));
                 }
             }
         }
@@ -103,7 +103,7 @@ public class QuizReviewActivity extends AppCompatActivity {
         long t = (long) 1000;
         new Handler().postDelayed(() -> {
             for (Button b : buttons) {
-                b.setBackgroundColor(getResources().getColor(R.color.blue_off_black));
+                b.setBackgroundColor(getResources().getColor(R.color.blue_bright_dark));
                 b.setTextColor(getResources().getColor(R.color.blue_off_white));
             }
             generateQuestion();

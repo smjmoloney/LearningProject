@@ -24,4 +24,6 @@
     <color name="orange_accent">#ffca2b</color>
     <color name="orange_light">#fff4d3</color>
     <color name="green">#007300</color>
+    <color name="blue_light_baby">#cceeff</color>
+    <color name="blue_bright_dark">#4d4dff</color>
 </resources>
