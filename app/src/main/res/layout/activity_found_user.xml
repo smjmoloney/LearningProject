@@ -115,14 +115,35 @@
             android:background="@color/blue_off_white"
             android:visibility="invisible">
 
-            <fleacircus.com.learningproject.Classes.CustomViewPagerMeasure
-                android:id="@+id/viewPagerCourses"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent">
 
-            </fleacircus.com.learningproject.Classes.CustomViewPagerMeasure>
+                <LinearLayout
+                    android:id="@+id/linearLayoutProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                    <fleacircus.com.learningproject.Classes.CustomViewPagerMeasure
+                        android:id="@+id/viewPagerCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+
+                    </fleacircus.com.learningproject.Classes.CustomViewPagerMeasure>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewPagerCourses"
+                        tools:layout_editor_absoluteX="0dp" />
+
+                </LinearLayout>
+            </ScrollView>
 
             <LinearLayout
                 android:id="@+id/linearLayoutSelector"

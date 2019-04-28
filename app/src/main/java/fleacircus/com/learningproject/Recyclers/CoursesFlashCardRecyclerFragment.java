@@ -66,7 +66,6 @@ public class CoursesFlashCardRecyclerFragment extends Fragment {
                          * and added.
                          */
                         List<DocumentSnapshot> documentSnapshots = ((QuerySnapshot) object).getDocuments();
-                        Log.e("COUNT", this.getClass().getName() + ", " + documentSnapshots.size() + "");
                         for (int i = 0; i < documentSnapshots.size(); i++) {
                             String courseID = documentSnapshots.get(i).getId();
                             String location = CustomUser.getInstance().getLocation();
@@ -109,11 +108,11 @@ public class CoursesFlashCardRecyclerFragment extends Fragment {
                                     RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCourses);
                                     recyclerView.setNestedScrollingEnabled(false);
                                     if (isCollegeLibrary)
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset, location));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset, location));
                                     else if ((foundUid != null) && !foundUid.isEmpty())
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset, foundUid));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset, foundUid));
                                     else
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset));
 
                                     RecyclerHelper.recyclerEntryAnimation(recyclerView);
                                 }

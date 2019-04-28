@@ -5,13 +5,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fleacircus.com.learningproject.Adapters.CourseAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.Helpers.CourseRecyclerHelper;
@@ -21,9 +27,6 @@ import fleacircus.com.learningproject.Listeners.OnGetDataListener;
 import fleacircus.com.learningproject.R;
 import fleacircus.com.learningproject.Utils.CustomDatabaseUtils;
 import fleacircus.com.learningproject.Utils.FirebaseUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CoursesQuizRecyclerFragment extends Fragment {
 
@@ -69,7 +72,6 @@ public class CoursesQuizRecyclerFragment extends Fragment {
                          * and added.
                          */
                         List<DocumentSnapshot> documentSnapshots = ((QuerySnapshot) object).getDocuments();
-                        Log.e("COUNT", this.getClass().getName() + ", " + documentSnapshots.size() + "");
                         for (int i = 0; i < documentSnapshots.size(); i++) {
                             String courseID = documentSnapshots.get(i).getId();
                             String location = CustomUser.getInstance().getLocation();
@@ -110,11 +112,11 @@ public class CoursesQuizRecyclerFragment extends Fragment {
                                     RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCourses);
                                     recyclerView.setNestedScrollingEnabled(false);
                                     if (isCollegeLibrary)
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset, location));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset, location));
                                     else if ((foundUid != null) && !foundUid.isEmpty())
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset, foundUid));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset, foundUid));
                                     else
-                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(mDataset));
+                                        RecyclerHelper.setRecyclerView(getActivity(), recyclerView, new CourseAdapter(getActivity(), mDataset));
 
                                     RecyclerHelper.recyclerEntryAnimation(recyclerView);
                                 }
@@ -146,8 +148,9 @@ public class CoursesQuizRecyclerFragment extends Fragment {
             boolean isFlashCard = FragmentHelper.getBoolean(this,"isFlashCard");
             boolean isCollege = FragmentHelper.getBoolean(this,"isCollegeLibrary");
             boolean isCreate = FragmentHelper.getBoolean(this,"isCreate");
+            String foundUid = FragmentHelper.getString(this,"foundUid");
 
-            CourseRecyclerHelper.isCreator(getActivity(), view.findViewById(R.id.courseCreate), isFlashCard, isCollege, isCreate);
+            CourseRecyclerHelper.isCreator(getActivity(), view.findViewById(R.id.courseCreate), isFlashCard, isCollege, isCreate, foundUid);
         }
 
         setCourses(view);

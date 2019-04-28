@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemLongClick;
 import fleacircus.com.learningproject.Adapters.CourseAdapter;
 import fleacircus.com.learningproject.Adapters.SectionsPagerAdapter;
 import fleacircus.com.learningproject.Classes.CustomUser;
@@ -81,7 +82,7 @@ public class FoundUserActivity extends AppCompatActivity {
         AnimationHelper.popAnimation(textViewSend);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewCourses);
         if (recyclerView != null)
-            RecyclerHelper.setRecyclerView(this, recyclerView, new CourseAdapter(null));
+            RecyclerHelper.setRecyclerView(this, recyclerView, new CourseAdapter(this,null));
 
         View view = findViewById(android.R.id.content);
         ConstraintLayout constraintLayout = findViewById(R.id.constraintSelector);
