@@ -13,6 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,12 +25,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import fleacircus.com.learningproject.Classes.CustomUser;
 import fleacircus.com.learningproject.FlashCardReviewActivity;
+import fleacircus.com.learningproject.HomeActivity;
 import fleacircus.com.learningproject.Interpolators.CustomBounceInterpolator;
 import fleacircus.com.learningproject.QuizReviewActivity;
 import fleacircus.com.learningproject.R;
@@ -38,6 +40,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
     private List<DocumentSnapshot> courses;
     private String uid, foundUid = "";
+    private Activity activity;
 
     static class Holder extends RecyclerView.ViewHolder {
         private Holder(View itemView) {
@@ -45,15 +48,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         }
     }
 
-    public CourseAdapter(List<DocumentSnapshot> courses) {
+    public CourseAdapter(Activity activity, List<DocumentSnapshot> courses) {
         this.courses = courses;
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null)
             this.uid = user.getUid();
+
+        this.activity = activity;
     }
 
-    public CourseAdapter(List<DocumentSnapshot> courses, String foundUid) {
+    public CourseAdapter(Activity activity, List<DocumentSnapshot> courses, String foundUid) {
         this.courses = courses;
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -61,6 +66,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
             this.uid = user.getUid();
 
         this.foundUid = foundUid;
+        this.activity = activity;
     }
 
     private void courseClickListeners(View view, int position) {
@@ -145,7 +151,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
 
             CustomDatabaseUtils.copyDocument(documentFrom, documentTo);
             CustomDatabaseUtils.copyDocument(listFrom, listTo);
-            Toast.makeText(view.getContext(), R.string.courses_message_addition, Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), R.string.courses_message_send_user, Toast.LENGTH_SHORT).show();
+
+            NavigationUtils.startActivity(activity, new Intent(activity, HomeActivity.class));
         }
     }
 
@@ -268,7 +276,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
                             CustomDatabaseUtils.copyDocument(documentFrom, documentTo);
                             CustomDatabaseUtils.copyDocument(listFrom, listTo);
                             Toast.makeText(view.getContext(),
-                                    R.string.courses_message_delete,
+                                    R.string.courses_message_send,
                                     Toast.LENGTH_SHORT).show();
 
                             notifyDataSetChanged();

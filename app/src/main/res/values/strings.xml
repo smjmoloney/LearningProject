@@ -52,10 +52,10 @@
     <string name="courses_type_quiz">QUIZZES</string>
 
     <!-- Toast Messages -->
-    <string name="courses_message_addition">Course has been added to your library.</string>
-    <string name="courses_message_send">Course has been sent to your college.</string>
-    <string name="courses_message_send_user">Course has been sent to this user.</string>
-    <string name="courses_message_delete">Course has been deleted from your library.</string>
+    <string name="courses_message_addition">This course has been added to your library.</string>
+    <string name="courses_message_send">This course has been sent to your college.</string>
+    <string name="courses_message_send_user">Your course has been sent to this user.</string>
+    <string name="courses_message_delete">This course has been deleted from your library.</string>
 
     <!-- SEARCH & FILTER -->
     <string name="location">LOCATION</string>
@@ -72,7 +72,7 @@
     <string name="flashcard_set_title">FLASHCARD SET</string>
     <string name="flashcard_set_title_placeholder">Title</string>
     <string name="flashcard_hint_placeholder">Hint</string>
-    <string name="flashcard_description_placeholder">Description</string>
+    <string name="flashcard_definition_placeholder">Definition</string>
 
     <!-- Quiz Strings -->
     <string name="quiz_title">QUIZ TITLE</string>
@@ -83,5 +83,4 @@
     <string name="quiz_result_correct">CORRECT ANSWERS: %1$s</string>
     <string name="quiz_result_incorrect">INCORRECT ANSWERS: %1$s</string>
     <string name="quiz_answer_choose">Answer not chosen. Try holding a text field.</string>
-    <string name="flashcard_definition_placeholder">definition</string>
 </resources>

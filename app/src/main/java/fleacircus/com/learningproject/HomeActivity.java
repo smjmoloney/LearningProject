@@ -58,10 +58,6 @@ public class HomeActivity extends AppCompatActivity {
     boolean isFlashCard;
     boolean isCollegeLibrary;
 
-    public CustomViewPagerMeasure getViewPagerCourses() {
-        return viewPagerCourses;
-    }
-
     private Bundle applyCourseBundle(boolean isCreate) {
         Bundle bundle = new Bundle();
         bundle.putBoolean("isFlashCard", isFlashCard);
@@ -107,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.linearLayoutProfile);
         RecyclerView recyclerView = linearLayout.findViewById(R.id.recyclerViewCourses);
         if (recyclerView != null)
-            RecyclerHelper.setRecyclerView(this, recyclerView, new CourseAdapter(null));
+            RecyclerHelper.setRecyclerView(this, recyclerView, new CourseAdapter(this, null));
 
         applySelector();
     }
