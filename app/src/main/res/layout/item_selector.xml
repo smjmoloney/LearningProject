@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/light_grey"
+            android:background="@color/grey_light"
             android:gravity="center"
             android:textColor="@color/blue_off_black"
             android:textSize="30sp"
