@@ -343,7 +343,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         View view = holder.itemView.findViewById(R.id.materialRippleLayout);
         courseClickListeners(view, position);
 
-        String courseCreator = courses.get(position).getString("creatorID");
+        String courseCreatorID = courses.get(position).getString("creatorID");
+        String courseCreator = StringUtils.toUpperCase(courses.get(position).getString("creatorName"));
 
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         if (courses.get(position).getLong("currentScore") != null) {
@@ -354,8 +355,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
             else
                 progressBar.setProgress(cs);
 
-            if (courseCreator != null) {
-                if (courseCreator.equals(uid)) {
+            if (courseCreatorID != null) {
+                if (courseCreatorID.equals(uid)) {
                     progressBar.getProgressDrawable().setColorFilter(
                             view.getResources().getColor(R.color.orange_accent), PorterDuff.Mode.SRC_ATOP);
 
@@ -368,12 +369,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.Holder> {
         String courseName = StringUtils.toUpperCase(courses.get(position).getString("name"));
         TextView textViewCourseName = view.findViewById(R.id.textViewCourseName);
         TextView textViewCreator = view.findViewById(R.id.textViewCourseCreator);
-        if (courseName != null && courseCreator != null) {
+        if (courseName != null) {
             textViewCourseName.setText(courseName);
-            if (courseCreator.equals(uid))
-                textViewCreator.setText(view.getResources().getString(R.string.home_created_by, "YOU"));
-            else
-                textViewCreator.setText(view.getResources().getString(R.string.home_created_by, courseCreator));
+            if (courseCreatorID != null) {
+                if (courseCreatorID.equals(uid))
+                    textViewCreator.setText(view.getResources().getString(R.string.home_created_by, "YOU"));
+                else
+                    textViewCreator.setText(view.getResources().getString(R.string.home_created_by, courseCreator));
+            }
         }
     }
 

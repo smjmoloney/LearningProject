@@ -55,6 +55,8 @@ public class CustomDatabaseUtils {
                     return;
                 }
 
+                customCourse.setCreatorName(CustomUser.getInstance().getName());
+
                 int count = 1;
                 Map<String, Object> flashcardData = new HashMap<>();
                 flashcardData.put("card_front" + "_" + count, textFront);
@@ -88,6 +90,8 @@ public class CustomDatabaseUtils {
                     updateQuiz(task.getResult(), documentReference, quizData, listener);
                     return;
                 }
+
+                customCourse.setCreatorName(CustomUser.getInstance().getName());
 
                 int count = 1;
                 Map<String, Object> qd = new HashMap<>();
